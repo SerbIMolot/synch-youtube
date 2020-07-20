@@ -1,0 +1,112 @@
+﻿@{
+    Layout = null;
+    var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+}
+@model Chat.ChatViewModel
+    
+@foreach ( var msg in Model.lastMessagesFromRooms)
+{
+
+    if (msg.Room.RoomName == Model.currentRoomName )
+    {
+        <div class="chat_list active_chat">
+            <div class="chat_people">
+                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                <div class="chat_ib">
+                    <h5>@msg.Room.RoomName <span class="chat_date">Dec 25</span></h5>
+                    <p>
+                        @msg.message
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+    <div class="chat_list" onclick="charNameclick(@serializer.Serialize(@msg.Room.RoomName) )">
+        <div class="chat_people">
+            <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+            <div class="chat_ib">
+                <h5>@msg.Room.RoomName <span class="chat_date">Dec 25</span></h5>
+                <p>
+                    @msg.message
+                </p>
+            </div>
+        </div>
+    </div>
+    }
+}
+@*<div class="chat_list">
+        <div class="chat_people">
+            <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+            <div class="chat_ib">
+                <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                <p>
+                    Test, which is a new approach to have all solutions
+                    astrology under one roof.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="chat_list">
+        <div class="chat_people">
+            <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+            <div class="chat_ib">
+                <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                <p>
+                    Test, which is a new approach to have all solutions
+                    astrology under one roof.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="chat_list">
+        <div class="chat_people">
+            <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+            <div class="chat_ib">
+                <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                <p>
+                    Test, which is a new approach to have all solutions
+                    astrology under one roof.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="chat_list">
+        <div class="chat_people">
+            <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+            <div class="chat_ib">
+                <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                <p>
+                    Test, which is a new approach to have all solutions
+                    astrology under one roof.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="chat_list">
+        <div class="chat_people">
+            <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+            <div class="chat_ib">
+                <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                <p>
+                    Test, which is a new approach to have all solutions
+                    astrology under one roof.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="chat_list">
+        <div class="chat_people">
+            <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+            <div class="chat_ib">
+                <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                <p>
+                    Test, which is a new approach to have all solutions
+                    astrology under one roof.
+                </p>
+            </div>
+        </div>
+    </div>*@
+@*</div>*@
+

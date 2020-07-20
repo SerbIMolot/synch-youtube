@@ -1,0 +1,48 @@
+﻿@using Chat.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+}
+
+
+@section Styles {
+    <link href="@Url.Content("/Content/Login.css")" rel="stylesheet" type="text/css" />
+}
+
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <h4>Log in.</h4>
+        <hr />
+        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary(true, "", new { @class = "error-text", @id = "error-ext" })
+
+            @Html.TextBoxFor(m => m.Email, new { @id = "login", @class = "fadeIn second", @name = "login", @placeholder = "Email" })
+            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+
+
+            @Html.PasswordFor(m => m.Password, new { @id = "password", @class = "fadeIn third", @name = "login", @placeholder = "Password" })
+            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+
+
+            <div class="checkbox">
+                @Html.CheckBoxFor(m => m.RememberMe)
+                @Html.LabelFor(m => m.RememberMe)
+            </div>
+            <input type="submit" class="fadeIn fourth" value="Log In" , id="submitLogin">
+            <p>
+                @Html.ActionLink("Register as a new user", "Register", null, new { @id = "register" })
+            </p>
+
+            <p>
+                @Html.ActionLink("Forgot your password?", "ForgotPassword")
+            </p>
+        }
+
+    </div>
+
+</div>
+
+

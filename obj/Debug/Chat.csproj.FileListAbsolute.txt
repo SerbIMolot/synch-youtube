@@ -1,0 +1,421 @@
+E:\Visual Studio\SynchTube\bin\SynchTube.dll.config
+E:\Visual Studio\SynchTube\bin\SynchTube.dll
+E:\Visual Studio\SynchTube\bin\SynchTube.pdb
+E:\Visual Studio\SynchTube\bin\roslyn\csc.exe
+E:\Visual Studio\SynchTube\bin\roslyn\csc.exe.config
+E:\Visual Studio\SynchTube\bin\roslyn\csc.rsp
+E:\Visual Studio\SynchTube\bin\roslyn\csi.exe
+E:\Visual Studio\SynchTube\bin\roslyn\csi.exe.config
+E:\Visual Studio\SynchTube\bin\roslyn\csi.rsp
+E:\Visual Studio\SynchTube\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\Visual Studio\SynchTube\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\Visual Studio\SynchTube\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+E:\Visual Studio\SynchTube\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\Visual Studio\SynchTube\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+E:\Visual Studio\SynchTube\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\Visual Studio\SynchTube\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\Visual Studio\SynchTube\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+E:\Visual Studio\SynchTube\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+E:\Visual Studio\SynchTube\bin\roslyn\Microsoft.Managed.Core.targets
+E:\Visual Studio\SynchTube\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\Visual Studio\SynchTube\bin\roslyn\Microsoft.Win32.Primitives.dll
+E:\Visual Studio\SynchTube\bin\roslyn\System.AppContext.dll
+E:\Visual Studio\SynchTube\bin\roslyn\System.Collections.Immutable.dll
+E:\Visual Studio\SynchTube\bin\roslyn\System.Console.dll
+E:\Visual Studio\SynchTube\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+E:\Visual Studio\SynchTube\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+E:\Visual Studio\SynchTube\bin\roslyn\System.Diagnostics.StackTrace.dll
+E:\Visual Studio\SynchTube\bin\roslyn\System.Globalization.Calendars.dll
+E:\Visual Studio\SynchTube\bin\roslyn\System.IO.Compression.dll
+E:\Visual Studio\SynchTube\bin\roslyn\System.IO.Compression.ZipFile.dll
+E:\Visual Studio\SynchTube\bin\roslyn\System.IO.FileSystem.dll
+E:\Visual Studio\SynchTube\bin\roslyn\System.IO.FileSystem.Primitives.dll
+E:\Visual Studio\SynchTube\bin\roslyn\System.Net.Http.dll
+E:\Visual Studio\SynchTube\bin\roslyn\System.Net.Sockets.dll
+E:\Visual Studio\SynchTube\bin\roslyn\System.Reflection.Metadata.dll
+E:\Visual Studio\SynchTube\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+E:\Visual Studio\SynchTube\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+E:\Visual Studio\SynchTube\bin\roslyn\System.Security.Cryptography.Encoding.dll
+E:\Visual Studio\SynchTube\bin\roslyn\System.Security.Cryptography.Primitives.dll
+E:\Visual Studio\SynchTube\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+E:\Visual Studio\SynchTube\bin\roslyn\System.Text.Encoding.CodePages.dll
+E:\Visual Studio\SynchTube\bin\roslyn\System.Threading.Tasks.Extensions.dll
+E:\Visual Studio\SynchTube\bin\roslyn\System.ValueTuple.dll
+E:\Visual Studio\SynchTube\bin\roslyn\System.Xml.ReaderWriter.dll
+E:\Visual Studio\SynchTube\bin\roslyn\System.Xml.XmlDocument.dll
+E:\Visual Studio\SynchTube\bin\roslyn\System.Xml.XPath.dll
+E:\Visual Studio\SynchTube\bin\roslyn\System.Xml.XPath.XDocument.dll
+E:\Visual Studio\SynchTube\bin\roslyn\vbc.exe
+E:\Visual Studio\SynchTube\bin\roslyn\vbc.exe.config
+E:\Visual Studio\SynchTube\bin\roslyn\vbc.rsp
+E:\Visual Studio\SynchTube\bin\roslyn\VBCSCompiler.exe
+E:\Visual Studio\SynchTube\bin\roslyn\VBCSCompiler.exe.config
+E:\Visual Studio\SynchTube\bin\Antlr3.Runtime.dll
+E:\Visual Studio\SynchTube\bin\EntityFramework.dll
+E:\Visual Studio\SynchTube\bin\EntityFramework.SqlServer.dll
+E:\Visual Studio\SynchTube\bin\Google.Apis.Auth.dll
+E:\Visual Studio\SynchTube\bin\Google.Apis.Auth.PlatformServices.dll
+E:\Visual Studio\SynchTube\bin\Google.Apis.Core.dll
+E:\Visual Studio\SynchTube\bin\Google.Apis.dll
+E:\Visual Studio\SynchTube\bin\Google.Apis.PlatformServices.dll
+E:\Visual Studio\SynchTube\bin\Google.Apis.YouTube.v3.dll
+E:\Visual Studio\SynchTube\bin\Microsoft.AspNet.Identity.Core.dll
+E:\Visual Studio\SynchTube\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+E:\Visual Studio\SynchTube\bin\Microsoft.AspNet.Identity.Owin.dll
+E:\Visual Studio\SynchTube\bin\Microsoft.AspNet.SignalR.Core.dll
+E:\Visual Studio\SynchTube\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+E:\Visual Studio\SynchTube\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\Visual Studio\SynchTube\bin\Microsoft.Owin.dll
+E:\Visual Studio\SynchTube\bin\Microsoft.Owin.Host.SystemWeb.dll
+E:\Visual Studio\SynchTube\bin\Microsoft.Owin.Security.Cookies.dll
+E:\Visual Studio\SynchTube\bin\Microsoft.Owin.Security.dll
+E:\Visual Studio\SynchTube\bin\Microsoft.Owin.Security.Facebook.dll
+E:\Visual Studio\SynchTube\bin\Microsoft.Owin.Security.Google.dll
+E:\Visual Studio\SynchTube\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+E:\Visual Studio\SynchTube\bin\Microsoft.Owin.Security.OAuth.dll
+E:\Visual Studio\SynchTube\bin\Microsoft.Owin.Security.Twitter.dll
+E:\Visual Studio\SynchTube\bin\Microsoft.Web.Infrastructure.dll
+E:\Visual Studio\SynchTube\bin\Newtonsoft.Json.dll
+E:\Visual Studio\SynchTube\bin\Owin.dll
+E:\Visual Studio\SynchTube\bin\System.Web.Helpers.dll
+E:\Visual Studio\SynchTube\bin\System.Web.Mvc.dll
+E:\Visual Studio\SynchTube\bin\System.Web.Optimization.dll
+E:\Visual Studio\SynchTube\bin\System.Web.Razor.dll
+E:\Visual Studio\SynchTube\bin\System.Web.WebPages.Deployment.dll
+E:\Visual Studio\SynchTube\bin\System.Web.WebPages.dll
+E:\Visual Studio\SynchTube\bin\System.Web.WebPages.Razor.dll
+E:\Visual Studio\SynchTube\bin\WebGrease.dll
+E:\Visual Studio\SynchTube\bin\EntityFramework.xml
+E:\Visual Studio\SynchTube\bin\EntityFramework.SqlServer.xml
+E:\Visual Studio\SynchTube\bin\Google.Apis.pdb
+E:\Visual Studio\SynchTube\bin\Google.Apis.xml
+E:\Visual Studio\SynchTube\bin\Google.Apis.Auth.pdb
+E:\Visual Studio\SynchTube\bin\Google.Apis.Auth.xml
+E:\Visual Studio\SynchTube\bin\Google.Apis.Core.pdb
+E:\Visual Studio\SynchTube\bin\Google.Apis.Core.xml
+E:\Visual Studio\SynchTube\bin\Google.Apis.YouTube.v3.pdb
+E:\Visual Studio\SynchTube\bin\Google.Apis.YouTube.v3.xml
+E:\Visual Studio\SynchTube\bin\Microsoft.AspNet.SignalR.Core.pdb
+E:\Visual Studio\SynchTube\bin\Microsoft.AspNet.SignalR.Core.xml
+E:\Visual Studio\SynchTube\bin\Microsoft.AspNet.SignalR.SystemWeb.pdb
+E:\Visual Studio\SynchTube\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+E:\Visual Studio\SynchTube\bin\Newtonsoft.Json.xml
+E:\Visual Studio\SynchTube\bin\System.Web.Helpers.xml
+E:\Visual Studio\SynchTube\bin\System.Web.Mvc.xml
+E:\Visual Studio\SynchTube\bin\System.Web.Optimization.xml
+E:\Visual Studio\SynchTube\bin\System.Web.Razor.xml
+E:\Visual Studio\SynchTube\bin\System.Web.WebPages.xml
+E:\Visual Studio\SynchTube\bin\System.Web.WebPages.Deployment.xml
+E:\Visual Studio\SynchTube\bin\System.Web.WebPages.Razor.xml
+E:\Visual Studio\SynchTube\bin\Antlr3.Runtime.pdb
+E:\Visual Studio\SynchTube\bin\Microsoft.AspNet.Identity.Core.xml
+E:\Visual Studio\SynchTube\bin\Microsoft.AspNet.Identity.Owin.xml
+E:\Visual Studio\SynchTube\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+E:\Visual Studio\SynchTube\bin\Microsoft.Owin.xml
+E:\Visual Studio\SynchTube\bin\Microsoft.Owin.Host.SystemWeb.xml
+E:\Visual Studio\SynchTube\bin\Microsoft.Owin.Security.xml
+E:\Visual Studio\SynchTube\bin\Microsoft.Owin.Security.Facebook.xml
+E:\Visual Studio\SynchTube\bin\Microsoft.Owin.Security.Cookies.xml
+E:\Visual Studio\SynchTube\bin\Microsoft.Owin.Security.Google.xml
+E:\Visual Studio\SynchTube\bin\Microsoft.Owin.Security.Twitter.xml
+E:\Visual Studio\SynchTube\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+E:\Visual Studio\SynchTube\bin\Microsoft.Owin.Security.OAuth.xml
+E:\Visual Studio\SynchTube\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\Visual Studio\SynchTube\obj\Debug\Chat.csproj.CoreCompileInputs.cache
+E:\Visual Studio\SynchTube\obj\Debug\Chat.csproj.CopyComplete
+E:\Visual Studio\SynchTube\obj\Debug\SynchTube.dll
+E:\Visual Studio\SynchTube\obj\Debug\SynchTube.pdb
+E:\Visual Studio\SynchTube\obj\Debug\Chat.csprojAssemblyReference.cache
+E:\Visual Studio\SynchTube\obj\Debug\Chat.Migrations.Initial.resources
+E:\Visual Studio\SynchTube\obj\Debug\Chat.csproj.GenerateResource.cache
+E:\Visual Studio\SynchTube — копия\bin\SynchTube.dll.config
+E:\Visual Studio\SynchTube — копия\bin\SynchTube.dll
+E:\Visual Studio\SynchTube — копия\bin\SynchTube.pdb
+E:\Visual Studio\SynchTube — копия\bin\roslyn\csc.exe
+E:\Visual Studio\SynchTube — копия\bin\roslyn\csc.exe.config
+E:\Visual Studio\SynchTube — копия\bin\roslyn\csc.rsp
+E:\Visual Studio\SynchTube — копия\bin\roslyn\csi.exe
+E:\Visual Studio\SynchTube — копия\bin\roslyn\csi.exe.config
+E:\Visual Studio\SynchTube — копия\bin\roslyn\csi.rsp
+E:\Visual Studio\SynchTube — копия\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\Visual Studio\SynchTube — копия\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\Visual Studio\SynchTube — копия\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+E:\Visual Studio\SynchTube — копия\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\Visual Studio\SynchTube — копия\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+E:\Visual Studio\SynchTube — копия\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\Visual Studio\SynchTube — копия\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\Visual Studio\SynchTube — копия\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+E:\Visual Studio\SynchTube — копия\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+E:\Visual Studio\SynchTube — копия\bin\roslyn\Microsoft.Managed.Core.targets
+E:\Visual Studio\SynchTube — копия\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\Visual Studio\SynchTube — копия\bin\roslyn\Microsoft.Win32.Primitives.dll
+E:\Visual Studio\SynchTube — копия\bin\roslyn\System.AppContext.dll
+E:\Visual Studio\SynchTube — копия\bin\roslyn\System.Collections.Immutable.dll
+E:\Visual Studio\SynchTube — копия\bin\roslyn\System.Console.dll
+E:\Visual Studio\SynchTube — копия\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+E:\Visual Studio\SynchTube — копия\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+E:\Visual Studio\SynchTube — копия\bin\roslyn\System.Diagnostics.StackTrace.dll
+E:\Visual Studio\SynchTube — копия\bin\roslyn\System.Globalization.Calendars.dll
+E:\Visual Studio\SynchTube — копия\bin\roslyn\System.IO.Compression.dll
+E:\Visual Studio\SynchTube — копия\bin\roslyn\System.IO.Compression.ZipFile.dll
+E:\Visual Studio\SynchTube — копия\bin\roslyn\System.IO.FileSystem.dll
+E:\Visual Studio\SynchTube — копия\bin\roslyn\System.IO.FileSystem.Primitives.dll
+E:\Visual Studio\SynchTube — копия\bin\roslyn\System.Net.Http.dll
+E:\Visual Studio\SynchTube — копия\bin\roslyn\System.Net.Sockets.dll
+E:\Visual Studio\SynchTube — копия\bin\roslyn\System.Reflection.Metadata.dll
+E:\Visual Studio\SynchTube — копия\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+E:\Visual Studio\SynchTube — копия\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+E:\Visual Studio\SynchTube — копия\bin\roslyn\System.Security.Cryptography.Encoding.dll
+E:\Visual Studio\SynchTube — копия\bin\roslyn\System.Security.Cryptography.Primitives.dll
+E:\Visual Studio\SynchTube — копия\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+E:\Visual Studio\SynchTube — копия\bin\roslyn\System.Text.Encoding.CodePages.dll
+E:\Visual Studio\SynchTube — копия\bin\roslyn\System.Threading.Tasks.Extensions.dll
+E:\Visual Studio\SynchTube — копия\bin\roslyn\System.ValueTuple.dll
+E:\Visual Studio\SynchTube — копия\bin\roslyn\System.Xml.ReaderWriter.dll
+E:\Visual Studio\SynchTube — копия\bin\roslyn\System.Xml.XmlDocument.dll
+E:\Visual Studio\SynchTube — копия\bin\roslyn\System.Xml.XPath.dll
+E:\Visual Studio\SynchTube — копия\bin\roslyn\System.Xml.XPath.XDocument.dll
+E:\Visual Studio\SynchTube — копия\bin\roslyn\vbc.exe
+E:\Visual Studio\SynchTube — копия\bin\roslyn\vbc.exe.config
+E:\Visual Studio\SynchTube — копия\bin\roslyn\vbc.rsp
+E:\Visual Studio\SynchTube — копия\bin\roslyn\VBCSCompiler.exe
+E:\Visual Studio\SynchTube — копия\bin\roslyn\VBCSCompiler.exe.config
+E:\Visual Studio\SynchTube — копия\bin\Antlr3.Runtime.dll
+E:\Visual Studio\SynchTube — копия\bin\EntityFramework.dll
+E:\Visual Studio\SynchTube — копия\bin\EntityFramework.SqlServer.dll
+E:\Visual Studio\SynchTube — копия\bin\Google.Apis.Auth.dll
+E:\Visual Studio\SynchTube — копия\bin\Google.Apis.Auth.PlatformServices.dll
+E:\Visual Studio\SynchTube — копия\bin\Google.Apis.Core.dll
+E:\Visual Studio\SynchTube — копия\bin\Google.Apis.dll
+E:\Visual Studio\SynchTube — копия\bin\Google.Apis.PlatformServices.dll
+E:\Visual Studio\SynchTube — копия\bin\Google.Apis.YouTube.v3.dll
+E:\Visual Studio\SynchTube — копия\bin\Microsoft.AspNet.Identity.Core.dll
+E:\Visual Studio\SynchTube — копия\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+E:\Visual Studio\SynchTube — копия\bin\Microsoft.AspNet.Identity.Owin.dll
+E:\Visual Studio\SynchTube — копия\bin\Microsoft.AspNet.SignalR.Core.dll
+E:\Visual Studio\SynchTube — копия\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+E:\Visual Studio\SynchTube — копия\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\Visual Studio\SynchTube — копия\bin\Microsoft.Owin.dll
+E:\Visual Studio\SynchTube — копия\bin\Microsoft.Owin.Host.SystemWeb.dll
+E:\Visual Studio\SynchTube — копия\bin\Microsoft.Owin.Security.Cookies.dll
+E:\Visual Studio\SynchTube — копия\bin\Microsoft.Owin.Security.dll
+E:\Visual Studio\SynchTube — копия\bin\Microsoft.Owin.Security.Facebook.dll
+E:\Visual Studio\SynchTube — копия\bin\Microsoft.Owin.Security.Google.dll
+E:\Visual Studio\SynchTube — копия\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+E:\Visual Studio\SynchTube — копия\bin\Microsoft.Owin.Security.OAuth.dll
+E:\Visual Studio\SynchTube — копия\bin\Microsoft.Owin.Security.Twitter.dll
+E:\Visual Studio\SynchTube — копия\bin\Microsoft.Web.Infrastructure.dll
+E:\Visual Studio\SynchTube — копия\bin\Newtonsoft.Json.dll
+E:\Visual Studio\SynchTube — копия\bin\Owin.dll
+E:\Visual Studio\SynchTube — копия\bin\System.Web.Helpers.dll
+E:\Visual Studio\SynchTube — копия\bin\System.Web.Mvc.dll
+E:\Visual Studio\SynchTube — копия\bin\System.Web.Optimization.dll
+E:\Visual Studio\SynchTube — копия\bin\System.Web.Razor.dll
+E:\Visual Studio\SynchTube — копия\bin\System.Web.WebPages.Deployment.dll
+E:\Visual Studio\SynchTube — копия\bin\System.Web.WebPages.dll
+E:\Visual Studio\SynchTube — копия\bin\System.Web.WebPages.Razor.dll
+E:\Visual Studio\SynchTube — копия\bin\WebGrease.dll
+E:\Visual Studio\SynchTube — копия\bin\EntityFramework.xml
+E:\Visual Studio\SynchTube — копия\bin\EntityFramework.SqlServer.xml
+E:\Visual Studio\SynchTube — копия\bin\Google.Apis.pdb
+E:\Visual Studio\SynchTube — копия\bin\Google.Apis.xml
+E:\Visual Studio\SynchTube — копия\bin\Google.Apis.Auth.pdb
+E:\Visual Studio\SynchTube — копия\bin\Google.Apis.Auth.xml
+E:\Visual Studio\SynchTube — копия\bin\Google.Apis.Core.pdb
+E:\Visual Studio\SynchTube — копия\bin\Google.Apis.Core.xml
+E:\Visual Studio\SynchTube — копия\bin\Google.Apis.YouTube.v3.pdb
+E:\Visual Studio\SynchTube — копия\bin\Google.Apis.YouTube.v3.xml
+E:\Visual Studio\SynchTube — копия\bin\Microsoft.AspNet.SignalR.Core.pdb
+E:\Visual Studio\SynchTube — копия\bin\Microsoft.AspNet.SignalR.Core.xml
+E:\Visual Studio\SynchTube — копия\bin\Microsoft.AspNet.SignalR.SystemWeb.pdb
+E:\Visual Studio\SynchTube — копия\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+E:\Visual Studio\SynchTube — копия\bin\Newtonsoft.Json.xml
+E:\Visual Studio\SynchTube — копия\bin\System.Web.Helpers.xml
+E:\Visual Studio\SynchTube — копия\bin\System.Web.Mvc.xml
+E:\Visual Studio\SynchTube — копия\bin\System.Web.Optimization.xml
+E:\Visual Studio\SynchTube — копия\bin\System.Web.Razor.xml
+E:\Visual Studio\SynchTube — копия\bin\System.Web.WebPages.xml
+E:\Visual Studio\SynchTube — копия\bin\System.Web.WebPages.Deployment.xml
+E:\Visual Studio\SynchTube — копия\bin\System.Web.WebPages.Razor.xml
+E:\Visual Studio\SynchTube — копия\bin\Antlr3.Runtime.pdb
+E:\Visual Studio\SynchTube — копия\bin\Microsoft.AspNet.Identity.Core.xml
+E:\Visual Studio\SynchTube — копия\bin\Microsoft.AspNet.Identity.Owin.xml
+E:\Visual Studio\SynchTube — копия\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+E:\Visual Studio\SynchTube — копия\bin\Microsoft.Owin.xml
+E:\Visual Studio\SynchTube — копия\bin\Microsoft.Owin.Host.SystemWeb.xml
+E:\Visual Studio\SynchTube — копия\bin\Microsoft.Owin.Security.xml
+E:\Visual Studio\SynchTube — копия\bin\Microsoft.Owin.Security.Facebook.xml
+E:\Visual Studio\SynchTube — копия\bin\Microsoft.Owin.Security.Cookies.xml
+E:\Visual Studio\SynchTube — копия\bin\Microsoft.Owin.Security.Google.xml
+E:\Visual Studio\SynchTube — копия\bin\Microsoft.Owin.Security.Twitter.xml
+E:\Visual Studio\SynchTube — копия\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+E:\Visual Studio\SynchTube — копия\bin\Microsoft.Owin.Security.OAuth.xml
+E:\Visual Studio\SynchTube — копия\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\Visual Studio\SynchTube — копия\obj\Debug\Chat.csprojAssemblyReference.cache
+E:\Visual Studio\SynchTube — копия\obj\Debug\Chat.Migrations.Initial.resources
+E:\Visual Studio\SynchTube — копия\obj\Debug\Chat.csproj.GenerateResource.cache
+E:\Visual Studio\SynchTube — копия\obj\Debug\Chat.csproj.CoreCompileInputs.cache
+E:\Visual Studio\SynchTube — копия\obj\Debug\Chat.csproj.CopyComplete
+E:\Visual Studio\SynchTube — копия\obj\Debug\SynchTube.dll
+E:\Visual Studio\SynchTube — копия\obj\Debug\SynchTube.pdb
+E:\Visual Studio\TRUESynchTube\obj\Debug\Chat.csprojAssemblyReference.cache
+E:\Visual Studio\TRUESynchTube\obj\Debug\Chat.Migrations.Initial.resources
+E:\Visual Studio\TRUESynchTube\obj\Debug\Chat.csproj.GenerateResource.cache
+E:\Visual Studio\TRUESynchTube\obj\Debug\Chat.csproj.CoreCompileInputs.cache
+E:\Visual Studio\TRUESynchTube\obj\Debug\SynchTube.dll
+E:\Visual Studio\TRUESynchTube\obj\Debug\SynchTube.pdb
+E:\Visual Studio\TRUESynchTube\bin\SynchTube.dll.config
+E:\Visual Studio\TRUESynchTube\bin\SynchTube.dll
+E:\Visual Studio\TRUESynchTube\bin\SynchTube.pdb
+E:\Visual Studio\TRUESynchTube\bin\roslyn\csc.exe
+E:\Visual Studio\TRUESynchTube\bin\roslyn\csc.exe.config
+E:\Visual Studio\TRUESynchTube\bin\roslyn\csc.rsp
+E:\Visual Studio\TRUESynchTube\bin\roslyn\csi.exe
+E:\Visual Studio\TRUESynchTube\bin\roslyn\csi.exe.config
+E:\Visual Studio\TRUESynchTube\bin\roslyn\csi.rsp
+E:\Visual Studio\TRUESynchTube\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\Visual Studio\TRUESynchTube\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\Visual Studio\TRUESynchTube\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+E:\Visual Studio\TRUESynchTube\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\Visual Studio\TRUESynchTube\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+E:\Visual Studio\TRUESynchTube\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\Visual Studio\TRUESynchTube\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\Visual Studio\TRUESynchTube\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+E:\Visual Studio\TRUESynchTube\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+E:\Visual Studio\TRUESynchTube\bin\roslyn\Microsoft.Managed.Core.targets
+E:\Visual Studio\TRUESynchTube\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\Visual Studio\TRUESynchTube\bin\roslyn\Microsoft.Win32.Primitives.dll
+E:\Visual Studio\TRUESynchTube\bin\roslyn\System.AppContext.dll
+E:\Visual Studio\TRUESynchTube\bin\roslyn\System.Collections.Immutable.dll
+E:\Visual Studio\TRUESynchTube\bin\roslyn\System.Console.dll
+E:\Visual Studio\TRUESynchTube\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+E:\Visual Studio\TRUESynchTube\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+E:\Visual Studio\TRUESynchTube\bin\roslyn\System.Diagnostics.StackTrace.dll
+E:\Visual Studio\TRUESynchTube\bin\roslyn\System.Globalization.Calendars.dll
+E:\Visual Studio\TRUESynchTube\bin\roslyn\System.IO.Compression.dll
+E:\Visual Studio\TRUESynchTube\bin\roslyn\System.IO.Compression.ZipFile.dll
+E:\Visual Studio\TRUESynchTube\bin\roslyn\System.IO.FileSystem.dll
+E:\Visual Studio\TRUESynchTube\bin\roslyn\System.IO.FileSystem.Primitives.dll
+E:\Visual Studio\TRUESynchTube\bin\roslyn\System.Net.Http.dll
+E:\Visual Studio\TRUESynchTube\bin\roslyn\System.Net.Sockets.dll
+E:\Visual Studio\TRUESynchTube\bin\roslyn\System.Reflection.Metadata.dll
+E:\Visual Studio\TRUESynchTube\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+E:\Visual Studio\TRUESynchTube\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+E:\Visual Studio\TRUESynchTube\bin\roslyn\System.Security.Cryptography.Encoding.dll
+E:\Visual Studio\TRUESynchTube\bin\roslyn\System.Security.Cryptography.Primitives.dll
+E:\Visual Studio\TRUESynchTube\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+E:\Visual Studio\TRUESynchTube\bin\roslyn\System.Text.Encoding.CodePages.dll
+E:\Visual Studio\TRUESynchTube\bin\roslyn\System.Threading.Tasks.Extensions.dll
+E:\Visual Studio\TRUESynchTube\bin\roslyn\System.ValueTuple.dll
+E:\Visual Studio\TRUESynchTube\bin\roslyn\System.Xml.ReaderWriter.dll
+E:\Visual Studio\TRUESynchTube\bin\roslyn\System.Xml.XmlDocument.dll
+E:\Visual Studio\TRUESynchTube\bin\roslyn\System.Xml.XPath.dll
+E:\Visual Studio\TRUESynchTube\bin\roslyn\System.Xml.XPath.XDocument.dll
+E:\Visual Studio\TRUESynchTube\bin\roslyn\vbc.exe
+E:\Visual Studio\TRUESynchTube\bin\roslyn\vbc.exe.config
+E:\Visual Studio\TRUESynchTube\bin\roslyn\vbc.rsp
+E:\Visual Studio\TRUESynchTube\bin\roslyn\VBCSCompiler.exe
+E:\Visual Studio\TRUESynchTube\bin\roslyn\VBCSCompiler.exe.config
+E:\Visual Studio\TRUESynchTube\bin\Antlr3.Runtime.dll
+E:\Visual Studio\TRUESynchTube\bin\EntityFramework.dll
+E:\Visual Studio\TRUESynchTube\bin\EntityFramework.SqlServer.dll
+E:\Visual Studio\TRUESynchTube\bin\Google.Apis.Auth.dll
+E:\Visual Studio\TRUESynchTube\bin\Google.Apis.Auth.PlatformServices.dll
+E:\Visual Studio\TRUESynchTube\bin\Google.Apis.Core.dll
+E:\Visual Studio\TRUESynchTube\bin\Google.Apis.dll
+E:\Visual Studio\TRUESynchTube\bin\Google.Apis.PlatformServices.dll
+E:\Visual Studio\TRUESynchTube\bin\Google.Apis.YouTube.v3.dll
+E:\Visual Studio\TRUESynchTube\bin\Microsoft.AspNet.Identity.Core.dll
+E:\Visual Studio\TRUESynchTube\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+E:\Visual Studio\TRUESynchTube\bin\Microsoft.AspNet.Identity.Owin.dll
+E:\Visual Studio\TRUESynchTube\bin\Microsoft.AspNet.SignalR.Core.dll
+E:\Visual Studio\TRUESynchTube\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+E:\Visual Studio\TRUESynchTube\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\Visual Studio\TRUESynchTube\bin\Microsoft.Owin.dll
+E:\Visual Studio\TRUESynchTube\bin\Microsoft.Owin.Host.SystemWeb.dll
+E:\Visual Studio\TRUESynchTube\bin\Microsoft.Owin.Security.Cookies.dll
+E:\Visual Studio\TRUESynchTube\bin\Microsoft.Owin.Security.dll
+E:\Visual Studio\TRUESynchTube\bin\Microsoft.Owin.Security.Facebook.dll
+E:\Visual Studio\TRUESynchTube\bin\Microsoft.Owin.Security.Google.dll
+E:\Visual Studio\TRUESynchTube\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+E:\Visual Studio\TRUESynchTube\bin\Microsoft.Owin.Security.OAuth.dll
+E:\Visual Studio\TRUESynchTube\bin\Microsoft.Owin.Security.Twitter.dll
+E:\Visual Studio\TRUESynchTube\bin\Microsoft.Web.Infrastructure.dll
+E:\Visual Studio\TRUESynchTube\bin\Newtonsoft.Json.dll
+E:\Visual Studio\TRUESynchTube\bin\Owin.dll
+E:\Visual Studio\TRUESynchTube\bin\System.Web.Helpers.dll
+E:\Visual Studio\TRUESynchTube\bin\System.Web.Mvc.dll
+E:\Visual Studio\TRUESynchTube\bin\System.Web.Optimization.dll
+E:\Visual Studio\TRUESynchTube\bin\System.Web.Razor.dll
+E:\Visual Studio\TRUESynchTube\bin\System.Web.WebPages.Deployment.dll
+E:\Visual Studio\TRUESynchTube\bin\System.Web.WebPages.dll
+E:\Visual Studio\TRUESynchTube\bin\System.Web.WebPages.Razor.dll
+E:\Visual Studio\TRUESynchTube\bin\WebGrease.dll
+E:\Visual Studio\TRUESynchTube\bin\EntityFramework.xml
+E:\Visual Studio\TRUESynchTube\bin\EntityFramework.SqlServer.xml
+E:\Visual Studio\TRUESynchTube\bin\Google.Apis.pdb
+E:\Visual Studio\TRUESynchTube\bin\Google.Apis.xml
+E:\Visual Studio\TRUESynchTube\bin\Google.Apis.Auth.pdb
+E:\Visual Studio\TRUESynchTube\bin\Google.Apis.Auth.xml
+E:\Visual Studio\TRUESynchTube\bin\Google.Apis.Core.pdb
+E:\Visual Studio\TRUESynchTube\bin\Google.Apis.Core.xml
+E:\Visual Studio\TRUESynchTube\bin\Google.Apis.YouTube.v3.pdb
+E:\Visual Studio\TRUESynchTube\bin\Google.Apis.YouTube.v3.xml
+E:\Visual Studio\TRUESynchTube\bin\Microsoft.AspNet.SignalR.Core.pdb
+E:\Visual Studio\TRUESynchTube\bin\Microsoft.AspNet.SignalR.Core.xml
+E:\Visual Studio\TRUESynchTube\bin\Microsoft.AspNet.SignalR.SystemWeb.pdb
+E:\Visual Studio\TRUESynchTube\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+E:\Visual Studio\TRUESynchTube\bin\Newtonsoft.Json.xml
+E:\Visual Studio\TRUESynchTube\bin\System.Web.Helpers.xml
+E:\Visual Studio\TRUESynchTube\bin\System.Web.Mvc.xml
+E:\Visual Studio\TRUESynchTube\bin\System.Web.Optimization.xml
+E:\Visual Studio\TRUESynchTube\bin\System.Web.Razor.xml
+E:\Visual Studio\TRUESynchTube\bin\System.Web.WebPages.xml
+E:\Visual Studio\TRUESynchTube\bin\System.Web.WebPages.Deployment.xml
+E:\Visual Studio\TRUESynchTube\bin\System.Web.WebPages.Razor.xml
+E:\Visual Studio\TRUESynchTube\bin\Antlr3.Runtime.pdb
+E:\Visual Studio\TRUESynchTube\bin\Microsoft.AspNet.Identity.Core.xml
+E:\Visual Studio\TRUESynchTube\bin\Microsoft.AspNet.Identity.Owin.xml
+E:\Visual Studio\TRUESynchTube\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+E:\Visual Studio\TRUESynchTube\bin\Microsoft.Owin.xml
+E:\Visual Studio\TRUESynchTube\bin\Microsoft.Owin.Host.SystemWeb.xml
+E:\Visual Studio\TRUESynchTube\bin\Microsoft.Owin.Security.xml
+E:\Visual Studio\TRUESynchTube\bin\Microsoft.Owin.Security.Facebook.xml
+E:\Visual Studio\TRUESynchTube\bin\Microsoft.Owin.Security.Cookies.xml
+E:\Visual Studio\TRUESynchTube\bin\Microsoft.Owin.Security.Google.xml
+E:\Visual Studio\TRUESynchTube\bin\Microsoft.Owin.Security.Twitter.xml
+E:\Visual Studio\TRUESynchTube\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+E:\Visual Studio\TRUESynchTube\bin\Microsoft.Owin.Security.OAuth.xml
+E:\Visual Studio\TRUESynchTube\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\Visual Studio\TRUESynchTube\obj\Debug\Chat.csproj.CopyComplete
+E:\Visual Studio\TRUESynchTube\obj\Debug\Chat.Migrations.AddedAdminToRoom.resources
+E:\Visual Studio\TRUESynchTube\obj\Debug\Chat.Migrations.CurrentConnectionIdToUser.resources
+E:\Visual Studio\TRUESynchTube\obj\Debug\Chat.Migrations.ConversationRoomYoutube.resources
+E:\Visual Studio\TRUESynchTube\bin\AngleSharp.dll
+E:\Visual Studio\TRUESynchTube\bin\Microsoft.Bcl.AsyncInterfaces.dll
+E:\Visual Studio\TRUESynchTube\bin\System.Buffers.dll
+E:\Visual Studio\TRUESynchTube\bin\System.Memory.dll
+E:\Visual Studio\TRUESynchTube\bin\System.Numerics.Vectors.dll
+E:\Visual Studio\TRUESynchTube\bin\System.Runtime.CompilerServices.Unsafe.dll
+E:\Visual Studio\TRUESynchTube\bin\System.Text.Encoding.CodePages.dll
+E:\Visual Studio\TRUESynchTube\bin\System.Text.Encodings.Web.dll
+E:\Visual Studio\TRUESynchTube\bin\System.Text.Json.dll
+E:\Visual Studio\TRUESynchTube\bin\System.Threading.Tasks.Extensions.dll
+E:\Visual Studio\TRUESynchTube\bin\System.ValueTuple.dll
+E:\Visual Studio\TRUESynchTube\bin\YoutubeExplode.dll
+E:\Visual Studio\TRUESynchTube\bin\AngleSharp.xml
+E:\Visual Studio\TRUESynchTube\bin\Microsoft.Bcl.AsyncInterfaces.xml
+E:\Visual Studio\TRUESynchTube\bin\System.Buffers.xml
+E:\Visual Studio\TRUESynchTube\bin\System.Memory.xml
+E:\Visual Studio\TRUESynchTube\bin\System.Numerics.Vectors.xml
+E:\Visual Studio\TRUESynchTube\bin\System.Runtime.CompilerServices.Unsafe.xml
+E:\Visual Studio\TRUESynchTube\bin\System.Text.Encodings.Web.xml
+E:\Visual Studio\TRUESynchTube\bin\System.Text.Json.xml
+E:\Visual Studio\TRUESynchTube\bin\System.Threading.Tasks.Extensions.xml
+E:\Visual Studio\TRUESynchTube\bin\System.ValueTuple.xml
+E:\Visual Studio\TRUESynchTube\bin\YoutubeExplode.xml
+E:\Visual Studio\TRUESynchTube\obj\Debug\Chat.Migrations.YuotubeUpdate.resources
+E:\Visual Studio\TRUESynchTube\obj\Debug\Chat.Migrations.HZ.resources
+E:\Visual Studio\TRUESynchTube\bin\log4net.dll
+E:\Visual Studio\TRUESynchTube\bin\log4net.xml
+E:\Visual Studio\TRUESynchTube\obj\Debug\Chat.Migrations.RemoveYotube.resources

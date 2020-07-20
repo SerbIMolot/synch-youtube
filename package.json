@@ -1,0 +1,31 @@
+{
+  "name": "synchtube",
+  "version": "1.0.0",
+  "description": "YoutubeShared2",
+  "main": "index.js",
+  "dependencies": {
+    "browser-sync": "^2.26.10",
+    "graceful-fs": "^4.2.4",
+    "open": "^7.1.0",
+    "videojs-playlist": "^4.3.1",
+    "videojs-playlist-thumbs": "^0.1.5",
+    "videojs-playlist-ui": "^3.8.0",
+    "videojs-youtube": "^2.6.1"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-msbuild": "^0.6.3",
+    "gulp-plumber": "^1.2.1",
+    "gulp-serve-iis-express": "^1.0.1",
+    "video.js": "^7.9.1"
+  },
+  "scripts": {
+    "preinstall": "npx npm-force-resolutions",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "resolutions": {
+    "graceful-fs": "4.2.4"
+  }
+}

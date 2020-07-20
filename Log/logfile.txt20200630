@@ -1,0 +1,19 @@
+2020-06-30 17:16:34,270 [7] DEBUG Chat.Models.GroupHubs [(null)] - APP DOMAIN ID = 2
+2020-06-30 17:24:40,234 [7] DEBUG Chat.Models.GroupHubs [(null)] - APP DOMAIN ID = 2
+2020-06-30 23:01:14,382 [7] DEBUG Chat.Models.GroupHubs [(null)] - APP DOMAIN ID = 2
+2020-06-30 23:01:30,756 [7] DEBUG Chat.Models.GroupHubs [(null)] - APP DOMAIN ID = 2
+2020-06-30 23:01:32,953 [19] DEBUG Chat.Models.GroupHubs [(null)] - APP DOMAIN ID = 2
+2020-06-30 23:03:12,880 [35] DEBUG Chat.Models.GroupHubs [(null)] - Old admin: Serb New admin: Guy
+2020-06-30 23:05:47,927 [34] DEBUG Chat.Models.GroupHubs [(null)] - Old admin: Serb New admin: Guy
+2020-06-30 23:06:28,110 [50] DEBUG Chat.Models.GroupHubs [(null)] - Old admin: Serb New admin: Guy
+2020-06-30 23:10:34,703 [27] DEBUG Chat.Models.GroupHubs [(null)] - Old admin: Serb New admin: Guy
+2020-06-30 23:11:22,485 [52] DEBUG Chat.Models.GroupHubs [(null)] - Old admin: Serb New admin: Guy
+2020-06-30 23:11:29,302 [27] DEBUG Chat.Models.GroupHubs [(null)] - Old admin: Serb New admin: Guy
+2020-06-30 23:11:47,532 [57] DEBUG Chat.Models.GroupHubs [(null)] - Old admin: Serb New admin: Guy
+2020-06-30 23:12:43,533 [57] DEBUG Chat.Models.GroupHubs [(null)] - Old admin: Serb New admin: Guy
+2020-06-30 23:13:10,871 [27] DEBUG Chat.Models.GroupHubs [(null)] - Old admin: Serb New admin: Guy
+2020-06-30 23:37:38,370 [15] DEBUG Chat.Models.GroupHubs [(null)] - APP DOMAIN ID = 2
+2020-06-30 23:37:53,666 [8] DEBUG Chat.Models.GroupHubs [(null)] - APP DOMAIN ID = 2
+2020-06-30 23:39:26,875 [6] DEBUG Chat.Models.GroupHubs [(null)] - Old admin: Serb New admin: Guy
+2020-06-30 23:42:27,530 [26] DEBUG Chat.Models.GroupHubs [(null)] - Old admin: Serb New admin: Guy
+2020-06-30 23:56:32,258 [78] DEBUG Chat.Models.GroupHubs [(null)] - Old admin: Guy New admin: Serb

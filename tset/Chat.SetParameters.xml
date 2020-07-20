@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <setParameter name="IIS Web Application Name" value="test" />
+  <setParameter name="DefaultConnection-Web.config Connection String" value="Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=aspnet-Chat-20200505120359;Integrated Security=True" />
+</parameters>
