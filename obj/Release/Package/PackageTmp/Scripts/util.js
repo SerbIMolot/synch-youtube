@@ -14,9 +14,17 @@ var getUrlParams = function (url) {
 let link = window.location.href.split('/');
 let currentRoomName = link[6];
 let virtDir = link[3];
-function loadChatsView() {
+let siteLocation;
+if (virtDir != "tset") {
+    siteLocation = 'http://' + window.location.host;
+
+}
+else {
+    siteLocation = 'http://' + window.location.host + '/' + virtDir;
+}
+    function loadChatsView() {
     $.ajax({
-        url: 'http://' + window.location.host + '/' +virtDir + '/Room/UpdateGrid?roomName=' + roomName,
+        url: siteLocation + '/Room/UpdateGrid?roomName=' + roomName,
         type: 'post',
         cache: false,
         async: true,
@@ -40,7 +48,7 @@ function charNameclick( roomName ) {
 function loadMessageView(roomName) {
     var link;
     $.ajax({
-        url: 'http://' + window.location.host + '/' +virtDir + '/Room/UpdateChat?roomName=' + roomName,
+        url: siteLocation + '/Room/UpdateChat?roomName=' + roomName,
         type: 'post',
         cache: false,
         async: true,
@@ -72,7 +80,7 @@ function loadMessageView(roomName) {
         }
     });
     $.ajax({
-        url: 'http://' + window.location.host + '/' +virtDir + '/Room/UpdateGrid?roomName=' + roomName,
+        url: siteLocation + '/Room/UpdateGrid?roomName=' + roomName,
         type: 'post',
         cache: false,
         async: true,
@@ -106,75 +114,78 @@ function loadMessageView(roomName) {
 }
 
 
-
-function openCreateModal() {
-    $.ajaxSetup({ cache: false });
-    $.ajax({
-        url: 'http://' + window.location.host + '/' +virtDir + '/Room/CreateChatRoom',
-        type: 'get',
-        cache: false,
-        async: true,
-        success: function (result) {
-            $('#dialogContent').html(result);
-            $('#modDialog').modal('show');
-        },
-        error: function (jqXHR, exception) {
-            var msg = '';
-            if (jqXHR.status === 0) {
-                msg = 'Not connect.\n Verify Network.';
-            } else if (jqXHR.status == 404) {
-                msg = 'Requested page not found. [404]';
-            } else if (jqXHR.status == 500) {
-                msg = 'Internal Server Error [500].';
-            } else if (exception === 'parsererror') {
-                msg = 'Requested JSON parse failed.';
-            } else if (exception === 'timeout') {
-                msg = 'Time out error.';
-            } else if (exception === 'abort') {
-                msg = 'Ajax request aborted.';
-            } else {
-                msg = 'Uncaught Error.\n' + jqXHR.responseText;
+    function openCreateModal() {
+        $.ajaxSetup({ cache: false });
+        $.ajax({
+            url: siteLocation + '/Room/CreateChatRoom',
+            type: 'get',
+            cache: false,
+            async: true,
+            success: function (result) {
+                $('#dialogContent').html(result);
+                $('#modDialog').modal('show');
+            },
+            error: function (jqXHR, exception) {
+                var msg = '';
+                if (jqXHR.status === 0) {
+                    msg = 'Not connect.\n Verify Network.';
+                } else if (jqXHR.status == 404) {
+                    msg = 'Requested page not found. [404]';
+                } else if (jqXHR.status == 500) {
+                    msg = 'Internal Server Error [500].';
+                } else if (exception === 'parsererror') {
+                    msg = 'Requested JSON parse failed.';
+                } else if (exception === 'timeout') {
+                    msg = 'Time out error.';
+                } else if (exception === 'abort') {
+                    msg = 'Ajax request aborted.';
+                } else {
+                    msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                }
+                //alert(msg);
             }
-            //alert(msg);
-        }
-    });
+        });
 
-}
-function openJoinModal() {
-    $.ajaxSetup({ cache: false });
-    $.ajax({
-        url: 'http://' + window.location.host + '/' +virtDir + '/Room/JoinChatRoom',
-        type: 'get',
-        cache: false,
-        async: true,
-        success: function (result) {
-            $('#dialogContent').html(result);
-            $('#modDialog').modal('show');
-        },
-        error: function (jqXHR, exception) {
-            var msg = '';
-            if (jqXHR.status === 0) {
-                msg = 'Not connect.\n Verify Network.';
-            } else if (jqXHR.status == 404) {
-                msg = 'Requested page not found. [404]';
-            } else if (jqXHR.status == 500) {
-                msg = 'Internal Server Error [500].';
-            } else if (exception === 'parsererror') {
-                msg = 'Requested JSON parse failed.';
-            } else if (exception === 'timeout') {
-                msg = 'Time out error.';
-            } else if (exception === 'abort') {
-                msg = 'Ajax request aborted.';
-            } else {
-                msg = 'Uncaught Error.\n' + jqXHR.responseText;
+    }
+    function openJoinModal() {
+        $.ajaxSetup({ cache: false });
+        $.ajax({
+            url: siteLocation + '/Room/JoinChatRoom',
+            type: 'get',
+            cache: false,
+            async: true,
+            success: function (result) {
+                $('#dialogContent').html(result);
+                $('#modDialog').modal('show');
+            },
+            error: function (jqXHR, exception) {
+                var msg = '';
+                if (jqXHR.status === 0) {
+                    msg = 'Not connect.\n Verify Network.';
+                } else if (jqXHR.status == 404) {
+                    msg = 'Requested page not found. [404]';
+                } else if (jqXHR.status == 500) {
+                    msg = 'Internal Server Error [500].';
+                } else if (exception === 'parsererror') {
+                    msg = 'Requested JSON parse failed.';
+                } else if (exception === 'timeout') {
+                    msg = 'Time out error.';
+                } else if (exception === 'abort') {
+                    msg = 'Ajax request aborted.';
+                } else {
+                    msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                }
+                alert(msg);
             }
-            alert(msg);
-        }
-    });
-}
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            alert("Failed: " + errorThrown);
+        }).always(function (a, textStatus, b) {
+            alert("Final status: " + textStatus);
+        });
+    }
 function DeleteCurrentChat() {
     $.ajax({
-        url: 'http://' + window.location.host + '/' +virtDir + '/Room/DeleteChat?roomName=' + currentRoomName,
+        url: siteLocation + '/Room/DeleteChat?roomName=' + currentRoomName,
         type: 'post',
         cache: false,
         async: true,
@@ -192,9 +203,9 @@ function onCreateClick() {
     let room = $('#createText').val();
     if (room.length != 0) {
         console.log(room);
-        console.log('http://' + window.location.host + '/' +virtDir +'/Room/JoinRoom?roomName=' + room);
+        console.log(siteLocation +'/Room/JoinRoom?roomName=' + room);
         $.ajax({
-            url: 'http://' + window.location.host + '/' +virtDir + '/Room/CreateRoom?roomName=' + room,
+            url: siteLocation + '/Room/CreateRoom?roomName=' + room,
             type: 'post',
             cache: false,
             async: true,
@@ -234,9 +245,9 @@ function onJoinClick() {
     let room = $('#joinRoomText').val();
     if (room.length != 0) {
         console.log(room);
-        console.log('http://' + window.location.host + '/' +virtDir + '/Room/JoinRoom?roomName=' + room);
+        console.log(siteLocation + '/Room/JoinRoom?roomName=' + room);
         $.ajax({
-            url: 'http://' + window.location.host + '/' +virtDir + '/Room/JoinRoom?roomName=' + room,
+            url: siteLocation + '/Room/JoinRoom?roomName=' + room,
             type: 'post',
             cache: false,
             async: true,
@@ -274,7 +285,7 @@ function onJoinClick() {
 }
 function OpenYoutube() {
     $.ajax({
-        url: 'http://' + window.location.host + '/' +virtDir + '/Room/YoutubePlayer',
+        url: siteLocation + '/Room/YoutubePlayer',
         type: 'get',
         cache: false,
         async: true,
@@ -307,7 +318,7 @@ $('body').on('click', '.createBtn', function () {
 function writeLinkInput() {
     var input = $("#write_link").val();
     if (input.includes("youtube") && (input.includes("watch") || input.includes("list"))) {
-        $.connection.groupHubs.server.GetVideosFromLink( input );
+        $.connection.groupHubs.server.getVideosFromLink( input );
 
     }
 };

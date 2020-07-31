@@ -21,6 +21,7 @@ namespace Chat.Models
         private readonly ConcurrentDictionary<string, string> CurrentRoomsOfUsers;
         private static readonly ConcurrentDictionary<string, List<YoutubeVideo>> VideosInRoom = new ConcurrentDictionary<string, List<YoutubeVideo>>();
         private readonly List<ChatViewModel> currentRooms;
+
         private static readonly ILog Log = LogManager.GetLogger(typeof(GroupHubs));
         public GroupHubs()
         {
@@ -528,20 +529,28 @@ namespace Chat.Models
             if (source.Contains("list="))
             {
                 YoutubeExplode.Playlists.Playlist playlist = await youtube.Playlists.GetAsync(source);
-
-                foreach (YoutubeExplode.Videos.Video vid in await youtube.Playlists.GetVideosAsync(playlist.Id))
+                int i = 0;
+                var playlistArray = await youtube.Playlists.GetVideosAsync(playlist.Id);
+                foreach (YoutubeExplode.Videos.Video vid in playlistArray)
                 {
+                    if( i > 1120 )
+                    {
+                        i++;
+                    }
                     YoutubeVideo newVid = new YoutubeVideo()
                     {
                         source = "https://www.youtube.com/watch?v=" + vid.Id,
                         poster = vid.Thumbnails.MediumResUrl,
-                        title = vid.Title
+                        title = vid.Title,
+                        duration = vid.Duration.TotalSeconds,
+                        thumbnail = vid.Thumbnails.StandardResUrl
 
                     };
                     lock (SynchronousReadLock)
                     {
                         newVideos.Add(newVid);
                     }
+                    i++;
                 }
                 //VideosInRoom.AddOrUpdate( roomName, newVideos, (key, oldValue) => { oldValue.AddRange(newVideos); return oldValue; });
 
@@ -802,7 +811,7 @@ namespace Chat.Models
 
                     }
                     room.Users.Remove(user);
-                    if (room.Users.Count == 0)
+                    if (room.Users.Count == 0 && room.RoomName != "Xsd")
                     {
                         db.conversationRoomRepository.Delete(room);
                     }

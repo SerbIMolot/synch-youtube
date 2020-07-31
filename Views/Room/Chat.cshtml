@@ -54,16 +54,18 @@
                     <div class="input_link_write">
                         <input type="text" id="write_link" class="write_link" placeholder="Inser link" oninput="writeLinkInput()" />
                         <button class="link_send_btn" id="link_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                        <span id="elements_count">
+                        </span>
                     </div>
 
                     <div class="user-list-panel" id="user-list-panel">
                         <ul class="user-list" id="user-list">
                         </ul>
                     </div>
-                    <!--
+                    
                         
-                    <div id="playlist-ui2" class="vjs-playlist preview-player-dimensions vjs-fluid"> </div>
-                    -->
+                    <ol id="playlist-ui2" class="temporary_playlist"> </ol>
+                    
                     <div id="playlist-ui" class="vjs-playlist preview-player-dimensions vjs-fluid"> </div>
                 </div>
             </div>

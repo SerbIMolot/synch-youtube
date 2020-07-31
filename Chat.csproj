@@ -329,6 +329,7 @@
     <Content Include="Content\vjs.eot" />
     <Content Include="Content\vjs.ttf" />
     <Content Include="Content\vjs.woff" />
+    <Content Include="csharpCodeStyle" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
     <None Include="Properties\PublishProfiles\IISProfile1.pubxml" />

@@ -327,7 +327,10 @@ input[type=button]:active {
     background-color: green;
 }
 #link_send_btn {
-    display: block;
+    display: inline;
+}
+#write_link {
+    width: 100%;
 }
 #user-list-panel {
 }
@@ -375,7 +378,7 @@ input[type=button]:active {
     width: 51%;
     padding: 0;
     margin: 0;
-
+    overflow: hidden;
 }
 #write_msg {
     background: rgba(0, 0, 0, 0) none repeat scroll 0 0;

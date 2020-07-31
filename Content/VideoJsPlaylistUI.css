@@ -7,7 +7,26 @@
 .vjs-playlist-item-list::-webkit-scrollbar {
     width: 5%;
 }
-
+#elements_count {
+    display: inline;
+    position: relative;
+    float: right;
+    margin-right: 5%;
+}
+#playlist-ui2{
+    height: 50%;
+    width: 49%;
+    left: 0;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow: auto;
+}
+.playlist_item {
+    height: 45%;
+    width: 100%;
+    margin: 0;
+}
 .vjs-playlist-item-list::-webkit-scrollbar-track {
     box-shadow: inset 0 0 6px blue;
 }
