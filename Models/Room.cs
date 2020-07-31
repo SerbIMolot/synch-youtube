@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.SignalR;
-using Microsoft.AspNet.Identity;
-using System.Threading.Tasks;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
-using System.Collections.Concurrent;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Chat.Models
 {
@@ -23,14 +21,14 @@ namespace Chat.Models
     = new ConcurrentDictionary<string, ApplicationUser>();
         public override Task OnConnected()
         {
-            using (var db = new ApplicationDbContext())
+            using (ApplicationDbContext db = new ApplicationDbContext())
             {
                 // Retrieve user.
-                
+
                 //var user = db.Users.Include( u => u.Ro ).SingleOrDefault( u => u.UserName == Context.User.Identity.Name );
-                ApplicationUser user = db.Users.Find(  Context.User.Identity.GetUserId() );
-                    //.Include(u => u.RoomsT)
-                    //.SingleOrDefault(u => u.UserName == Context.User.Identity.Name);
+                ApplicationUser user = db.Users.Find(Context.User.Identity.GetUserId());
+                //.Include(u => u.RoomsT)
+                //.SingleOrDefault(u => u.UserName == Context.User.Identity.Name);
 
                 // If user does not exist in database, must add.
                 if (user == null)
@@ -46,11 +44,11 @@ namespace Chat.Models
                 }
                 else
                 {
-                    Debug.WriteLine( Context.User.Identity.GetUserId() );
-                    Debug.WriteLine( Context.ConnectionId );
+                    Debug.WriteLine(Context.User.Identity.GetUserId());
+                    Debug.WriteLine(Context.ConnectionId);
                     // Add to each assigned group.
-                    user.ConnectionIds.Add( Context.ConnectionId );
-                    foreach (var item in user.Rooms)
+                    user.ConnectionIds.Add(Context.ConnectionId);
+                    foreach (ConversationRoom item in user.Rooms)
                     {
                         Groups.Add(Context.User.Identity.GetUserId(), item.RoomName);
                     }
@@ -59,12 +57,12 @@ namespace Chat.Models
             return base.OnConnected();
         }
 
-        public void JoinRoom( string roomName )
+        public void JoinRoom(string roomName)
         {
-            using (var db = new ApplicationDbContext())
+            using (ApplicationDbContext db = new ApplicationDbContext())
             {
                 // Retrieve room.
-                var room = db.Rooms.Find(roomName);
+                ConversationRoom room = db.Rooms.Find(roomName);
 
                 if (room != null)
                 {
@@ -80,13 +78,13 @@ namespace Chat.Models
 
         public void RemoveFromRoom(string roomName)
         {
-            using (var db = new ApplicationDbContext())
+            using (ApplicationDbContext db = new ApplicationDbContext())
             {
                 // Retrieve room.
-                var room = db.Rooms.Find(roomName);
+                ConversationRoom room = db.Rooms.Find(roomName);
                 if (room != null)
                 {
-                    var user = db.Users.Include(u => u.Rooms).SingleOrDefault(u => u.UserName == Context.User.Identity.Name);
+                    ApplicationUser user = db.Users.Include(u => u.Rooms).SingleOrDefault(u => u.UserName == Context.User.Identity.Name);
 
                     room.Users.Remove(user);
                     db.SaveChanges();
@@ -147,42 +145,44 @@ namespace Chat.Models
         //    }
         //    }
         //}
-        public Task Send( string groupName, string message )
+        public Task Send(string groupName, string message)
         {
-            
-            using ( var db = new ApplicationDbContext() )
+
+            using (ApplicationDbContext db = new ApplicationDbContext())
             {
-            try
-            { 
-                Message msg = new Message();
-                //msg.roomId = groupName;
-                msg.Room = db.Rooms.Find( groupName );
-                ApplicationUser user = db.Users.Find( Context.User.Identity.GetUserId() );
-                msg.SenderUserId = user.Id;
-                msg.SenderUser = user;
-                msg.message = message;
-                db.Messages.Add(msg);
-        
-                db.SaveChanges();
-                
-                //await Clients.Group(groupName).SendAsync( "Receive", user.UserName , message);
-                //Clients.Group(groupName).broadcastMessage( user.UserName , message);
-                //Clients.All.addMessage( user.UserName , message);
-            }
-            catch (DbEntityValidationException e)
-            {
-                foreach (var eve in e.EntityValidationErrors)
+                try
                 {
-                    Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                    foreach (var ve in eve.ValidationErrors)
+                    Message msg = new Message
                     {
+                        //msg.roomId = groupName;
+                        Room = db.Rooms.Find(groupName)
+                    };
+                    ApplicationUser user = db.Users.Find(Context.User.Identity.GetUserId());
+                    msg.SenderUserId = user.Id;
+                    msg.SenderUser = user;
+                    msg.message = message;
+                    db.Messages.Add(msg);
+
+                    db.SaveChanges();
+
+                    //await Clients.Group(groupName).SendAsync( "Receive", user.UserName , message);
+                    //Clients.Group(groupName).broadcastMessage( user.UserName , message);
+                    //Clients.All.addMessage( user.UserName , message);
+                }
+                catch (DbEntityValidationException e)
+                {
+                    foreach (DbEntityValidationResult eve in e.EntityValidationErrors)
+                    {
+                        Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                        foreach (DbValidationError ve in eve.ValidationErrors)
+                        {
                             Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
                             ve.PropertyName, ve.ErrorMessage);
+                        }
                     }
+                    throw;
                 }
-                throw;
-            }
             }
             return Clients.Group(groupName).SendAsync("Send", $"{Context.User.Identity.GetUserId()}: {message}");
         }

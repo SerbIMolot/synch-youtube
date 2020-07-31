@@ -1,9 +1,4 @@
-﻿using Chat.Models;
-using Chat.Repository;
-using Microsoft.AspNet.SignalR;
-using System.Security.Claims;
-
-namespace SynchTube.Models
+﻿namespace SynchTube.Models
 {
     //public class CustomUserIdProvider : IUserIdProvider
     //{

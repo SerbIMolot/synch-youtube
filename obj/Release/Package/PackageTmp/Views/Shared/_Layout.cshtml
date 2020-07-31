@@ -1,47 +1,82 @@
 ﻿<!DOCTYPE html>
 <html>
-<head>
+<head class="fontawesome-i2svg-active fontawesome-i2svg-complete">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Login page</title>
+    <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link href="@Url.Content("~/Content/Navbar.css")" rel="stylesheet" type="text/css" />
     @RenderSection("Styles", false)
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>repl.it</title>
 </head>
 <body>
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type = "button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            @Html.ActionLink("Chat application", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("Home", "Index", "Home",  null, new { @color = "navbar-nav navbar-link" })</li>
-                <li>@Html.ActionLink("About", "About", "Home", null, new { @class = "navbar-nav navbar-link" })</li>
-                <li>@Html.ActionLink("Chat", "Chat", "Room", null, new { @class = "navbar-nav navbar-link" })</li>
-            </ul>
-            @Html.Partial("_LoginPartial")
-        </div>
+    <div id="modDialog" class="modal fade">
+        <div id="dialogContent" class="modal-dialog"></div>
     </div>
-</div>
-<div class="container body-content">
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/bootstrap")
-    @RenderBody()
-@RenderSection("Scripts", required: false)
-    <hr />
-    <footer>
-        <p>&copy; @DateTime.Now.Year - Web-development Laboratory work</p>
-    </footer>
+    @*
+
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type = "button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Chat application", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home",  null, new { @color = "navbar-nav navbar-link" })</li>
+                        <li>@Html.ActionLink("About", "About", "Home", null, new { @class = "navbar-nav navbar-link" })</li>
+                        <li>@Html.ActionLink("Chat", "Chat", "Room", null, new { @class = "navbar-nav navbar-link" })</li>
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </div>
+
+    *@
+    <div id="content">
+        <div id="closedBar">
+            <span class="slide">
+                <a id="open_menu" href="#" onclick="openSlideMenu()">
+                    <i class="fas fa-bars"></i>
+                </a>
+            </span>
+        </div>
+        <div id="menu" class="nav">
+            <a href="#" class="close" onclick="closeSlideMenu()">
+                <i class="fas fa-backward"></i>
+            </a>
+            <a href="#" id="create_new_room" class="item"><i class="fas fa-hammer"></i>Create new room</a>
+            <a href="#" id="join_room" class="item" style="border-bottom: 1px #ccc;"><i class="fas fa-users"></i>Join room</a>
+        </div>
+        @Html.Partial("_LoginPartial")
+    </div>
 
 
 
-</div>
+    <div id="content_of_page" class="container body-content">
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderBody()
+        @RenderSection("Scripts", required: false)
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Web-development Laboratory work</p>
+        </footer>
 
-    </body>
+
+
+    </div>
+    <script src="~/Scripts/util.js"></script>
+    <script src="~/Scripts/navbar.js"></script>
+
+    <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+</body>
 </html>

@@ -5,8 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section Styles {
-    <link href="@Url.Content("/Content/ChatStyleSheet.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("/Content/VideoJsPlaylistUI.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/ChatStyleSheet.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/VideoJsPlaylistUI.css")" rel="stylesheet" type="text/css" />
 }
 <div id="content_container" class="container-fluid" style="width: 100%; margin: 0 auto; padding: 0;">
     @*
@@ -21,21 +21,25 @@
         </div>*@
     @if (Model.room != null)
     {
-        <div class="Playerpart">
-            <p id="room_name" id="chatName"> Current room: @Model.room.RoomName</p>
-            <video id="vid1"
-                   class="video-js vjs-default-skin vjs-big-play-centered"
-                   controls
-                   autoplay
-                   data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "https://www.youtube.com/watch?v=FXi1QmtaUQk"}] }'>
-            </video>
-            <span id="playlist_slide" class="playlist_slide">
-                <a id="open_playlist" href="#" onclick="playlistButtonPress()">
-                    <i class="fas fa-bars"></i>
-                </a>
-            </span>
-            <div id="playlist-ui" class="vjs-playlist preview-player-dimensions vjs-fluid"> </div>
-        </div>
+    <div class="Playerpart">
+        <p id="room_name" id="chatName"> Current room: @Model.room.RoomName</p>
+        <video id="vid1"
+               class="video-js vjs-default-skin vjs-big-play-centered"
+               controls
+               autoplay
+               data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "https://www.youtube.com/watch?v=FXi1QmtaUQk"}] }'>
+        </video>
+        <!--
+    <span id="playlist_slide" class="playlist_slide">
+        <a id="open_playlist" href="#" onclick="playlistButtonPress()">
+            <i class="fas fa-bars"></i>
+        </a>
+    </span>
+
+
+    <div id="playlist-ui" class="vjs-playlist preview-player-dimensions vjs-fluid"> </div>
+    -->
+    </div>
         <div class="messaging">
 
 
@@ -46,16 +50,21 @@
                     @Html.Partial("ChatMsgView", Model)
                 </div>
                 <div id="managment">
+
+                    <div class="input_link_write">
+                        <input type="text" id="write_link" class="write_link" placeholder="Inser link" oninput="writeLinkInput()" />
+                        <button class="link_send_btn" id="link_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                    </div>
+
                     <div class="user-list-panel" id="user-list-panel">
                         <ul class="user-list" id="user-list">
                         </ul>
                     </div>
-
-                    <div class="input_link_write">
-                        <input type="text" id="write_link" class="write_link" placeholder="Inser link" />
-                        <button class="link_send_btn" id="link_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
-                    </div>
-
+                    <!--
+                        
+                    <div id="playlist-ui2" class="vjs-playlist preview-player-dimensions vjs-fluid"> </div>
+                    -->
+                    <div id="playlist-ui" class="vjs-playlist preview-player-dimensions vjs-fluid"> </div>
                 </div>
             </div>
         </div>

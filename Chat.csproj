@@ -321,11 +321,17 @@
     <Content Include="Scripts\Index.js" />
     <Content Include="Scripts\navbar.js" />
     <Content Include="Scripts\player-control.js" />
+    <Content Include="Scripts\videojs-playlist-ui.js" />
+    <Content Include="Scripts\videojs-playlist-ui.min.js" />
+    <Content Include="Scripts\videojs-playlist.js" />
+    <Content Include="Scripts\videojs-playlist.min.js" />
     <Content Include="Views\Room\ChatMsgView.cshtml" />
     <Content Include="Content\vjs.eot" />
     <Content Include="Content\vjs.ttf" />
     <Content Include="Content\vjs.woff" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\IISProfile1.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\chat.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -405,6 +411,7 @@
     <Content Include="Views\Room\JoiningChatRoom.cshtml" />
     <Content Include="Views\Room\YoutubePlayer.cshtml" />
     <Content Include="Views\Room\CreateRoom.cshtml" />
+    <Content Include="Views\Account\TemporaryLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

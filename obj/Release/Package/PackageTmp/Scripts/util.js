@@ -1,26 +1,46 @@
-﻿let link = window.location.href.split('/');
-let currentRoomName = link[5];
+﻿
+var getUrlParams = function (url) {
+    var params = {};
+    (url + '?').split('?')[1].split('&').forEach(
+        function (pair) {
+            pair = (pair + '=').split('=').map(decodeURIComponent);
+            if (pair[0].length) {
+                params[pair[0]] = pair[1];
+            }
+        });
+
+    return params;
+};
+let link = window.location.href.split('/');
+let currentRoomName = link[6];
+let virtDir = link[3];
 function loadChatsView() {
     $.ajax({
-        url: '/Room/UpdateGrid?roomName=' + roomName,
+        url: 'http://' + window.location.host + '/' +virtDir + '/Room/UpdateGrid?roomName=' + roomName,
         type: 'post',
         cache: false,
         async: true,
         success: function (result) {
             console.log(result);
             $('#partialChats').html(result);
+        },
+        error: function (xhr, status, error) {
+            var err = eval("(" + xhr.responseText + ")");
+            alert(err.Message);
         }
     });
 }
+
 function charNameclick( roomName ) {
     console.log(roomName);
     $.connection.groupHubs.state.currentChatRoom = roomName
     $.connection.groupHubs.server.switchCurrentRoom(roomName);
     loadMessageView(roomName);
 }
-function loadMessageView( roomName ) {
+function loadMessageView(roomName) {
+    var link;
     $.ajax({
-        url: '/Room/UpdateChat?roomName=' + roomName,
+        url: 'http://' + window.location.host + '/' +virtDir + '/Room/UpdateChat?roomName=' + roomName,
         type: 'post',
         cache: false,
         async: true,
@@ -30,10 +50,29 @@ function loadMessageView( roomName ) {
             currentRoomName = roomName;
 
             updateScroll();
+        },
+        error: function (jqXHR, exception) {
+            var msg = '';
+            if (jqXHR.status === 0) {
+                msg = 'Not connect.\n Verify Network.';
+            } else if (jqXHR.status == 404) {
+                msg = 'Requested page not found. [404]';
+            } else if (jqXHR.status == 500) {
+                msg = 'Internal Server Error [500].';
+            } else if (exception === 'parsererror') {
+                msg = 'Requested JSON parse failed.';
+            } else if (exception === 'timeout') {
+                msg = 'Time out error.';
+            } else if (exception === 'abort') {
+                msg = 'Ajax request aborted.';
+            } else {
+                msg = 'Uncaught Error.\n' + jqXHR.responseText;
+            }
+            alert(msg);
         }
     });
     $.ajax({
-        url: '/Room/UpdateGrid?roomName=' + roomName,
+        url: 'http://' + window.location.host + '/' +virtDir + '/Room/UpdateGrid?roomName=' + roomName,
         type: 'post',
         cache: false,
         async: true,
@@ -41,6 +80,25 @@ function loadMessageView( roomName ) {
             console.log(result);
             chatName.innerText = roomName;
             $('#partialChats').html(result);
+        },
+        error: function (jqXHR, exception) {
+            var msg = '';
+            if (jqXHR.status === 0) {
+                msg = 'Not connect.\n Verify Network.';
+            } else if (jqXHR.status == 404) {
+                msg = 'Requested page not found. [404]';
+            } else if (jqXHR.status == 500) {
+                msg = 'Internal Server Error [500].';
+            } else if (exception === 'parsererror') {
+                msg = 'Requested JSON parse failed.';
+            } else if (exception === 'timeout') {
+                msg = 'Time out error.';
+            } else if (exception === 'abort') {
+                msg = 'Ajax request aborted.';
+            } else {
+                msg = 'Uncaught Error.\n' + jqXHR.responseText;
+            }
+            alert(msg);
         }
     });
     currentRoomName = roomName;
@@ -52,13 +110,32 @@ function loadMessageView( roomName ) {
 function openCreateModal() {
     $.ajaxSetup({ cache: false });
     $.ajax({
-        url: '/Room/CreateChatRoom',
+        url: 'http://' + window.location.host + '/' +virtDir + '/Room/CreateChatRoom',
         type: 'get',
         cache: false,
         async: true,
         success: function (result) {
             $('#dialogContent').html(result);
             $('#modDialog').modal('show');
+        },
+        error: function (jqXHR, exception) {
+            var msg = '';
+            if (jqXHR.status === 0) {
+                msg = 'Not connect.\n Verify Network.';
+            } else if (jqXHR.status == 404) {
+                msg = 'Requested page not found. [404]';
+            } else if (jqXHR.status == 500) {
+                msg = 'Internal Server Error [500].';
+            } else if (exception === 'parsererror') {
+                msg = 'Requested JSON parse failed.';
+            } else if (exception === 'timeout') {
+                msg = 'Time out error.';
+            } else if (exception === 'abort') {
+                msg = 'Ajax request aborted.';
+            } else {
+                msg = 'Uncaught Error.\n' + jqXHR.responseText;
+            }
+            //alert(msg);
         }
     });
 
@@ -66,25 +143,48 @@ function openCreateModal() {
 function openJoinModal() {
     $.ajaxSetup({ cache: false });
     $.ajax({
-        url: '/Room/JoinChatRoom',
+        url: 'http://' + window.location.host + '/' +virtDir + '/Room/JoinChatRoom',
         type: 'get',
         cache: false,
         async: true,
         success: function (result) {
             $('#dialogContent').html(result);
             $('#modDialog').modal('show');
+        },
+        error: function (jqXHR, exception) {
+            var msg = '';
+            if (jqXHR.status === 0) {
+                msg = 'Not connect.\n Verify Network.';
+            } else if (jqXHR.status == 404) {
+                msg = 'Requested page not found. [404]';
+            } else if (jqXHR.status == 500) {
+                msg = 'Internal Server Error [500].';
+            } else if (exception === 'parsererror') {
+                msg = 'Requested JSON parse failed.';
+            } else if (exception === 'timeout') {
+                msg = 'Time out error.';
+            } else if (exception === 'abort') {
+                msg = 'Ajax request aborted.';
+            } else {
+                msg = 'Uncaught Error.\n' + jqXHR.responseText;
+            }
+            alert(msg);
         }
     });
 }
 function DeleteCurrentChat() {
     $.ajax({
-        url: '/Room/DeleteChat?roomName=' + currentRoomName,
+        url: 'http://' + window.location.host + '/' +virtDir + '/Room/DeleteChat?roomName=' + currentRoomName,
         type: 'post',
         cache: false,
         async: true,
         success: function (result) {
             console.log(result);
             $('#partialChats').html(result);
+        },
+        error: function (xhr, status, error) {
+            var err = eval("(" + xhr.responseText + ")");
+            alert(err.Message);
         }
     });
 }
@@ -92,8 +192,9 @@ function onCreateClick() {
     let room = $('#createText').val();
     if (room.length != 0) {
         console.log(room);
+        console.log('http://' + window.location.host + '/' +virtDir +'/Room/JoinRoom?roomName=' + room);
         $.ajax({
-            url: '/Room/CreateRoom?roomName=' + room,
+            url: 'http://' + window.location.host + '/' +virtDir + '/Room/CreateRoom?roomName=' + room,
             type: 'post',
             cache: false,
             async: true,
@@ -103,6 +204,25 @@ function onCreateClick() {
                 window.location.href = "Chat/" + room;
                 //window.history.pushState({roomName: room}, "Title", "/Room/Chat");
                 loadMessageView(room);
+            },
+            error: function (jqXHR, exception) {
+                var msg = '';
+                if (jqXHR.status === 0) {
+                    msg = 'Not connect.\n Verify Network.';
+                } else if (jqXHR.status == 404) {
+                    msg = 'Requested page not found. [404]';
+                } else if (jqXHR.status == 500) {
+                    msg = 'Internal Server Error [500].';
+                } else if (exception === 'parsererror') {
+                    msg = 'Requested JSON parse failed.';
+                } else if (exception === 'timeout') {
+                    msg = 'Time out error.';
+                } else if (exception === 'abort') {
+                    msg = 'Ajax request aborted.';
+                } else {
+                    msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                }
+                alert(msg);
             }
         });
 
@@ -114,8 +234,9 @@ function onJoinClick() {
     let room = $('#joinRoomText').val();
     if (room.length != 0) {
         console.log(room);
+        console.log('http://' + window.location.host + '/' +virtDir + '/Room/JoinRoom?roomName=' + room);
         $.ajax({
-            url: '/Room/JoinRoom?roomName=' + room,
+            url: 'http://' + window.location.host + '/' +virtDir + '/Room/JoinRoom?roomName=' + room,
             type: 'post',
             cache: false,
             async: true,
@@ -125,6 +246,25 @@ function onJoinClick() {
                 console.log(result);
                 $('#partialChats').html(result);
                 loadMessageView(room);
+            },
+            error: function (jqXHR, exception) {
+                var msg = '';
+                if (jqXHR.status === 0) {
+                    msg = 'Not connect.\n Verify Network.';
+                } else if (jqXHR.status == 404) {
+                    msg = 'Requested page not found. [404]';
+                } else if (jqXHR.status == 500) {
+                    msg = 'Internal Server Error [500].';
+                } else if (exception === 'parsererror') {
+                    msg = 'Requested JSON parse failed.';
+                } else if (exception === 'timeout') {
+                    msg = 'Time out error.';
+                } else if (exception === 'abort') {
+                    msg = 'Ajax request aborted.';
+                } else {
+                    msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                }
+                alert(msg);
             }
         });
               $('#joinRoomText').val('');
@@ -134,13 +274,17 @@ function onJoinClick() {
 }
 function OpenYoutube() {
     $.ajax({
-        url: '/Room/YoutubePlayer',
+        url: 'http://' + window.location.host + '/' +virtDir + '/Room/YoutubePlayer',
         type: 'get',
         cache: false,
         async: true,
         success: function (result) {
             console.log(result);
             $('#modDialog').modal('show');
+        },
+        error: function (xhr, status, error) {
+            var err = eval("(" + xhr.responseText + ")");
+            alert(err.Message);
         }
     });
 }
@@ -160,20 +304,126 @@ $('body').on('click', '.createBtn', function () {
     }
 });
 
+function writeLinkInput() {
+    var input = $("#write_link").val();
+    if (input.includes("youtube") && (input.includes("watch") || input.includes("list"))) {
+        $.connection.groupHubs.server.GetVideosFromLink( input );
 
-
+    }
+};
 
 $('body').on('click', '.link_send_btn', function () {
     let msg = $('#write_link').val();
     if (msg.length != 0) {
         console.log(msg);
         $.connection.groupHubs.server.changeVideoSource(currentRoomName, msg).done(function (videos) {
-            alert("Added");
+           // alert("Added");
         });
         //videopl.src({ type: "video/youtube", src: msg });
 
     }
 });
+
+$('body').on('click', '.ytp-suggestion-link', function () {
+          //  alert("Added");
+
+});
+$('#vid1').on('click', function () {
+   // alert("inside suggestion-link");
+});
+$('.ytp-suggestion-image').on('click', function () {
+   // alert("inside suggestion-image");
+});
+$('.ytp-suggestion-overlay').on('click', function () {
+   // alert("inside ytp-suggestion-overlay");
+});
+function playlistButtonPress() {
+    if (document.getElementById('playlist-ui').style.width == '0px' || document.getElementById('playlist-ui').style.width == '') {
+        document.getElementById('playlist-ui').style.width = '20%';
+        document.getElementById('playlist-ui').style.height = '100%';
+        document.getElementById('playlist_slide').style.marginRight = '20%';
+    }
+    else if (document.getElementById('playlist-ui').style.width == '20%') {
+        document.getElementById('playlist-ui').style.width = '0';
+        document.getElementById('playlist-ui').style.height = '0';
+        document.getElementById('playlist_slide').style.marginRight = '0%';
+    }
+}
+/*
+function openSlidePlaylist() {
+    document.getElementById('playlist-ui').style.width = '25%';
+}
+function closeSlidePlaylist() {
+    document.getElementById('playlist-ui').style.width = '0';
+}
+*/
+(function ($, sr) {
+
+    // debouncing function from John Hann
+    // http://unscriptable.com/index.php/2009/03/20/debouncing-javascript-methods/
+    var debounce = function (func, threshold, execAsap) {
+        var timeout;
+
+        return function debounced() {
+            var obj = this, args = arguments;
+            function delayed() {
+                if (!execAsap)
+                    func.apply(obj, args);
+                timeout = null;
+            };
+
+            if (timeout)
+                clearTimeout(timeout);
+            else if (execAsap)
+                func.apply(obj, args);
+
+            timeout = setTimeout(delayed, threshold || 100);
+        };
+    }
+    // smartresize 
+    jQuery.fn[sr] = function (fn) { return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr); };
+
+})(jQuery, 'smartresize');
+/*
+$(function () {
+
+    // Find all <video> element
+    var $allVideos = $('video'),
+
+        // The element that is fluid width
+        $fluidEl = $('#content_container');
+
+    // Figure out and save the aspect ratio for each <video> element on the page
+    $allVideos.each(function () {
+
+        $(this)
+            // values from <video> height and width attributes
+            .data('aspectRatio', this.height / this.width)
+
+            // and remove the hard coded width/height
+            .removeAttr('height')
+            .removeAttr('width');
+
+    });
+
+    // When the window is resized
+    $(window).smartresize(function () {
+
+        var newWidth = $fluidEl.width();
+
+        // Resize all <video> according to their own aspect ratio
+        $allVideos.each(function () {
+
+            var $el = $(this);
+            $el
+                .width(newWidth)
+                .height(newWidth * $el.data('aspectRatio'));
+
+        });
+
+        // Kick off one resize to fix all videos on page load
+    }).resize();
+});*/
 //$scope.currentRoomName = "";
 //$rootScope.$on("chatRoomChanged", function (args, room)
 //{
@@ -210,6 +460,12 @@ if (currentRoomName !== undefined) {
     //    alert("Browser has loaded the current frame");
     //});
 
+    videopl.on("mouseover", function () {
+        document.getElementById("room_name").style.opacity = 1;
+    });
+    videopl.on("mouseout", function () {
+        document.getElementById("room_name").style.opacity = 0;
+    });
     var myMiddleware = function (videopl) {
         let tech;
         var prevCurrentTime;
@@ -237,7 +493,7 @@ if (currentRoomName !== undefined) {
             },
             // Required for middleware. Simply passes along the source
             loadeddata: function (time) {
-                alert("Browser has loaded the current frame");
+                //alert("Browser has loaded the current frame");
             }
         };
     };
@@ -267,13 +523,13 @@ if (currentRoomName !== undefined) {
     //    // try doing console.log(e.target.nodeName), it will result LI
     //});
     function notifyUserOfTryingToReconnect() {
-        alert("TRYING TO RECCONECT");
+       // alert("TRYING TO RECCONECT");
     }
     function notifyUserOfConnectionProblem() {
-        alert("YOU HAVE A CONNECTION PROBLEM :)");
+        //alert("YOU HAVE A CONNECTION PROBLEM :)");
     }
     function notifyUserOfDisconnect() {
-        alert("DISCONECTED!!! :)");
+       // alert("DISCONECTED!!! :)");
     }
 $(function () {
     var chat = $.connection.groupHubs;
@@ -330,6 +586,32 @@ $(function () {
 
         
     }
+    chat.client.previewVideoFromLink = function (videos) {
+        if (index != videopl.playlist.currentIndex()) {
+            isServerChangePlaylist = true;
+            videopl.playlist.currentItem(index)
+            console.log("442" + isServerChangePlaylist);
+            setPlaylistIndexTimeSet = true;
+            timeToSet = time;
+        }
+        else {
+            setPlaylistIndexTimeSet = true;
+            timeToSet = time;
+        }
+      //  videopl.playlist.currentItem(index)
+
+        
+    }
+
+    chat.client.previewLoadedVideos = function (videos) {
+
+        var vid = JSON.parse(source);
+      //  videopl.playlist.currentItem(index)
+
+        document.getElementById("playlist-ui2")(videos);
+        
+    }
+
     chat.client.changeVideoSource = function (source) {
         var vid = JSON.parse(source);
         //alert(typeof source);
@@ -351,18 +633,35 @@ $(function () {
         // Добавление сообщений на веб-страницу 
         //document.getElementById("add_to_me").innerHTML +=
         if (roomName == currentRoomName) {
-            $('#msg_history').append(
-                '< div class= "incoming_msg" > ' +
-                '<div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>' +
-                '<div class="received_msg">' +
-                '<div class="received_withd_msg">' +
-                '<p>' +
-                message +
-                '</p >' +
-                '<span class="time_date">' + time + '</span>' +
-                '</div>' +
-                '</div>' +
-                '</div>');
+            /*$('#msg_history').append(
+                '<li class= "incoming_msg" > ' +
+                    '<div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>' +
+                        '<div class="received_msg">' +
+                            '<div class="received_withd_msg">' +
+                                '<p>' +
+                                message +
+                                '</p >' +
+                                '<span class="time_date">' + time + '</span>' +
+                             '</div>' +
+                        '</div>' +
+                    '</div>' +
+                '</li>');*/
+            
+            var new_message =
+                $(`<li class="incoming_msg">
+                <div class="received_msg">
+                    <div class="received_msg sender_name">` +
+                            name +
+                    `</div>
+                    <div class="received_withd_msg">
+                        <p>` +
+                            message +
+                            `</p>
+                    </div>
+                    <span class="time_date" id="msg_time">` + time + `</span>
+                </div>
+            </li>`).addClass('incoming_msg');
+            new_message.appendTo('#msg_history');
         }
         else {
             loadChatsView();
@@ -370,15 +669,30 @@ $(function () {
     };
     chat.client.addCallerMessage = function (name, message, time) {
 
-        $('#msg_history').append(`<div class="outgoing_msg">
+        $('#msg_history').append(`<li class="outgoing_msg">
+            <div class="sent_msg">
+                <div class="outgoing_msg sender_name">
+                    <p>` +
+                        name +
+                    `</p>
+                </div>
+                <div class="received_withd_msg">
+                    <p>` +
+                        message +
+                    `</p>
+                </div>
+                <span class="time_date"> @msg.sendDate </span>
+            </div>
+        </li>`);
+        /*$('#msg_history').append(`<li class="outgoing_msg">
                                             <div class= "sent_msg">
                                                 <p>`+
                                                 message +
                                                 `</p> 
-                                                <span class="time_date">`+ time + `</span>
                                             </div >
-                                        </div >`
-        );
+                                            <span class="time_date">`+ time + `</span>
+                                        </li >`
+        );*/
         updateScroll();
     };
 
@@ -459,12 +773,12 @@ $(function () {
     videopl.on("playlistitem", function (id, jd) {
 
         if (!isServerChangePlaylist && jd.playlistItemId_ != videopl.playlist.currentIndex() ) {
-            alert(id + " ::::: " + jd + " " + isServerChangePlaylist + " defined ID: " + videopl.playlist.currentIndex());
+            //alert(id + " ::::: " + jd + " " + isServerChangePlaylist + " defined ID: " + videopl.playlist.currentIndex());
 
             $.connection.groupHubs.server.changePlaylistItem(currentRoomName, videopl.playlist.currentIndex());
         }
         else if (isServerChangePlaylist) {
-            alert(id + " " +isServerChangePlaylist + " server");
+            //alert(id + " " +isServerChangePlaylist + " server");
             isServerChangePlaylist = false;
             console.log("458" + isServerChangePlaylist);
         }
@@ -512,7 +826,7 @@ $(function () {
         });
 
     }).fail(function (e) {
-        alert('There was an error');
+        //alert('There was an error');
         console.error(e);
     });;
 });

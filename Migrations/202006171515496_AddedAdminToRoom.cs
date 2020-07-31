@@ -1,8 +1,7 @@
 ﻿namespace Chat.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class AddedAdminToRoom : DbMigration
     {
         public override void Up()
@@ -22,18 +21,18 @@
             AddForeignKey("dbo.AspNetUsers", "ConversationRoom_RoomName", "dbo.ConversationRooms", "RoomName");
             DropTable("dbo.ApplicationUserConversationRooms");
         }
-        
+
         public override void Down()
         {
             CreateTable(
                 "dbo.ApplicationUserConversationRooms",
                 c => new
-                    {
-                        ApplicationUser_Id = c.String(nullable: false, maxLength: 128),
-                        ConversationRoom_RoomName = c.String(nullable: false, maxLength: 128),
-                    })
+                {
+                    ApplicationUser_Id = c.String(nullable: false, maxLength: 128),
+                    ConversationRoom_RoomName = c.String(nullable: false, maxLength: 128),
+                })
                 .PrimaryKey(t => new { t.ApplicationUser_Id, t.ConversationRoom_RoomName });
-            
+
             DropForeignKey("dbo.AspNetUsers", "ConversationRoom_RoomName", "dbo.ConversationRooms");
             DropForeignKey("dbo.ConversationRooms", "currentAdmin_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.ConversationRooms", "ApplicationUser_Id", "dbo.AspNetUsers");

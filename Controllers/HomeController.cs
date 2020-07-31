@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace Chat.Controllers
 {
@@ -10,9 +6,9 @@ namespace Chat.Controllers
     {
         public ActionResult Index()
         {
-            if( User.Identity.IsAuthenticated )
+            if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Chat","Room");
+                return RedirectToAction("Chat", "Room");
             }
             return View();
         }

@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Chat.Models;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Chat.Models;
 using System.Data.Entity;
+using System.Linq;
 
 namespace Chat.Repository
 {
@@ -11,7 +10,7 @@ namespace Chat.Repository
     public class UserRepository
     {
         public ApplicationDbContext db;
-        
+
         public UserRepository(ApplicationDbContext context)
         {
             db = context;
@@ -28,13 +27,13 @@ namespace Chat.Repository
         }
         public ApplicationUser GetByIdDetached(string id)
         {
-            var user = db.Users.Find(id);
+            ApplicationUser user = db.Users.Find(id);
             db.Entry(user).State = EntityState.Detached;
             return user;
         }
-        public List< ApplicationUser > GetByRoomName(string roomId )
+        public List<ApplicationUser> GetByRoomName(string roomId)
         {
-            return db.Users.Where(m => m.Rooms.SingleOrDefault( r => r.RoomName == roomId) != null ).ToList();
+            return db.Users.Where(m => m.Rooms.SingleOrDefault(r => r.RoomName == roomId) != null).ToList();
         }
 
         public void Create(ApplicationUser user)
@@ -55,28 +54,32 @@ namespace Chat.Repository
         {
             ApplicationUser user = db.Users.Find(id);
             if (user != null)
+            {
                 db.Users.Remove(user);
+            }
         }
 
         public void Delete(ApplicationUser user)
         {
             ApplicationUser ApplicationUser = db.Users.Find(user);
             if (user != null)
+            {
                 db.Users.Remove(user);
+            }
         }
 
         private bool disposed = false;
 
         public virtual void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
                     db.Dispose();
                 }
             }
-            this.disposed = true;
+            disposed = true;
         }
 
         public void Dispose()

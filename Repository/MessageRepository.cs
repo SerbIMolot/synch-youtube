@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Chat.Models;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Chat.Models;
 using System.Data.Entity;
+using System.Linq;
 
 namespace Chat.Repository
 {
@@ -27,13 +26,13 @@ namespace Chat.Repository
         }
         public Message GetByIdDetached(int id)
         {
-            var msg = db.Messages.Find(id);
+            Message msg = db.Messages.Find(id);
             db.Entry(msg).State = EntityState.Detached;
             return msg;
         }
         public List<Message> GetByUser(ApplicationUser user)
         {
-            return db.Messages.Where(m => m.SenderUser == user ).ToList();
+            return db.Messages.Where(m => m.SenderUser == user).ToList();
         }
         public List<Message> GetByUserId(string userId)
         {
@@ -41,7 +40,7 @@ namespace Chat.Repository
         }
         public List<Message> GetByRoom(ConversationRoom room)
         {
-            return db.Messages.Where(m => m.Room.RoomName == room.RoomName ).ToList();
+            return db.Messages.Where(m => m.Room.RoomName == room.RoomName).ToList();
         }
         public List<Message> GetByRoomName(string roomId)
         {
@@ -66,7 +65,9 @@ namespace Chat.Repository
         {
             Message msg = db.Messages.Find(id);
             if (msg != null)
+            {
                 db.Messages.Remove(msg);
+            }
         }
         public void DeleteRange(IEnumerable<Message> msgList)
         {
@@ -76,21 +77,23 @@ namespace Chat.Repository
         {
             Message message = db.Messages.Find(msg);
             if (msg != null)
+            {
                 db.Messages.Remove(msg);
+            }
         }
 
         private bool disposed = false;
 
         public virtual void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
                     db.Dispose();
                 }
             }
-            this.disposed = true;
+            disposed = true;
         }
 
         public void Dispose()

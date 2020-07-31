@@ -1,10 +1,8 @@
-﻿using System;
+﻿using Chat.Models;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Chat.Models;
-
 using System.Data.Entity;
+using System.Linq;
 namespace Chat.Repository
 {
     public class ConversationRoomRepository
@@ -27,24 +25,24 @@ namespace Chat.Repository
         }
         public ConversationRoom GetByIdDetached(string id)
         {
-            var room = db.Rooms.Find(id);
+            ConversationRoom room = db.Rooms.Find(id);
             db.Entry(room).State = EntityState.Detached;
             return room;
         }
         public List<ConversationRoom> GetByUser(ApplicationUser user)
         {
-            return db.Rooms.Where(m => m.Users.Contains( user ) ).ToList();
+            return db.Rooms.Where(m => m.Users.Contains(user)).ToList();
         }
         public List<ConversationRoom> GetByUserId(string userId)
         {
-            var user = db.Users.SingleOrDefault( u => u.Id == userId );
-            var rooms = db.Rooms.ToList();
+            ApplicationUser user = db.Users.SingleOrDefault(u => u.Id == userId);
+            List<ConversationRoom> rooms = db.Rooms.ToList();
 
-            List<ConversationRoom> roomsWithUser = new List<ConversationRoom>(); 
+            List<ConversationRoom> roomsWithUser = new List<ConversationRoom>();
 
-            foreach( var room in rooms )
+            foreach (ConversationRoom room in rooms)
             {
-                if( room.Users.Contains(user) )
+                if (room.Users.Contains(user))
                 {
                     roomsWithUser.Add(room);
                 }
@@ -53,7 +51,7 @@ namespace Chat.Repository
         }
         public ConversationRoom GetByRoomName(string roomId)
         {
-            return db.Rooms.Include( r => r.Users ).Include( r => r.currentAdmin).Include(r => r.currentAdmin.Connections ).SingleOrDefault(r => r.RoomName == roomId);
+            return db.Rooms.Include(r => r.Users).Include(r => r.currentAdmin).Include(r => r.currentAdmin.Connections).SingleOrDefault(r => r.RoomName == roomId);
         }
 
         public void Create(ConversationRoom room)
@@ -75,10 +73,10 @@ namespace Chat.Repository
             ConversationRoom room = db.Rooms.Find(id);
             if (room != null)
             {
-                using ( var unit = new UnitOfWork() )
+                using (UnitOfWork unit = new UnitOfWork())
                 {
-                    var messages = unit.messageRepository.GetByRoom( room );
-                    unit.messageRepository.DeleteRange( messages );
+                    List<Message> messages = unit.messageRepository.GetByRoom(room);
+                    unit.messageRepository.DeleteRange(messages);
                     unit.Save();
                 }
                 db.Rooms.Remove(room);
@@ -87,7 +85,7 @@ namespace Chat.Repository
         }
         public void DeleteRange(IEnumerable<ConversationRoom> roomList)
         {
-            foreach( var room in roomList )
+            foreach (ConversationRoom room in roomList)
             {
                 Delete(room);
 
@@ -97,9 +95,9 @@ namespace Chat.Repository
         {
             if (room != null)
             {
-                using (var unit = new UnitOfWork())
+                using (UnitOfWork unit = new UnitOfWork())
                 {
-                    var messages = unit.messageRepository.GetByRoom(room);
+                    List<Message> messages = unit.messageRepository.GetByRoom(room);
                     unit.messageRepository.DeleteRange(messages);
                     unit.Save();
                 }
@@ -112,14 +110,14 @@ namespace Chat.Repository
 
         public virtual void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
                     db.Dispose();
                 }
             }
-            this.disposed = true;
+            disposed = true;
         }
 
         public void Dispose()

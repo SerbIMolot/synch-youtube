@@ -1,30 +1,26 @@
-﻿using System;
-using System.Data.Entity;
+﻿using Chat.Repository;
+using log4net;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.SignalR;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using System.Collections.Concurrent;
-using Microsoft.AspNet.SignalR;
 using System.Web;
-using Chat.Repository;
 using System.Web.WebPages;
-using System.Collections.Generic;
 using YoutubeExplode;
-using System.Web.Helpers;
-using Newtonsoft.Json;
-using System.IO;
-using System.Data.Entity.ModelConfiguration.Conventions;
-using Google.Apis.YouTube.v3.Data;
-using log4net;
 
 namespace Chat.Models
 {
     public class GroupHubs : Hub
     {
-        ConcurrentDictionary<string, float> roomTimes;
-        ConcurrentDictionary<string, string> CurrentRoomsOfUsers;
-        static ConcurrentDictionary<string, List<YoutubeVideo>> VideosInRoom = new ConcurrentDictionary<string, List<YoutubeVideo>>();
-        List<ChatViewModel> currentRooms;
+        private readonly ConcurrentDictionary<string, float> roomTimes;
+        private readonly ConcurrentDictionary<string, string> CurrentRoomsOfUsers;
+        private static readonly ConcurrentDictionary<string, List<YoutubeVideo>> VideosInRoom = new ConcurrentDictionary<string, List<YoutubeVideo>>();
+        private readonly List<ChatViewModel> currentRooms;
         private static readonly ILog Log = LogManager.GetLogger(typeof(GroupHubs));
         public GroupHubs()
         {
@@ -32,31 +28,31 @@ namespace Chat.Models
             roomTimes = new ConcurrentDictionary<string, float>();
             currentRooms = new List<ChatViewModel>();
         }
-        public override Task OnConnected( )
+        public override Task OnConnected()
         {
-            using (var db = new UnitOfWork())
+            using (UnitOfWork db = new UnitOfWork())
             {
-                var user = db.userRepository.GetById(Context.User.Identity.GetUserId());
+                ApplicationUser user = db.userRepository.GetById(Context.User.Identity.GetUserId());
 
-                if (user != null )
+                if (user != null)
                 {
 
 
-                        Connection connection = new Connection
-                        {
-                            ConnectionID = Context.ConnectionId,
-                            UserAgent = Context.Request.Headers["User-Agent"],
-                            Connected = true
-                        };
+                    Connection connection = new Connection
+                    {
+                        ConnectionID = Context.ConnectionId,
+                        UserAgent = Context.Request.Headers["User-Agent"],
+                        Connected = true
+                    };
 
-                        user.currentConnectionId = Context.ConnectionId;
+                    user.currentConnectionId = Context.ConnectionId;
 
-                        user.Connections.Add(connection);
+                    user.Connections.Add(connection);
 
-                        db.connectionsRepository.Create(connection);
+                    db.connectionsRepository.Create(connection);
 
-                        db.userRepository.Update(user);
-                        db.Save();
+                    db.userRepository.Update(user);
+                    db.Save();
 
                     //foreach (var item in user.Rooms)
                     //{
@@ -75,24 +71,24 @@ namespace Chat.Models
             }
             return base.OnConnected();
         }
-        public void UpdatePlaylist( string roomName )
+        public void UpdatePlaylist(string roomName)
         {
-            using ( var db = new UnitOfWork() )
+            using (UnitOfWork db = new UnitOfWork())
             {
-                var room = db.conversationRoomRepository.GetById(roomName);
-                if( room != null && VideosInRoom.ContainsKey(roomName))
+                ConversationRoom room = db.conversationRoomRepository.GetById(roomName);
+                if (room != null && VideosInRoom.ContainsKey(roomName))
                 {
                     Clients.Caller.changeVideoSource(ToJsonRange(VideosInRoom[roomName]));
                 }
             }
         }
-        public void LoadMessageHistory( string roomName )
+        public void LoadMessageHistory(string roomName)
         {
-            using (var db = new UnitOfWork())
+            using (UnitOfWork db = new UnitOfWork())
             {
-                var msges = db.messageRepository.GetByRoomName(roomName).ToList();
+                List<Message> msges = db.messageRepository.GetByRoomName(roomName).ToList();
 
-                foreach (var msg in msges)
+                foreach (Message msg in msges)
                 {
                     if (msg.SenderUserId != Context.User.Identity.GetUserId())
                     {
@@ -107,35 +103,35 @@ namespace Chat.Models
                 }
             }
         }
-        public void UpdateRoomCurrentTime( string roomName, float time )
+        public void UpdateRoomCurrentTime(string roomName, float time)
         {
-            if( !roomName.IsEmpty() )
+            if (!roomName.IsEmpty())
             {
                 roomTimes[roomName] = time;
             }
         }
-        public void SwitchAdminForRoom( string roomName, string userName )
+        public void SwitchAdminForRoom(string roomName, string userName)
         {
-            if (!roomName.IsEmpty() && !userName.IsEmpty() )
+            if (!roomName.IsEmpty() && !userName.IsEmpty())
             {
-                using ( var db = new UnitOfWork() )
+                using (UnitOfWork db = new UnitOfWork())
                 {
-                    var room = db.conversationRoomRepository.GetByRoomName(roomName);
-                    
-                    if( room != null )
+                    ConversationRoom room = db.conversationRoomRepository.GetByRoomName(roomName);
+
+                    if (room != null)
                     {
-                        if( room.currentAdmin.UserName == userName && room.Users.Count > 1 )
+                        if (room.currentAdmin.UserName == userName && room.Users.Count > 1)
                         {
-                            var random = new Random();
-                            for( bool quit =  false; quit != true; )
+                            Random random = new Random();
+                            for (bool quit = false; quit != true;)
                             {
 
                                 int index = random.Next(room.Users.Count);
-                                if( room.Users[index].UserName != userName )
+                                if (room.Users[index].UserName != userName)
                                 {
                                     room.currentAdmin = room.Users[index];
                                     quit = true;
-                                    Log.Debug("Old admin: " + userName + " New admin: " + room.currentAdmin.UserName );
+                                    Log.Debug("Old admin: " + userName + " New admin: " + room.currentAdmin.UserName);
                                     db.Save();
                                 }
                             }
@@ -146,15 +142,15 @@ namespace Chat.Models
                 }
             }
         }
-        public void ChangePlaylistItem( string roomName, int id )
+        public void ChangePlaylistItem(string roomName, int id)
         {
             if (!roomName.IsEmpty())
             {
-                using (var db = new UnitOfWork())
+                using (UnitOfWork db = new UnitOfWork())
                 {
-                    
+
                     Clients.OthersInGroup(roomName).changePlaylistItem(id);
-                    
+
                 }
             }
         }
@@ -162,13 +158,13 @@ namespace Chat.Models
         {
             if (!roomName.IsEmpty())
             {
-                using (var db = new UnitOfWork())
+                using (UnitOfWork db = new UnitOfWork())
                 {
-                    var room = db.conversationRoomRepository.GetByRoomName(roomName);
-                    
-                    if( room.Users.Count > 0 )
+                    ConversationRoom room = db.conversationRoomRepository.GetByRoomName(roomName);
+
+                    if (room.Users.Count > 0)
                     {
-                        Clients.Caller.updateUsersInRoom( ToJsonRange(room.Users), room );
+                        Clients.Caller.updateUsersInRoom(ToJsonRange(room.Users), room);
                     }
                 }
             }
@@ -177,29 +173,29 @@ namespace Chat.Models
         {
             if (!roomName.IsEmpty())
             {
-                using (var db = new UnitOfWork())
+                using (UnitOfWork db = new UnitOfWork())
                 {
-                    var room = db.conversationRoomRepository.GetByRoomName(roomName);
-                    
-                    if( room != null && room.Users.Count > 0 )
+                    ConversationRoom room = db.conversationRoomRepository.GetByRoomName(roomName);
+
+                    if (room != null && room.Users.Count > 0)
                     {
-                        Clients.Group( roomName ).updateUsersInRoom( ToJson(room) );
+                        Clients.Group(roomName).updateUsersInRoom(ToJson(room));
                     }
                 }
             }
         }
-        public void RequestTimeSynch( string roomName, string userName )
+        public void RequestTimeSynch(string roomName, string userName)
         {
-            if( !roomName.IsEmpty() )
+            if (!roomName.IsEmpty())
             {
-                using( var db = new UnitOfWork() )
+                using (UnitOfWork db = new UnitOfWork())
                 {
-                    var room = db.conversationRoomRepository.GetByRoomName(roomName);
-                    if( room != null )
+                    ConversationRoom room = db.conversationRoomRepository.GetByRoomName(roomName);
+                    if (room != null)
                     {
 
-                        var connection = room.currentAdmin.currentConnectionId;//Connections.SingleOrDefault(c => c.Connected == true);
-                        if( connection != null  && room.currentAdmin.Id != Context.User.Identity.GetUserId())
+                        string connection = room.currentAdmin.currentConnectionId;//Connections.SingleOrDefault(c => c.Connected == true);
+                        if (connection != null && room.currentAdmin.Id != Context.User.Identity.GetUserId())
                         {
                             Clients.Client(connection).synchWith(userName);
                         }
@@ -207,19 +203,19 @@ namespace Chat.Models
                 }
             }
         }
-        public  void SetTimeForOtherClient( string clientName, float time, int playlistIndex )
+        public void SetTimeForOtherClient(string clientName, float time, int playlistIndex)
         {
-            if( !clientName.IsEmpty() )
+            if (!clientName.IsEmpty())
             {
-                using ( var db = new UnitOfWork() )
+                using (UnitOfWork db = new UnitOfWork())
                 {
-                    var users = db.userRepository.GetList().ToList();
+                    List<ApplicationUser> users = db.userRepository.GetList().ToList();
 
-                    var user = users.SingleOrDefault( u => u.UserName == clientName );
+                    ApplicationUser user = users.SingleOrDefault(u => u.UserName == clientName);
 
-                    if( user != null )
+                    if (user != null)
                     {
-                        var connection = user.currentConnectionId;
+                        string connection = user.currentConnectionId;
 
                         Clients.Client(connection).setPlaylistIndexTime(playlistIndex, time);
 
@@ -229,40 +225,40 @@ namespace Chat.Models
             }
         }
 
-        public void ValueForCallerRoomTime( string roomName, float time )
+        public void ValueForCallerRoomTime(string roomName, float time)
         {
-            using (var db = new UnitOfWork())
+            using (UnitOfWork db = new UnitOfWork())
             {
-                var room = db.conversationRoomRepository.GetByRoomName(roomName);
+                ConversationRoom room = db.conversationRoomRepository.GetByRoomName(roomName);
 
-                if( room != null )
+                if (room != null)
                 {
                     Clients.Caller.setTime(time);
                 }
             }
         }
-        public void SetCallerCurrentTime( string roomName )
+        public void SetCallerCurrentTime(string roomName)
         {
-            using (var db = new UnitOfWork())
+            using (UnitOfWork db = new UnitOfWork())
             {
-                var room = db.conversationRoomRepository.GetByRoomName(roomName);
+                ConversationRoom room = db.conversationRoomRepository.GetByRoomName(roomName);
 
-                if( room != null )
+                if (room != null)
                 {
                     //Clients.Caller.(roomTimes[roomName]);
                 }
             }
         }
-        public void SwitchCurrentRoom( string newRoomName )
+        public void SwitchCurrentRoom(string newRoomName)
         {
-            using (var db = new UnitOfWork())
+            using (UnitOfWork db = new UnitOfWork())
             {
-                var room = db.conversationRoomRepository.GetByRoomName(newRoomName);
-                var user = db.userRepository.GetById(Context.User.Identity.GetUserId());
-                if ( room != null && user != null )
+                ConversationRoom room = db.conversationRoomRepository.GetByRoomName(newRoomName);
+                ApplicationUser user = db.userRepository.GetById(Context.User.Identity.GetUserId());
+                if (room != null && user != null)
                 {
-                    var newCurrentRoom = currentRooms.FirstOrDefault(r => r.room.RoomName == newRoomName);
-                    if( newCurrentRoom == null )
+                    ChatViewModel newCurrentRoom = currentRooms.FirstOrDefault(r => r.room.RoomName == newRoomName);
+                    if (newCurrentRoom == null)
                     {
                         newCurrentRoom = new ChatViewModel();
                         newCurrentRoom.room.RoomName = room.RoomName;
@@ -279,63 +275,61 @@ namespace Chat.Models
                     }
 
                     CurrentRoomsOfUsers[HttpContext.Current.User.Identity.GetUserId()] = newRoomName;
-                    float currentTime = 0;
-                    string userName;
-                    foreach ( var rUser in room.Users )
+                    foreach (ApplicationUser rUser in room.Users)
                     {
-                        if( !CurrentRoomsOfUsers.TryGetValue(rUser.UserName, out userName) )
+                        if (!CurrentRoomsOfUsers.TryGetValue(rUser.UserName, out string userName))
                         {
                             continue;
                         }
-                        var connection = rUser.Connections.SingleOrDefault( c => c.ConnectionID == Context.ConnectionId);
-                        if( connection != null )
+                        Connection connection = rUser.Connections.SingleOrDefault(c => c.ConnectionID == Context.ConnectionId);
+                        if (connection != null)
                         {
-                            Clients.Client( connection.ConnectionID ).forceTimeUpdateServer();
+                            Clients.Client(connection.ConnectionID).forceTimeUpdateServer();
 
                         }
                         Clients.Caller().timeUpdate(roomTimes[newRoomName]);
                     }
-                    
+
                     //var users CurrentRoomsOfUsers[newRoomName];
                     //Clients.
                 }
             }
         }
-        public void SetRoomTime( string roomName )
+        public void SetRoomTime(string roomName)
         {
-            using (var db = new UnitOfWork())
+            using (UnitOfWork db = new UnitOfWork())
             {
-                var room = db.conversationRoomRepository.GetByRoomName(roomName);
+                ConversationRoom room = db.conversationRoomRepository.GetByRoomName(roomName);
 
-                if( room != null )
+                if (room != null)
                 {
                     //List<ConnectionsId>
-                    var currentState = currentRooms.SingleOrDefault( r => r.room.RoomName == room.RoomName );
-                    foreach( var user in room.Users )
+                    ChatViewModel currentState = currentRooms.SingleOrDefault(r => r.room.RoomName == room.RoomName);
+                    foreach (ApplicationUser user in room.Users)
                     {
-                        if( currentState.room.Users.Contains( user ) )
+                        if (currentState.room.Users.Contains(user))
                         {
 
                         }
 
                     }
-                    foreach( var user in currentState.room.Users)
+                    foreach (ApplicationUser user in currentState.room.Users)
                     {
                         //var connection = user.Connections()
-                        Clients.Client( roomName ).setTime( roomTimes[roomName] );
+                        Clients.Client(roomName).setTime(roomTimes[roomName]);
 
-                    }    
+                    }
                 }
             }
         }
 
         public void SendGroupMessage(string roomName, string message)
         {
-            var name = Context.User.Identity.Name;
-            using (var db = new UnitOfWork())
+            string name = Context.User.Identity.Name;
+            using (UnitOfWork db = new UnitOfWork())
             {
-                var room = db.conversationRoomRepository.GetById(roomName);
-                var user = db.userRepository.GetById(Context.User.Identity.GetUserId());
+                ConversationRoom room = db.conversationRoomRepository.GetById(roomName);
+                ApplicationUser user = db.userRepository.GetById(Context.User.Identity.GetUserId());
 
                 if (room == null)
                 {
@@ -343,9 +337,9 @@ namespace Chat.Models
                 }
                 else
                 {
-                     var connections = user.Connections.Where( c => c.Connected == true );
+                    IEnumerable<Connection> connections = user.Connections.Where(c => c.Connected == true);
 
-                    var msg = new Message()
+                    Message msg = new Message()
                     {
                         Room = room,
                         SenderUser = user,
@@ -354,8 +348,8 @@ namespace Chat.Models
                         sendDate = DateTime.Now
                     };
 
-                        Clients.OthersInGroup(roomName).addMessage(Context.User.Identity.Name, message, roomName, msg.sendDate.ToString());
-                        Clients.Caller.addCallerMessage(Context.User.Identity.Name, message, msg.sendDate.ToString());
+                    Clients.OthersInGroup(roomName).addMessage(Context.User.Identity.Name, message, roomName, msg.sendDate.ToString());
+                    Clients.Caller.addCallerMessage(Context.User.Identity.Name, message, msg.sendDate.ToString());
 
 
 
@@ -368,9 +362,9 @@ namespace Chat.Models
         public void JoinRoom(string roomName)
         {
 
-            using (var db = new UnitOfWork())
+            using (UnitOfWork db = new UnitOfWork())
             {
-                var room = db.conversationRoomRepository.GetById(roomName);
+                ConversationRoom room = db.conversationRoomRepository.GetById(roomName);
 
                 if (room != null)
                 {
@@ -392,9 +386,9 @@ namespace Chat.Models
         public void RemoveFromRoom(string roomName)
         {
 
-            using (var db = new UnitOfWork())
+            using (UnitOfWork db = new UnitOfWork())
             {
-                var room = db.conversationRoomRepository.GetById(roomName);
+                ConversationRoom room = db.conversationRoomRepository.GetById(roomName);
                 if (room != null)
                 {
                     ApplicationUser user = db.userRepository.GetById(Context.User.Identity.GetUserId());
@@ -413,7 +407,7 @@ namespace Chat.Models
         }
         public void GroupPlay(string roomName)
         {
-            if( roomName != null )
+            if (roomName != null)
             {
                 Clients.OthersInGroup(roomName).GroupPlay();
             }
@@ -433,9 +427,9 @@ namespace Chat.Models
                 Clients.OthersInGroup(roomName).timeUpdate(time);
             }
         }
-        public void UpdateRoomTime( string roomName, float time )
+        public void UpdateRoomTime(string roomName, float time)
         {
-                roomTimes[roomName] = time;
+            roomTimes[roomName] = time;
         }
         public void GetTimeForNewJoin(string roomName)
         {
@@ -448,20 +442,20 @@ namespace Chat.Models
         {
             if (roomName != null)
             {
-                using (var db = new UnitOfWork())
+                using (UnitOfWork db = new UnitOfWork())
                 {
-                    var room = db.conversationRoomRepository.GetById(roomName);
+                    ConversationRoom room = db.conversationRoomRepository.GetById(roomName);
 
-                    var youtube = new YoutubeClient();
+                    YoutubeClient youtube = new YoutubeClient();
                     List<YoutubeVideo> newVideos = new List<YoutubeVideo>();
 
                     if (source.Contains("list="))
                     {
-                        var playlist = await youtube.Playlists.GetAsync(source);
+                        YoutubeExplode.Playlists.Playlist playlist = await youtube.Playlists.GetAsync(source);
 
-                        foreach (var vid in await youtube.Playlists.GetVideosAsync(playlist.Id))
+                        foreach (YoutubeExplode.Videos.Video vid in await youtube.Playlists.GetVideosAsync(playlist.Id))
                         {
-                            var newVid = new YoutubeVideo()
+                            YoutubeVideo newVid = new YoutubeVideo()
                             {
                                 source = "https://www.youtube.com/watch?v=" + vid.Id,
                                 poster = vid.Thumbnails.MediumResUrl,
@@ -479,8 +473,8 @@ namespace Chat.Models
                     }
                     else
                     {
-                        var video = await youtube.Videos.GetAsync(source);
-                        var newVid = new YoutubeVideo()
+                        YoutubeExplode.Videos.Video video = await youtube.Videos.GetAsync(source);
+                        YoutubeVideo newVid = new YoutubeVideo()
                         {
                             source = "https://www.youtube.com/watch?v=" + video.Id,
                             poster = video.Thumbnails.MediumResUrl,
@@ -520,13 +514,70 @@ namespace Chat.Models
                     //db.Save();
 
                     Clients.Group(roomName).changeVideoSource(ToJsonRange(VideosInRoom[roomName]));
-                    
+
                     //return VideosInRoom[roomName];
                 }
             }
             return null;
         }
-        public static string ToJson( ApplicationUser user)
+        public async Task<IEnumerable<YoutubeVideo>> GetVideosFromLink(string source)
+        {
+            YoutubeClient youtube = new YoutubeClient();
+            List<YoutubeVideo> newVideos = new List<YoutubeVideo>();
+
+            if (source.Contains("list="))
+            {
+                YoutubeExplode.Playlists.Playlist playlist = await youtube.Playlists.GetAsync(source);
+
+                foreach (YoutubeExplode.Videos.Video vid in await youtube.Playlists.GetVideosAsync(playlist.Id))
+                {
+                    YoutubeVideo newVid = new YoutubeVideo()
+                    {
+                        source = "https://www.youtube.com/watch?v=" + vid.Id,
+                        poster = vid.Thumbnails.MediumResUrl,
+                        title = vid.Title
+
+                    };
+                    lock (SynchronousReadLock)
+                    {
+                        newVideos.Add(newVid);
+                    }
+                }
+                //VideosInRoom.AddOrUpdate( roomName, newVideos, (key, oldValue) => { oldValue.AddRange(newVideos); return oldValue; });
+
+            }
+            else
+            {
+                YoutubeExplode.Videos.Video video = await youtube.Videos.GetAsync(source);
+
+                YoutubeVideo newVid = new YoutubeVideo()
+                {
+                    source = "https://www.youtube.com/watch?v=" + video.Id,
+                    poster = video.Thumbnails.MediumResUrl,
+                    title = video.Title,
+                    duration = video.Duration.TotalSeconds,
+                    thumbnail = video.Thumbnails.StandardResUrl
+                };
+                lock (SynchronousReadLock)
+                {
+                    newVideos.Add(newVid);
+                };
+            }
+
+            //newVideos = JsonConvert.SerializeObject(room.RoomVideos);
+
+            //room.RoomVideos.AddRange( db.VideoRepository.CreateRange( newVideos ) );
+            //db.conversationRoomRepository.Update(room);
+
+            //db.Save();
+
+            Clients.Caller.previewLoadedVideos(ToJsonRange(newVideos));
+
+            //return VideosInRoom[roomName];
+
+            return null;
+        }
+        public static string ToJson(ApplicationUser user)
         {
             StringWriter sw = new StringWriter();
             JsonTextWriter writer = new JsonTextWriter(sw);
@@ -539,14 +590,14 @@ namespace Chat.Models
             writer.WriteValue(user.UserName);
             //writer.WritePropertyName("description");
             //writer.WriteValue(user.);
-            
+
 
             // }
             writer.WriteEndObject();
 
             return sw.ToString();
         }
-        public static string ToJson( ConversationRoom room )
+        public static string ToJson(ConversationRoom room)
         {
             StringWriter sw = new StringWriter();
             JsonTextWriter writer = new JsonTextWriter(sw);
@@ -565,14 +616,14 @@ namespace Chat.Models
 
             //writer.WritePropertyName("description");
             //writer.WriteValue(user.);
-            
+
 
             // }
             writer.WriteEndObject();
 
             return sw.ToString();
         }
-        public static string ToJsonRange( IEnumerable<ApplicationUser> users )
+        public static string ToJsonRange(IEnumerable<ApplicationUser> users)
         {
             StringWriter sw = new StringWriter();
             JsonTextWriter writer = new JsonTextWriter(sw);
@@ -580,7 +631,7 @@ namespace Chat.Models
             writer.WriteStartArray();
             //writer.WriteStartObject();
 
-            foreach (var user in users)
+            foreach (ApplicationUser user in users)
             {
 
                 if (user == users.Last())
@@ -600,7 +651,7 @@ namespace Chat.Models
 
             return sw.ToString();
         }
-        public static string ToJson( YoutubeVideo video )
+        public static string ToJson(YoutubeVideo video)
         {
             StringWriter sw = new StringWriter();
             JsonTextWriter writer = new JsonTextWriter(sw);
@@ -619,10 +670,10 @@ namespace Chat.Models
             writer.WriteStartArray();
             writer.WriteStartObject();
 
-            writer.WritePropertyName("src"); 
+            writer.WritePropertyName("src");
             writer.WriteValue(video.source);
 
-            writer.WritePropertyName("type"); 
+            writer.WritePropertyName("type");
             writer.WriteValue("video/youtube");
             writer.WriteEndObject();
             writer.WriteEndArray();
@@ -652,18 +703,18 @@ namespace Chat.Models
 
             return sw.ToString();
         }
-        public static string ToJsonRange( IEnumerable< YoutubeVideo > videos )
+        public static string ToJsonRange(IEnumerable<YoutubeVideo> videos)
         {
             StringWriter sw = new StringWriter();
             JsonTextWriter writer = new JsonTextWriter(sw);
 
             writer.WriteStartArray();
             //writer.WriteStartObject();
-            
-            foreach( var video in videos )
+
+            foreach (YoutubeVideo video in videos)
             {
 
-                if(video == videos.Last())
+                if (video == videos.Last())
                 {
                     writer.WriteRaw(ToJson(video));
                 }
@@ -682,7 +733,7 @@ namespace Chat.Models
         }
         public override Task OnReconnected()
         {
-            
+
             // Add your own code here.
             // For example: in a chat application, you might have marked the
             // user as offline after a period of inactivity; in that case 
@@ -692,37 +743,37 @@ namespace Chat.Models
         public override Task OnDisconnected(bool stopCalled)
         {
 
-                using (var db = new UnitOfWork())
-                {
-                var user = db.userRepository.GetById(Context.User.Identity.GetUserId());
+            using (UnitOfWork db = new UnitOfWork())
+            {
+                ApplicationUser user = db.userRepository.GetById(Context.User.Identity.GetUserId());
                 System.Diagnostics.Debug.WriteLine("STOP CALLED  =  " + stopCalled);
-                var connection = db.connectionsRepository.GetList().SingleOrDefault(c => c.ConnectionID == Context.ConnectionId && c.Connected == true);
+                Connection connection = db.connectionsRepository.GetList().SingleOrDefault(c => c.ConnectionID == Context.ConnectionId && c.Connected == true);
                 if (connection != null)
                 {
                     connection.Connected = false;
                     db.connectionsRepository.Update(connection);
                     db.Save();
                 }
-                    var connections = db.connectionsRepository.GetList().Where(c => c.ConnectionID == Context.ConnectionId && c.Connected == true);
-                foreach ( var con in connections )
-                    {
-                        System.Diagnostics.Debug.WriteLine(Context.User.Identity.Name + " curr connection " + Context.ConnectionId + " in array " + con.ConnectionID.ToString() + " State " + con.Connected ) ;
-                    }
-            if( stopCalled == true )
-            {
+                IEnumerable<Connection> connections = db.connectionsRepository.GetList().Where(c => c.ConnectionID == Context.ConnectionId && c.Connected == true);
+                foreach (Connection con in connections)
+                {
+                    System.Diagnostics.Debug.WriteLine(Context.User.Identity.Name + " curr connection " + Context.ConnectionId + " in array " + con.ConnectionID.ToString() + " State " + con.Connected);
+                }
+                if (stopCalled == true)
+                {
                     //var connections = db.connectionsRepository.GetList().Where(c => c.ConnectionID == Context.ConnectionId && c.Connected == true);
-                    foreach( var con in connections )
+                    foreach (Connection con in connections)
                     {
-                        System.Diagnostics.Debug.WriteLine(Context.User.Identity.Name + " curr connection " + Context.ConnectionId + " in array " + con.ConnectionID.ToString() + " State " + con.Connected ) ;
+                        System.Diagnostics.Debug.WriteLine(Context.User.Identity.Name + " curr connection " + Context.ConnectionId + " in array " + con.ConnectionID.ToString() + " State " + con.Connected);
                     }
-                    connection = db.connectionsRepository.GetList().SingleOrDefault( c => c.ConnectionID == Context.ConnectionId && c.Connected == true );
+                    connection = db.connectionsRepository.GetList().SingleOrDefault(c => c.ConnectionID == Context.ConnectionId && c.Connected == true);
                     if (connection != null)
                     {
                         connection.Connected = false;
                         db.connectionsRepository.Update(connection);
                         db.Save();
                     }
-                    foreach (var con in connections)
+                    foreach (Connection con in connections)
                     {
                         System.Diagnostics.Debug.WriteLine(Context.User.Identity.Name + " curr connection " + Context.ConnectionId + " in array " + con.ConnectionID.ToString() + " State " + con.Connected);
                     }
@@ -740,10 +791,10 @@ namespace Chat.Models
                     //}
                     //
                     Clients.Caller.onUserDisconnected(Context.User.Identity.Name);
-            }
+                }
 
-                var rooms = db.conversationRoomRepository.GetByUserId(Context.User.Identity.GetUserId());
-                foreach (var room in rooms)
+                List<ConversationRoom> rooms = db.conversationRoomRepository.GetByUserId(Context.User.Identity.GetUserId());
+                foreach (ConversationRoom room in rooms)
                 {
                     if (room.currentAdmin != null && room.currentAdmin.Id == Context.User.Identity.GetUserId())
                     {
@@ -751,7 +802,7 @@ namespace Chat.Models
 
                     }
                     room.Users.Remove(user);
-                    if( room.Users.Count == 0 )
+                    if (room.Users.Count == 0)
                     {
                         db.conversationRoomRepository.Delete(room);
                     }
@@ -763,8 +814,8 @@ namespace Chat.Models
 
                 }
                 user.currentConnectionId = null;
-                
-                }
+
+            }
 
             return base.OnDisconnected(stopCalled);
         }

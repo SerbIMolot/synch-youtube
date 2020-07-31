@@ -1,8 +1,7 @@
 ﻿namespace Chat.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class HZ : DbMigration
     {
         public override void Up()
@@ -16,7 +15,7 @@
             CreateIndex("dbo.ConversationRooms", new[] { "currentVideo_source", "currentVideo_roomName" });
             AddForeignKey("dbo.ConversationRooms", new[] { "currentVideo_source", "currentVideo_roomName" }, "dbo.YoutubeVideos", new[] { "source", "roomName" });
         }
-        
+
         public override void Down()
         {
             DropForeignKey("dbo.ConversationRooms", new[] { "currentVideo_source", "currentVideo_roomName" }, "dbo.YoutubeVideos");

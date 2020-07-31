@@ -4,7 +4,7 @@
   "description": "YoutubeShared2",
   "main": "index.js",
   "dependencies": {
-    "browser-sync": "^2.26.10",
+    "browser-sync": "^2.26.12",
     "graceful-fs": "^4.2.4",
     "open": "^7.1.0",
     "videojs-playlist": "^4.3.1",
@@ -14,10 +14,10 @@
   },
   "devDependencies": {
     "gulp": "^4.0.2",
-    "gulp-msbuild": "^0.6.3",
+    "gulp-msbuild": "^0.6.4",
     "gulp-plumber": "^1.2.1",
     "gulp-serve-iis-express": "^1.0.1",
-    "video.js": "^7.9.1"
+    "video.js": "^7.9.2"
   },
   "scripts": {
     "preinstall": "npx npm-force-resolutions",

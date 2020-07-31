@@ -1,41 +1,26 @@
-﻿using System;
+﻿using Chat.Models;
+using Chat.Repository;
+using Chat.Views.Room;
+using Microsoft.AspNet.Identity;
 using System.Collections.Generic;
 using System.Linq;
-using System.Data.Entity;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet;
-using Google.Apis.Auth.OAuth2;
-using Google.Apis.Services;
-using Google.Apis.Upload;
-using Google.Apis.Util.Store;
-using Google.Apis.YouTube.v3;
-using Google.Apis.YouTube.v3.Data;
-using Chat.Models;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.Web.UI.WebControls.WebParts;
-using System.Threading;
-using Chat.Views.Room;
-using Microsoft.Ajax.Utilities;
-using Chat.Repository;
-using System.Security.Cryptography;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Web.Mvc;
 
 namespace Chat.Controllers
 {
     public class RoomController : Controller
     {
-        private UserManager<ApplicationUser> userManager;
-        private static Mutex mutexObj = new Mutex();
+        private readonly UserManager<ApplicationUser> userManager;
+        private static readonly Mutex mutexObj = new Mutex();
 
         public RoomController()
         {
-            
+
         }
-        RoomController(UserManager<ApplicationUser> userManager)
+
+        private RoomController(UserManager<ApplicationUser> userManager)
         {
             this.userManager = userManager;
         }
@@ -49,16 +34,16 @@ namespace Chat.Controllers
                 userRooms = new List<ConversationRoom>()
             };
 
-            using (var db = new UnitOfWork() )
+            using (UnitOfWork db = new UnitOfWork())
             {
 
                 ApplicationUser user = db.userRepository.GetById(User.Identity.GetUserId());
-                var rooms = db.conversationRoomRepository.GetList();
+                IEnumerable<ConversationRoom> rooms = db.conversationRoomRepository.GetList();
 
                 List<ConversationRoom> room = new List<ConversationRoom>();
-                foreach ( var r in rooms )
+                foreach (ConversationRoom r in rooms)
                 {
-                    if( r.Users.Contains( user ))
+                    if (r.Users.Contains(user))
                     {
                         room.Add(r);
                     }
@@ -69,12 +54,12 @@ namespace Chat.Controllers
 
             return View(roomVM);
         }
-        public ActionResult LoadGrid( ChatViewModel model )
+        public ActionResult LoadGrid(ChatViewModel model)
         {
             return PartialView("view", model);
         }
         [HttpPost]
-        public ActionResult UpdateGrid( string roomName )
+        public ActionResult UpdateGrid(string roomName)
         {
             mutexObj.WaitOne();
             ChatViewModel chat = new ChatViewModel()
@@ -85,14 +70,14 @@ namespace Chat.Controllers
             //{
             //    return PartialView("view", chat);
             //}
-            using (var db = new UnitOfWork())
+            using (UnitOfWork db = new UnitOfWork())
             {
-                var rooms = db.conversationRoomRepository.GetByUserId(User.Identity.GetUserId());
+                List<ConversationRoom> rooms = db.conversationRoomRepository.GetByUserId(User.Identity.GetUserId());
                 chat.currentRoomName = roomName;
 
-                foreach (var room in rooms)
+                foreach (ConversationRoom room in rooms)
                 {
-                    var msg = db.messageRepository.GetList().OrderByDescending(m => m.messageId).Where(m => m.Room.RoomName == room.RoomName).FirstOrDefault();
+                    Message msg = db.messageRepository.GetList().OrderByDescending(m => m.messageId).Where(m => m.Room.RoomName == room.RoomName).FirstOrDefault();
 
                     if (msg != null)
                     {
@@ -100,7 +85,7 @@ namespace Chat.Controllers
                     }
                     else
                     {
-                        var message = new Message()
+                        Message message = new Message()
                         {
                             Room = room,
                             message = "",
@@ -118,7 +103,7 @@ namespace Chat.Controllers
             return PartialView("YoutubePlayer");
         }
         [HttpPost]
-        public ActionResult UpdateChat( string roomName )
+        public ActionResult UpdateChat(string roomName)
         {
             mutexObj.WaitOne();
 
@@ -127,9 +112,9 @@ namespace Chat.Controllers
             {
                 messageHistory = new List<Message>()
             };
-            using (var db = new UnitOfWork())
+            using (UnitOfWork db = new UnitOfWork())
             {
-                var rooms = db.userRepository.GetById(User.Identity.GetUserId()).Rooms.ToList();
+                List<ConversationRoom> rooms = db.userRepository.GetById(User.Identity.GetUserId()).Rooms.ToList();
                 chat.messageHistory = db.messageRepository.GetByRoomName(roomName).OrderBy(m => m.sendDate).ToList();
                 chat.currentRoomName = roomName;
 
@@ -140,15 +125,15 @@ namespace Chat.Controllers
             return PartialView("ChatMsgView", chat);
         }
         [HttpPost]
-        public ActionResult DeleteChat( string roomName )
+        public ActionResult DeleteChat(string roomName)
         {
             mutexObj.WaitOne();
 
             roomName = Regex.Replace(roomName, @"[^A-Za-z0-9]+", "");
             string changeRoom = null;
-            using (var db = new UnitOfWork())
+            using (UnitOfWork db = new UnitOfWork())
             {
-                var room = db.conversationRoomRepository.GetById(roomName);
+                ConversationRoom room = db.conversationRoomRepository.GetById(roomName);
                 if (room != null)
                 {
                     List<Message> messageHistory = db.messageRepository.GetByRoomName(roomName).OrderBy(m => m.sendDate).ToList();
@@ -163,7 +148,7 @@ namespace Chat.Controllers
 
                 db.Save();
 
-                var rooms = db.conversationRoomRepository.GetByUserId(User.Identity.GetUserId()).ToList();
+                List<ConversationRoom> rooms = db.conversationRoomRepository.GetByUserId(User.Identity.GetUserId()).ToList();
                 if (rooms.Count > 0)
                 {
                     changeRoom = rooms.First().RoomName;
@@ -176,7 +161,7 @@ namespace Chat.Controllers
             return UpdateGrid(changeRoom);
         }
         [HttpPost]
-    public ActionResult ProcessLogEntries(
+        public ActionResult ProcessLogEntries(
     string txtSearchFor, string txtDateStart,
     string txtDateStop, string txtSource, string roomName)
         {
@@ -184,13 +169,13 @@ namespace Chat.Controllers
             {
                 messageHistory = new List<Message>()
             };
-            using (var db = new ApplicationDbContext())
+            using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                var rooms = db.Users.Find(User.Identity.GetUserId()).Rooms;
+                List<ConversationRoom> rooms = db.Users.Find(User.Identity.GetUserId()).Rooms;
                 chat.messageHistory = db.Messages.Where(m => m.Room.RoomName == roomName).ToList();
-                foreach (var room in rooms)
+                foreach (ConversationRoom room in rooms)
                 {
-                    var msg = db.Messages.OrderByDescending(m => m.messageId).Where(m => m.Room.RoomName == room.RoomName).FirstOrDefault();
+                    Message msg = db.Messages.OrderByDescending(m => m.messageId).Where(m => m.Room.RoomName == room.RoomName).FirstOrDefault();
 
                     if (msg != null)
                     {
@@ -204,7 +189,7 @@ namespace Chat.Controllers
         public ActionResult Chat(string id)
         {
             mutexObj.WaitOne();
-            if( id == null )
+            if (id == null)
             {
                 //mutexObj.ReleaseMutex();
                 //return RedirectToAction("Index","Room");
@@ -221,11 +206,11 @@ namespace Chat.Controllers
             };
             ViewBag.userName = User.Identity.GetUserName();
             ViewBag.currentRoom = id;
-            using (var db = new UnitOfWork())
+            using (UnitOfWork db = new UnitOfWork())
             {
-                var room = db.conversationRoomRepository.GetByRoomName(id);
-                var user = db.userRepository.GetById(User.Identity.GetUserId());
-                if( room != null  && room.Users.Contains(user) )
+                ConversationRoom room = db.conversationRoomRepository.GetByRoomName(id);
+                ApplicationUser user = db.userRepository.GetById(User.Identity.GetUserId());
+                if (room != null && room.Users.Contains(user))
                 {
                     chat.messageHistory = db.messageRepository.GetByRoomName(id).ToList();
                     chat.currentRoomName = id;
@@ -233,12 +218,12 @@ namespace Chat.Controllers
                     chat.currentRoomTime = 0.0f;
                     chat.currentRoomVideo = null;
                 }
-                else if(room != null && !room.Users.Contains( user ) )
+                else if (room != null && !room.Users.Contains(user))
                 {
                     mutexObj.ReleaseMutex();
-                    return JoinRoom(id );
+                    return JoinRoom(id);
                 }
-                
+
             }
             mutexObj.ReleaseMutex();
             return View(chat);
@@ -281,26 +266,26 @@ namespace Chat.Controllers
         //    return View(chat);
         //}
         [HttpPost]
-        public ActionResult CreateRoom( string roomName )
+        public ActionResult CreateRoom(string roomName)
         {
             mutexObj.WaitOne();
 
             roomName = Regex.Replace(roomName, @"[^A-Za-z0-9]+", "");
-            using (var db = new UnitOfWork())
+            using (UnitOfWork db = new UnitOfWork())
             {
-               //if (db.conversationRoomRepository.GetById(roomName) != null)
-               //{
-               //    return RedirectToRoute("Error", "AlreadyCreated");
-               //}
+                //if (db.conversationRoomRepository.GetById(roomName) != null)
+                //{
+                //    return RedirectToRoute("Error", "AlreadyCreated");
+                //}
 
-                var room = db.conversationRoomRepository.GetById(roomName);
+                ConversationRoom room = db.conversationRoomRepository.GetById(roomName);
                 if (room == null)
                 {
                     room = new ConversationRoom()
                     {
                         RoomName = roomName
                     };
-                    var user = db.userRepository.GetById(User.Identity.GetUserId());
+                    ApplicationUser user = db.userRepository.GetById(User.Identity.GetUserId());
                     room.currentAdmin = user;
 
                     db.userRepository.Update(user);
@@ -320,7 +305,7 @@ namespace Chat.Controllers
                     return RedirectToRoute("Error", "CantFindRoom");
                 }
                 mutexObj.ReleaseMutex();
-                return RedirectToAction("Chat/"+ room.RoomName, "Room");
+                return RedirectToAction("Chat/" + room.RoomName, "Room");
             }
         }
         //[HttpPost]
@@ -372,21 +357,21 @@ namespace Chat.Controllers
         //    return result;
         //}
         [HttpPost]
-        public ActionResult JoinRoom( string roomName )
+        public ActionResult JoinRoom(string roomName)
         {
             mutexObj.WaitOne();
             roomName = Regex.Replace(roomName, @"[^A-Za-z0-9]+", "");
-            using (var db = new UnitOfWork())
+            using (UnitOfWork db = new UnitOfWork())
             {
-                var room = db.conversationRoomRepository.GetById(roomName);
-                if ( room == null)
+                ConversationRoom room = db.conversationRoomRepository.GetById(roomName);
+                if (room == null)
                 {
                     mutexObj.ReleaseMutex();
                     return RedirectToRoute("Error", "Not exist");
                 }
 
 
-                var user = db.userRepository.GetById(User.Identity.GetUserId());
+                ApplicationUser user = db.userRepository.GetById(User.Identity.GetUserId());
                 if (room != null && user != null)
                 {
                     //room.currentAdmin = user;
@@ -407,7 +392,7 @@ namespace Chat.Controllers
                 }
             }
             mutexObj.ReleaseMutex();
-            return RedirectToAction("Chat/"+ roomName, "Room");
+            return RedirectToAction("Chat/" + roomName, "Room");
         }
         [HttpGet]
         public ActionResult CreateChatRoom()
@@ -415,12 +400,12 @@ namespace Chat.Controllers
             return PartialView("CreatingChatRoom");
         }
         [HttpPost]
-        public ActionResult CreateChatRoom( string roomName  )
+        public ActionResult CreateChatRoom(string roomName)
         {
             mutexObj.WaitOne();
 
             roomName = Regex.Replace(roomName, @"[^A-Za-z0-9]+", "");
-            using (var db = new UnitOfWork())
+            using (UnitOfWork db = new UnitOfWork())
             {
                 if (db.conversationRoomRepository.GetById(roomName) != null)
                 {
@@ -429,7 +414,7 @@ namespace Chat.Controllers
 
                 if (roomName != null)
                 {
-                    var user = db.userRepository.GetById(User.Identity.GetUserId());
+                    ApplicationUser user = db.userRepository.GetById(User.Identity.GetUserId());
                     ConversationRoom room = null;
                     //using (RijndaelManaged myRijndael = new RijndaelManaged())
                     //{
@@ -485,13 +470,13 @@ namespace Chat.Controllers
                     messageHistory = new List<Message>()
                 };
 
-                var rooms = db.conversationRoomRepository.GetByUserId(User.Identity.GetUserId());
+                List<ConversationRoom> rooms = db.conversationRoomRepository.GetByUserId(User.Identity.GetUserId());
                 chat.messageHistory = db.messageRepository.GetByRoomName(roomName);
                 chat.currentRoomName = roomName;
-                foreach (var room in rooms)
+                foreach (ConversationRoom room in rooms)
                 {
 
-                    var msg = db.messageRepository.GetByRoomName(room.RoomName).OrderByDescending(m => m.messageId).FirstOrDefault();
+                    Message msg = db.messageRepository.GetByRoomName(room.RoomName).OrderByDescending(m => m.messageId).FirstOrDefault();
 
                     if (msg != null)
                     {
@@ -499,7 +484,7 @@ namespace Chat.Controllers
                     }
                     else
                     {
-                        var message = new Message()
+                        Message message = new Message()
                         {
                             Room = room,
                             message = "",
@@ -509,14 +494,18 @@ namespace Chat.Controllers
 
                 ViewBag.userName = User.Identity.GetUserName();
                 mutexObj.ReleaseMutex();
-                
+
                 return PartialView("view", chat);
             }
         }
 
         [HttpGet]
-        public ActionResult JoinChat( string roomName )
+        public ActionResult JoinChat(string roomName)
         {
+            if (User.IsInRole("temporary"))
+            {
+
+            }
             return PartialView("JoiningChatRoom");
         }
 
@@ -529,7 +518,7 @@ namespace Chat.Controllers
         {
             if (disposing)
             {
-                
+
             }
 
             base.Dispose(disposing);

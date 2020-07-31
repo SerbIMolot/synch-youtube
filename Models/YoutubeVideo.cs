@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 
 namespace Chat.Models
 {
@@ -18,6 +14,6 @@ namespace Chat.Models
         public string descriprion { get; set; }
         public double duration { get; set; }
         public string thumbnail { get; set; }
-       
+
     }
 }

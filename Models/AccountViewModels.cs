@@ -64,6 +64,15 @@ namespace Chat.Models
         [Display(Name = "returnUrl")]
         public string ReturnUrl { get; set; }
     }
+    public class TemporaryLoginViewModel
+    {
+        [Required]
+        [Display(Name = "Username")]
+        public string Username { get; set; }
+
+        [Display(Name = "returnUrl")]
+        public string ReturnUrl { get; set; }
+    }
 
     public class RegisterViewModel
     {

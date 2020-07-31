@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Chat.Models;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Chat.Models;
 using System.Data.Entity;
+using System.Linq;
 
 namespace Chat.Repository
 {
@@ -11,7 +10,7 @@ namespace Chat.Repository
     public class ConnectionsRepository
     {
         public ApplicationDbContext db;
-        
+
         public ConnectionsRepository(ApplicationDbContext context)
         {
             db = context;
@@ -28,11 +27,11 @@ namespace Chat.Repository
         }
         public Connection GetByUserAgent(string userAgent)
         {
-            return db.Connections.SingleOrDefault( c => c.UserAgent == userAgent);
+            return db.Connections.SingleOrDefault(c => c.UserAgent == userAgent);
         }
         public Connection GetByIdDetached(string id)
         {
-            var conection = db.Connections.Find(id);
+            Connection conection = db.Connections.Find(id);
             db.Entry(conection).State = EntityState.Detached;
             return conection;
         }
@@ -55,28 +54,32 @@ namespace Chat.Repository
         {
             Connection conection = db.Connections.Find(id);
             if (conection != null)
+            {
                 db.Connections.Remove(conection);
+            }
         }
 
         public void Delete(Connection conection)
         {
             Connection Connection = db.Connections.Find(conection);
             if (conection != null)
+            {
                 db.Connections.Remove(conection);
+            }
         }
 
         private bool disposed = false;
 
         public virtual void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
                     db.Dispose();
                 }
             }
-            this.disposed = true;
+            disposed = true;
         }
 
         public void Dispose()

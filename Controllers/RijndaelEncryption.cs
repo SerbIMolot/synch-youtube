@@ -4,17 +4,26 @@ using System.Security.Cryptography;
 
 namespace Chat.Controllers
 {
-    class RijndaelEncryption
+    internal class RijndaelEncryption
     {
         public static byte[] EncryptStringToBytes(string plainText, byte[] Key, byte[] IV)
         {
             // Check arguments. 
             if (plainText == null || plainText.Length <= 0)
+            {
                 throw new ArgumentNullException("plainText");
+            }
+
             if (Key == null || Key.Length <= 0)
+            {
                 throw new ArgumentNullException("Key");
+            }
+
             if (IV == null || IV.Length <= 0)
+            {
                 throw new ArgumentNullException("IV");
+            }
+
             byte[] encrypted;
             // Create an RijndaelManaged object 
             // with the specified key and IV. 
@@ -52,11 +61,19 @@ namespace Chat.Controllers
         {
             // Check arguments. 
             if (cipherText == null || cipherText.Length <= 0)
+            {
                 throw new ArgumentNullException("cipherText");
+            }
+
             if (Key == null || Key.Length <= 0)
+            {
                 throw new ArgumentNullException("Key");
+            }
+
             if (IV == null || IV.Length <= 0)
+            {
                 throw new ArgumentNullException("IV");
+            }
 
             // Declare the string used to hold 
             // the decrypted text. 

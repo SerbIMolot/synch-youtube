@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Chat.Models
 {
-    
+
     public class ApplicationUser : IdentityUser
     {
         public ApplicationUser()
@@ -25,7 +25,7 @@ namespace Chat.Models
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
-            var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
+            ClaimsIdentity userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             return userIdentity;
         }
     }
@@ -38,13 +38,13 @@ namespace Chat.Models
         public DbSet<YoutubeVideo> Videos { get; set; }
 
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("SQLTubeConnection", throwIfV1Schema: false)
         {
         }
 
-        protected override void OnModelCreating( DbModelBuilder modelBuilder)
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            base.OnModelCreating( modelBuilder );
+            base.OnModelCreating(modelBuilder);
 
         }
         public static ApplicationDbContext Create()

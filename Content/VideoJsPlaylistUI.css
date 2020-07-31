@@ -1,11 +1,26 @@
-﻿
+﻿#playlist-ui {
+    top: 1px;
+    height: 100%;
+    width: 51%;
+    overflow: hidden;
+}
+.vjs-playlist-item-list::-webkit-scrollbar {
+    width: 5%;
+}
+
+.vjs-playlist-item-list::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px blue;
+}
+
+.vjs-playlist-item-list::-webkit-scrollbar-thumb {
+    background-color: deepskyblue;
+    outline: 1px solid slategrey;
+}
 .vjs-playlist {
     padding: 0;
     background-color: #1a1a1a;
     color: #fff;
     list-style-type: none;
-    width: 0;
-    height: 100%;
     position: absolute;
     bottom: 0;
     right: 0;

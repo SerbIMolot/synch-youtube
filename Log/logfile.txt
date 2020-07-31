@@ -1,2 +1,1 @@
-2020-07-19 23:36:22,857 [118] DEBUG Chat.Models.GroupHubs [(null)] - APP DOMAIN ID = 2
-2020-07-19 23:36:59,941 [106] DEBUG Chat.Models.GroupHubs [(null)] - APP DOMAIN ID = 2
+2020-07-30 16:08:37,866 [123] DEBUG Chat.Models.GroupHubs [(null)] - APP DOMAIN ID = 12
