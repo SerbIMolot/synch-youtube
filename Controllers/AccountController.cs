@@ -1,4 +1,6 @@
-﻿using Chat.Models;
+﻿
+using Chat.Models;
+using Chat.Repository;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -34,7 +36,8 @@ namespace Chat.Controllers
 
         public ApplicationUserManager UserManager
         {
-            get => _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            get => _userManager ??
+                HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             private set => _userManager = value;
         }
         public ActionResult LoginAjax(string returnUrl = null)
@@ -145,7 +148,6 @@ namespace Chat.Controllers
         [AllowAnonymous]
         public ActionResult TemporaryLogin(string returnUrl)
         {
-
             ViewBag.ReturnUrl = returnUrl;
             return View("TemporaryLogin");
         }
@@ -158,20 +160,29 @@ namespace Chat.Controllers
             {
                 return PartialView("TemporaryLogin", model);
             }
-            if (ModelState.IsValid)
+            ApplicationUser user = new ApplicationUser { UserName = model.Username };
+            IdentityResult result = await UserManager.CreateAsync(user);
+            if (result.Succeeded)
             {
-                ApplicationUser user = new ApplicationUser { UserName = model.Username };
-                IdentityResult result = await UserManager.CreateAsync(user);
-                if (result.Succeeded)
+                IdentityResult res = await UserManager.AddToRoleAsync(user.Id, "temporary");
+                if (res.Succeeded)
                 {
-                    Task<IdentityResult> res = UserManager.AddToRoleAsync(user.Id, "temporary");
-                    if (res.Result.Succeeded)
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    FormsAuthentication.SetAuthCookie(user.UserName, false);
+
+                    if (returnUrl != null)
                     {
-                        return Redirect(model.ReturnUrl);
+                        string[] tokens = returnUrl.Split('/');
+                        return Redirect(returnUrl);
+                        //return RedirectToAction(tokens[2], tokens[1], new { id = tokens[3] });
+
                     }
+
+                    return RedirectToAction("Index, Home");
                 }
-                AddErrors(result);
             }
+            AddErrors(result);
+
             return View(model);
         }
 
@@ -456,10 +467,18 @@ namespace Chat.Controllers
         //
         // POST: /Account/LogOff
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            if (User.IsInRole("temporary"))
+            {
+                using (var db = new UnitOfWork())
+                {
+                    var user = db.userRepository.GetById(User.Identity.GetUserId());
+                    db.userRepository.Delete(user);
+
+                }
+            }
             return RedirectToAction("Index", "Home");
         }
 

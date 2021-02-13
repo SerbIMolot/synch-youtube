@@ -6,10 +6,10 @@ namespace Chat.Controllers
     {
         public ActionResult Index()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Chat", "Room");
-            }
+            //if (User.Identity.IsAuthenticated)
+            //{
+            //    return RedirectToAction("Chat", "Room");
+            //}
             return View();
         }
 
