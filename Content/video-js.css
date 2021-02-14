@@ -222,10 +222,10 @@ fonts to show/hide properly.
   cursor: pointer;
 }
 .vjs-default-skin .vjs-play-control:before {
-  /*content: "\e001";*/
+  content: "\e001";
 }
 .vjs-default-skin.vjs-playing .vjs-play-control:before {
-    /*content: "\f103";*/
+    content: "\f103";
 }
 /* Playback toggle
 --------------------------------------------------------------------------------

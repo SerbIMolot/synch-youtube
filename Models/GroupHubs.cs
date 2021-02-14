@@ -599,7 +599,6 @@ namespace Chat.Models
                 Clients.Caller.previewLoadedVideos(ToJsonRange(newVideos));
             }
 
-            //return VideosInRoom[roomName];
 
             return null;
         }
@@ -608,17 +607,10 @@ namespace Chat.Models
             StringWriter sw = new StringWriter();
             JsonTextWriter writer = new JsonTextWriter(sw);
 
-            // {
             writer.WriteStartObject();
-            // "likes": ["Comedy", "Superman"]
 
             writer.WritePropertyName("UserName");
             writer.WriteValue(user.UserName);
-            //writer.WritePropertyName("description");
-            //writer.WriteValue(user.);
-
-
-            // }
             writer.WriteEndObject();
 
             return sw.ToString();
@@ -628,9 +620,7 @@ namespace Chat.Models
             StringWriter sw = new StringWriter();
             JsonTextWriter writer = new JsonTextWriter(sw);
 
-            // {
             writer.WriteStartObject();
-            // "likes": ["Comedy", "Superman"]
 
             writer.WritePropertyName("roomName");
             writer.WriteValue(room.RoomName);
@@ -640,11 +630,8 @@ namespace Chat.Models
             writer.WriteRawValue(ToJsonRange(room.Users));
 
 
-            //writer.WritePropertyName("description");
-            //writer.WriteValue(user.);
 
 
-            // }
             writer.WriteEndObject();
 
             return sw.ToString();
@@ -655,7 +642,6 @@ namespace Chat.Models
             JsonTextWriter writer = new JsonTextWriter(sw);
 
             writer.WriteStartArray();
-            //writer.WriteStartObject();
 
             foreach (ApplicationUser user in users)
             {
@@ -672,7 +658,6 @@ namespace Chat.Models
 
             }
 
-            //writer.WriteEndObject();
             writer.WriteEndArray();
 
             return sw.ToString();
@@ -682,9 +667,7 @@ namespace Chat.Models
             StringWriter sw = new StringWriter();
             JsonTextWriter writer = new JsonTextWriter(sw);
 
-            // {
             writer.WriteStartObject();
-            // "likes": ["Comedy", "Superman"]
 
             writer.WritePropertyName("name");
             writer.WriteValue(video.title);
@@ -703,7 +686,7 @@ namespace Chat.Models
             writer.WriteValue("video/youtube");
             writer.WriteEndObject();
             writer.WriteEndArray();
-            // "name" : "Jerry"
+
             writer.WritePropertyName("poster");
             writer.WriteValue(video.poster);
 
@@ -724,7 +707,6 @@ namespace Chat.Models
             writer.WriteEndArray();
 
 
-            // }
             writer.WriteEndObject();
 
             return sw.ToString();
@@ -735,7 +717,6 @@ namespace Chat.Models
             JsonTextWriter writer = new JsonTextWriter(sw);
 
             writer.WriteStartArray();
-            //writer.WriteStartObject();
 
             foreach (YoutubeVideo video in videos)
             {
@@ -752,7 +733,6 @@ namespace Chat.Models
 
             }
 
-            //writer.WriteEndObject();
             writer.WriteEndArray();
 
             return sw.ToString();
@@ -760,10 +740,6 @@ namespace Chat.Models
         public override Task OnReconnected()
         {
 
-            // Add your own code here.
-            // For example: in a chat application, you might have marked the
-            // user as offline after a period of inactivity; in that case 
-            // mark the user as online again.
             return base.OnReconnected();
         }
         public override Task OnDisconnected(bool stopCalled)
@@ -786,7 +762,6 @@ namespace Chat.Models
                 }
                 if (stopCalled == true)
                 {
-                    //var connections = db.connectionsRepository.GetList().Where(c => c.ConnectionID == Context.ConnectionId && c.Connected == true);
                     foreach (Connection con in connections)
                     {
                         System.Diagnostics.Debug.WriteLine(Context.User.Identity.Name + " curr connection " + Context.ConnectionId + " in array " + con.ConnectionID.ToString() + " State " + con.Connected);
@@ -802,19 +777,6 @@ namespace Chat.Models
                     {
                         System.Diagnostics.Debug.WriteLine(Context.User.Identity.Name + " curr connection " + Context.ConnectionId + " in array " + con.ConnectionID.ToString() + " State " + con.Connected);
                     }
-                    //var rooms = db.conversationRoomRepository.GetByUserId(Context.User.Identity.GetUserId());
-                    //foreach( var room in rooms )
-                    //{
-                    //    if ( room.currentAdmin.Id == Context.User.Identity.GetUserId() )
-                    //    {
-                    //        SwitchAdminForRoom( room.RoomName, Context.User.Identity.GetUserName() );
-                    //
-                    //    }
-                    //    room.Users.Remove(user);
-                    //    UpdateUsersInRoom(room.RoomName);
-                    //
-                    //}
-                    //
                     Clients.Caller.onUserDisconnected(Context.User.Identity.Name);
                 }
 

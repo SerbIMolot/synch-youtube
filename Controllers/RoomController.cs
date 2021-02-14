@@ -25,7 +25,6 @@ namespace Chat.Controllers
         {
             this.userManager = userManager;
         }
-        // GET: Room
 
         public ActionResult Index()
         {
@@ -192,8 +191,6 @@ namespace Chat.Controllers
             mutexObj.WaitOne();
             if (id == null)
             {
-                //mutexObj.ReleaseMutex();
-                //return RedirectToAction("Index","Room");
             }
             else
             {
@@ -222,52 +219,14 @@ namespace Chat.Controllers
                 else if (room != null && !room.Users.Contains(user))
                 {
                     mutexObj.ReleaseMutex();
-                    return RedirectToAction("JoinRoom", room.RoomName);
+                    return JoinRoom(room.RoomName);
                 }
 
             }
             mutexObj.ReleaseMutex();
             return View(chat);
         }
-        //
-        //public ActionResult Chat(string id)
-        //{
-        //    mutexObj.WaitOne();
-        //    if( id == null )
-        //    {
-        //        //mutexObj.ReleaseMutex();
-        //        //return RedirectToAction("Index","Room");
-        //    }
-        //    ChatViewModel chat = new ChatViewModel()
-        //    {
-        //        messageHistory = new List<Message>()
-        //    };
-        //    ViewBag.userName = User.Identity.GetUserName();
-        //    ViewBag.currentRoom = id;
-        //    using (var db = new UnitOfWork())
-        //    {
-        //        var room = db.conversationRoomRepository.GetByRoomName(id);
-        //        var user = db.userRepository.GetById(User.Identity.GetUserId());
-        //        if( room != null  && room.Users.Contains(user) )
-        //        {
-        //            chat.messageHistory = db.messageRepository.GetByRoomName(id).ToList();
-        //            chat.currentRoomName = id;
-        //            chat.room = room;
-        //            chat.currentRoomTime = 0.0f;
-        //            chat.currentRoomVideo = null;
-        //        }
-        //        else if( id != null )
-        //        {
-        //           // mutexObj.ReleaseMutex();
-        //           // return JoinRoom(id );
-        //        }
-        //        
-        //    }
-        //    mutexObj.ReleaseMutex();
-        //    return View(chat);
-        //}
 
-       // [Route("Create/{roomName}")]
         [HttpPost]
         public ActionResult CreateRoom(string roomName)
         {
@@ -276,10 +235,6 @@ namespace Chat.Controllers
             roomName = Regex.Replace(roomName, @"[^A-Za-z0-9]+", "");
             using (UnitOfWork db = new UnitOfWork())
             {
-                //if (db.conversationRoomRepository.GetById(roomName) != null)
-                //{
-                //    return RedirectToRoute("Error", "AlreadyCreated");
-                //}
 
                 ConversationRoom room = db.conversationRoomRepository.GetById(roomName);
                 if (room == null)
@@ -309,19 +264,16 @@ namespace Chat.Controllers
                 }
                 mutexObj.ReleaseMutex();
                 return Redirect("/Chat/" + room.RoomName);
-                //return RedirectToAction("Chat", "Room", room.RoomName);
-                //return Redirect(Url.Action("Chat/" + room.RoomName,"Room"));
-                //return Redirect("/Room/Chat/" + room.RoomName);
             }
         }
         [HttpPost]
-        public ActionResult JoinRoom(string roomName)
+        public ActionResult JoinRoom(string id)
         {
             mutexObj.WaitOne();
-            roomName = Regex.Replace(roomName, @"[^A-Za-z0-9]+", "");
+            id = Regex.Replace(id, @"[^A-Za-z0-9]+", "");
             using (UnitOfWork db = new UnitOfWork())
             {
-                ConversationRoom room = db.conversationRoomRepository.GetById(roomName);
+                ConversationRoom room = db.conversationRoomRepository.GetById(id);
                 if (room == null)
                 {
                     mutexObj.ReleaseMutex();
@@ -349,7 +301,7 @@ namespace Chat.Controllers
                 }
             }
             mutexObj.ReleaseMutex();
-            return Redirect("/Chat/" + roomName);
+            return Redirect("/Chat/" + id);
         }
         [HttpGet]
         public ActionResult CreateChatRoom()

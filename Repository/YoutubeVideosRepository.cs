@@ -45,15 +45,10 @@ namespace Chat.Repository
             {
                 return null;
             }
-            IEnumerable<YoutubeVideo> test = videos.Where(v => db.Videos.Any(vid => v.source != vid.source && v.roomName != vid.roomName));
-            //var newVideos = videos.Select(v => new { v.source, v.roomName }).Distinct().ToArray();
-            //var videosInDb = db.Videos.Where(v => newVideos.Any(el => el.source == v.source && el.roomName == v.roomName) ).Select(v => new { v.source, v.roomName }).ToArray();
-            //var videosNotInDb = videos.Where(v => Array.Exists(videosInDb, el => el.source != v.source && el.roomName != v.roomName) );
+            IEnumerable<YoutubeVideo> vids = videos.Where(v => db.Videos.Any(vid => v.source != vid.source && v.roomName != vid.roomName));
 
-            //foreach (var video in test)
-            //{
-            db.Videos.AddRange(test);
-            //}
+            db.Videos.AddRange(vids);
+
             return videos;
         }
 
