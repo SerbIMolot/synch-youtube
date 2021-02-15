@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-
+using Chat.Controllers.Attriburtes;
 namespace Chat
 {
     public class FilterConfig
@@ -7,6 +7,7 @@ namespace Chat
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+            filters.Add(new CustomAuthorize());
         }
     }
 }

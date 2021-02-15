@@ -384,6 +384,36 @@
             Extra headers, if any, that should be included in the request.
             </summary>
         </member>
+        <member name="M:Google.Apis.Auth.OAuth2.AccessTokenWithHeaders.AddHeaders(System.Net.Http.Headers.HttpRequestHeaders)">
+            <summary>
+             Adds the headers in this object to the given header collection.
+            </summary>
+            <param name="requestHeaders">The header collection to add the headers to.</param>
+        </member>
+        <member name="M:Google.Apis.Auth.OAuth2.AccessTokenWithHeaders.AddHeaders(System.Net.Http.HttpRequestMessage)">
+            <summary>
+             Adds the headers in this object to the given request.
+            </summary>
+            <param name="request">The request to add the headers to.</param>
+        </member>
+        <member name="T:Google.Apis.Auth.OAuth2.AccessTokenWithHeaders.Builder">
+            <summary>
+            Builder class for <see cref="T:Google.Apis.Auth.OAuth2.AccessTokenWithHeaders"/> to simplify common scenarios.
+            </summary>
+        </member>
+        <member name="P:Google.Apis.Auth.OAuth2.AccessTokenWithHeaders.Builder.QuotaProject">
+            <summary>
+            The GCP project ID used for quota and billing purposes. May be null.
+            </summary>
+        </member>
+        <member name="M:Google.Apis.Auth.OAuth2.AccessTokenWithHeaders.Builder.Build(System.String)">
+            <summary>
+            Builds and instance of <see cref="T:Google.Apis.Auth.OAuth2.AccessTokenWithHeaders"/> with the given
+            token and the value set on this builder.
+            </summary>
+            <param name="token">The token to build the <see cref="T:Google.Apis.Auth.OAuth2.AccessTokenWithHeaders"/> for.</param>
+            <returns>An <see cref="T:Google.Apis.Auth.OAuth2.AccessTokenWithHeaders"/>.</returns>
+        </member>
         <member name="T:Google.Apis.Auth.OAuth2.AuthorizationCodeInstalledApp">
             <summary>
             Thread-safe OAuth 2.0 authorization code flow for an installed application that persists end-user credentials.
@@ -520,6 +550,9 @@
         </member>
         <member name="M:Google.Apis.Auth.OAuth2.ComputeCredential.#ctor(Google.Apis.Auth.OAuth2.ComputeCredential.Initializer)">
             <summary>Constructs a new Compute credential instance.</summary>
+        </member>
+        <member name="M:Google.Apis.Auth.OAuth2.ComputeCredential.Google#Apis#Auth#OAuth2#IGoogleCredential#WithQuotaProject(System.String)">
+            <inheritdoc/>
         </member>
         <member name="M:Google.Apis.Auth.OAuth2.ComputeCredential.RequestAccessTokenAsync(System.Threading.CancellationToken)">
             <inheritdoc/>
@@ -1004,7 +1037,7 @@
         <member name="F:Google.Apis.Auth.OAuth2.GoogleCredential.credential">
             <summary>The underlying credential being wrapped by this object.</summary>
         </member>
-        <member name="M:Google.Apis.Auth.OAuth2.GoogleCredential.#ctor(Google.Apis.Auth.OAuth2.ICredential)">
+        <member name="M:Google.Apis.Auth.OAuth2.GoogleCredential.#ctor(Google.Apis.Auth.OAuth2.IGoogleCredential)">
             <summary>Creates a new <c>GoogleCredential</c>.</summary>
         </member>
         <member name="M:Google.Apis.Auth.OAuth2.GoogleCredential.GetApplicationDefaultAsync">
@@ -1127,6 +1160,15 @@
             If <c>null</c>, will default to <see cref="T:Google.Apis.Auth.OAuth2.BearerToken.AuthorizationHeaderAccessMethod"/>.</param>
             <returns>A credential based on the provided access token.</returns>
         </member>
+        <member name="P:Google.Apis.Auth.OAuth2.GoogleCredential.AccessTokenCredential.QuotaProject">
+            <inheritdoc/>
+        </member>
+        <member name="M:Google.Apis.Auth.OAuth2.GoogleCredential.AccessTokenCredential.Google#Apis#Auth#OAuth2#IGoogleCredential#WithQuotaProject(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Google.Apis.Auth.OAuth2.GoogleCredential.AccessTokenCredential.GetAccessTokenWithHeadersForRequestAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:Google.Apis.Auth.OAuth2.GoogleCredential.FromComputeCredential(Google.Apis.Auth.OAuth2.ComputeCredential)">
             <summary>
             Create a <see cref="T:Google.Apis.Auth.OAuth2.GoogleCredential"/> from a <see cref="T:Google.Apis.Auth.OAuth2.ComputeCredential"/>.
@@ -1168,7 +1210,19 @@
              </list>
              </summary>
         </member>
+        <member name="P:Google.Apis.Auth.OAuth2.GoogleCredential.QuotaProject">
+            <summary>
+            The ID of the project associated to this credential for the purposes of
+            quota calculation and billing. May be null.
+            </summary>
+        </member>
         <member name="M:Google.Apis.Auth.OAuth2.GoogleCredential.CreateScoped(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            If the credential supports scopes, creates a copy with the specified scopes. Otherwise, it returns the same
+            instance.
+            </summary>
+        </member>
+        <member name="M:Google.Apis.Auth.OAuth2.GoogleCredential.CreateScoped(System.String[])">
             <summary>
             If the credential supports scopes, creates a copy with the specified scopes. Otherwise, it returns the same
             instance.
@@ -1184,11 +1238,12 @@
             <returns>This credential with the user set to <paramref name="user"/>.</returns>
             <exception cref="T:System.InvalidOperationException">When the credential type doesn't support setting the user.</exception>
         </member>
-        <member name="M:Google.Apis.Auth.OAuth2.GoogleCredential.CreateScoped(System.String[])">
+        <member name="M:Google.Apis.Auth.OAuth2.GoogleCredential.CreateWithQuotaProject(System.String)">
             <summary>
-            If the credential supports scopes, creates a copy with the specified scopes. Otherwise, it returns the same
-            instance.
+            Creates a copy of this credential with the specified quota project.
             </summary>
+            <param name="quotaProject">The quota project to use for the copy. May be null.</param>
+            <returns>A copy of this credential with <see cref="P:Google.Apis.Auth.OAuth2.GoogleCredential.QuotaProject"/> set to <paramref name="quotaProject"/>.</returns>
         </member>
         <member name="M:Google.Apis.Auth.OAuth2.GoogleCredential.GetOidcTokenAsync(Google.Apis.Auth.OAuth2.OidcTokenOptions,System.Threading.CancellationToken)">
             <inheritdoc/>
@@ -1345,6 +1400,28 @@
             More details are available in the specific implementations.
             </summary>
         </member>
+        <member name="T:Google.Apis.Auth.OAuth2.IGoogleCredential">
+            <summary>
+            Represents a Google credential. Defines functionality that
+            credential types that can be used as an underlying credential in <see cref="T:Google.Apis.Auth.OAuth2.GoogleCredential"/>
+            should implement in contrast to <see cref="T:Google.Apis.Auth.OAuth2.ICredential"/> that defines public functionality.
+            </summary>
+        </member>
+        <member name="P:Google.Apis.Auth.OAuth2.IGoogleCredential.QuotaProject">
+            <summary>
+            The ID of the project associated to this credential for the purposes of
+            quota calculation and billing. May be null.
+            </summary>
+        </member>
+        <member name="M:Google.Apis.Auth.OAuth2.IGoogleCredential.WithQuotaProject(System.String)">
+            <summary>
+            Returns a new instance of the same type as this but with the
+            given quota project value.
+            </summary>
+            <param name="quotaProject">The quota project value for the new instance.</param>
+            <returns>A new instance with the same type as this but with <see cref="P:Google.Apis.Auth.OAuth2.IGoogleCredential.QuotaProject"/>
+            set to <paramref name="quotaProject"/>.</returns>
+        </member>
         <member name="T:Google.Apis.Auth.OAuth2.IOidcTokenProvider">
             <summary>
             Represents an OIDC token provider.
@@ -1459,6 +1536,12 @@
             <a href="https://console.developers.google.com">Google Developers Console</a>.
             </summary>
         </member>
+        <member name="P:Google.Apis.Auth.OAuth2.JsonCredentialParameters.PrivateKeyId">
+            <summary>
+            Private Key ID associated with ServiceAccountCredential obtained from
+            <a href="https://console.developers.google.com">Google Developers Console</a>.
+            </summary>
+        </member>
         <member name="P:Google.Apis.Auth.OAuth2.JsonCredentialParameters.RefreshToken">
             <summary>
             Refresh Token associated with UserCredential created by
@@ -1471,14 +1554,30 @@
             authorization verification code.
             </summary>
         </member>
+        <member name="T:Google.Apis.Auth.OAuth2.LocalServerCodeReceiver.CallbackUriChooserStrategy">
+            <summary>
+            Describes the different strategies for the selection of the callback URI.
+            127.0.0.1 is recommended, but can't be done in non-admin Windows 7 and 8 at least.
+            </summary>
+        </member>
+        <member name="F:Google.Apis.Auth.OAuth2.LocalServerCodeReceiver.CallbackUriChooserStrategy.Default">
+            <summary>
+            Use heuristics to attempt to connect to the recommended URI 127.0.0.1
+            but use localhost if that fails.
+            </summary>
+        </member>
+        <member name="F:Google.Apis.Auth.OAuth2.LocalServerCodeReceiver.CallbackUriChooserStrategy.ForceLoopbackIp">
+            <summary>
+            Force 127.0.0.1 as the callback URI. No checks are performed.
+            </summary>
+        </member>
+        <member name="F:Google.Apis.Auth.OAuth2.LocalServerCodeReceiver.CallbackUriChooserStrategy.ForceLocalhost">
+            <summary>
+            Force localhost as the callback URI. No checks are performed.
+            </summary>
+        </member>
         <member name="F:Google.Apis.Auth.OAuth2.LocalServerCodeReceiver.LoopbackCallbackPath">
             <summary>The call back request path.</summary>
-        </member>
-        <member name="F:Google.Apis.Auth.OAuth2.LocalServerCodeReceiver.CallbackUriTemplateLocalhost">
-            <summary>Localhost callback URI, expects a port parameter.</summary>
-        </member>
-        <member name="F:Google.Apis.Auth.OAuth2.LocalServerCodeReceiver.CallbackUriTemplate127001">
-            <summary>127.0.0.1 callback URI, expects a port parameter.</summary>
         </member>
         <member name="F:Google.Apis.Auth.OAuth2.LocalServerCodeReceiver.DefaultClosePageResponse">
             <summary>Close HTML tag to return the browser so it will close itself.</summary>
@@ -1493,6 +1592,13 @@
             Create an instance of <see cref="T:Google.Apis.Auth.OAuth2.LocalServerCodeReceiver"/>.
             </summary>
             <param name="closePageResponse">Custom close page response for this instance</param>
+        </member>
+        <member name="M:Google.Apis.Auth.OAuth2.LocalServerCodeReceiver.#ctor(System.String,Google.Apis.Auth.OAuth2.LocalServerCodeReceiver.CallbackUriChooserStrategy)">
+            <summary>
+            Create an instance of <see cref="T:Google.Apis.Auth.OAuth2.LocalServerCodeReceiver"/>.
+            </summary>
+            <param name="closePageResponse">Custom close page response for this instance</param>
+            <param name="strategy">The strategy to use to determine the callback URI</param>
         </member>
         <member name="T:Google.Apis.Auth.OAuth2.LocalServerCodeReceiver.LimitedLocalhostHttpServer">
             <summary>
@@ -1510,6 +1616,12 @@
         </member>
         <member name="M:Google.Apis.Auth.OAuth2.LocalServerCodeReceiver.GetRandomUnusedPort">
             <summary>Returns a random, unused port.</summary>
+        </member>
+        <member name="F:Google.Apis.Auth.OAuth2.LocalServerCodeReceiver.CallbackUriChooser.CallbackUriTemplateLocalhost">
+            <summary>Localhost callback URI, expects a port parameter.</summary>
+        </member>
+        <member name="F:Google.Apis.Auth.OAuth2.LocalServerCodeReceiver.CallbackUriChooser.CallbackUriTemplate127001">
+            <summary>127.0.0.1 callback URI, expects a port parameter.</summary>
         </member>
         <member name="T:Google.Apis.Auth.OAuth2.OidcToken">
             <summary>
@@ -2079,6 +2191,11 @@
             https://developers.google.com/accounts/docs/OAuth2ServiceAccount#computingsignature.
             </summary>
         </member>
+        <member name="P:Google.Apis.Auth.OAuth2.ServiceAccountCredential.Initializer.KeyId">
+            <summary>
+            Gets or sets the service account key ID.
+            </summary>
+        </member>
         <member name="M:Google.Apis.Auth.OAuth2.ServiceAccountCredential.Initializer.#ctor(System.String)">
             <summary>Constructs a new initializer using the given id.</summary>
         </member>
@@ -2117,6 +2234,11 @@
             https://developers.google.com/accounts/docs/OAuth2ServiceAccount#computingsignature.
             </summary>
         </member>
+        <member name="P:Google.Apis.Auth.OAuth2.ServiceAccountCredential.KeyId">
+            <summary>
+            Gets the key id of the key which is used to sign the request.
+            </summary>
+        </member>
         <member name="P:Google.Apis.Auth.OAuth2.ServiceAccountCredential.HasScopes">
             <summary><c>true</c> if this credential has any scopes associated with it.</summary>
         </member>
@@ -2132,6 +2254,9 @@
             The <paramref name="credentialData"/> does not contain valid JSON service account key data.
             </exception>
             <returns>The credentials parsed from the service account key data.</returns>
+        </member>
+        <member name="M:Google.Apis.Auth.OAuth2.ServiceAccountCredential.Google#Apis#Auth#OAuth2#IGoogleCredential#WithQuotaProject(System.String)">
+            <inheritdoc/>
         </member>
         <member name="M:Google.Apis.Auth.OAuth2.ServiceAccountCredential.RequestAccessTokenAsync(System.Threading.CancellationToken)">
             <summary>
@@ -2240,6 +2365,12 @@
             implementation (using <see cref="T:Google.Apis.Http.BackOffHandler"/>).
             </summary>
         </member>
+        <member name="P:Google.Apis.Auth.OAuth2.ServiceCredential.Initializer.QuotaProject">
+            <summary>
+            The ID of the project associated to this credential for the purposes of
+            quota calculation and billing. May be null.
+            </summary>
+        </member>
         <member name="M:Google.Apis.Auth.OAuth2.ServiceCredential.Initializer.#ctor(System.String)">
             <summary>Constructs a new initializer using the given token server URL.</summary>
         </member>
@@ -2257,6 +2388,12 @@
         </member>
         <member name="P:Google.Apis.Auth.OAuth2.ServiceCredential.Token">
             <summary>Gets the token response which contains the access token.</summary>
+        </member>
+        <member name="P:Google.Apis.Auth.OAuth2.ServiceCredential.QuotaProject">
+            <summary>
+            The ID of the project associated to this credential for the purposes of
+            quota calculation and billing. May be null.
+            </summary>
         </member>
         <member name="M:Google.Apis.Auth.OAuth2.ServiceCredential.#ctor(Google.Apis.Auth.OAuth2.ServiceCredential.Initializer)">
             <summary>Constructs a new service account credential using the given initializer.</summary>
@@ -2278,6 +2415,9 @@
             Gets an access token to authorize a request. If the existing token expires soon, try to refresh it first.
             <seealso cref="M:Google.Apis.Auth.OAuth2.ITokenAccess.GetAccessTokenForRequestAsync(System.String,System.Threading.CancellationToken)"/>
             </summary>
+        </member>
+        <member name="M:Google.Apis.Auth.OAuth2.ServiceCredential.GetAccessTokenWithHeadersForRequestAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
         </member>
         <member name="M:Google.Apis.Auth.OAuth2.ServiceCredential.RequestAccessTokenAsync(System.Threading.CancellationToken)">
             <summary>Requests a new token.</summary>
@@ -2317,10 +2457,7 @@
             <summary>Gets the user identity.</summary>
         </member>
         <member name="P:Google.Apis.Auth.OAuth2.UserCredential.QuotaProject">
-            <summary>
-            The ID of the project associated to this credential for the purposes of
-            quota calculation and billing.
-            </summary>
+            <inheritdoc/>
         </member>
         <member name="M:Google.Apis.Auth.OAuth2.UserCredential.#ctor(Google.Apis.Auth.OAuth2.Flows.IAuthorizationCodeFlow,System.String,Google.Apis.Auth.OAuth2.Responses.TokenResponse)">
             <summary>Constructs a new credential instance.</summary>
@@ -2335,6 +2472,9 @@
             <param name="token">An initial token for the user.</param>
             <param name="quotaProjectId">The ID of the project associated 
             to this credential for the purposes of quota calculation and billing. Can be null.</param>
+        </member>
+        <member name="M:Google.Apis.Auth.OAuth2.UserCredential.Google#Apis#Auth#OAuth2#IGoogleCredential#WithQuotaProject(System.String)">
+            <inheritdoc/>
         </member>
         <member name="M:Google.Apis.Auth.OAuth2.UserCredential.InterceptAsync(System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)">
             <summary>

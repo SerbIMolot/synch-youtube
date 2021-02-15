@@ -472,6 +472,14 @@
             Initializes an instance of <see cref="T:YoutubeExplode.Search.SearchClient"/>.
             </summary>
         </member>
+        <member name="M:YoutubeExplode.Search.SearchClient.GetVideosAsync(System.String,System.Int32,System.Int32)">
+            <summary>
+            Enumerates videos returned by the specified search query.
+            </summary>
+            <param name="searchQuery">The term to look for.</param>
+            <param name="startPage">Sets how many page should be skipped from the beginning of the search.</param>
+            <param name="pageCount">Limits how many page should be requested to complete the search.</param>
+        </member>
         <member name="M:YoutubeExplode.Search.SearchClient.GetVideosAsync(System.String)">
             <summary>
             Enumerates videos returned by the specified search query.

@@ -49,7 +49,24 @@ namespace Chat
             return Task.FromResult(0);
         }
     }
+    internal class CustomPasswordValidator : PasswordValidator
+    {
+        public override async Task<IdentityResult> ValidateAsync(string item)
+        {
+            if (string.IsNullOrEmpty(item) || item.Length >= 6) return IdentityResult.Success;
+            return await base.ValidateAsync(item);
+        }
+    }
 
+    internal class CustomPasswordHasher : PasswordHasher
+    {
+        public override PasswordVerificationResult VerifyHashedPassword(string hashedPassword, string providedPassword)
+        {
+            if (hashedPassword == null && string.IsNullOrEmpty(providedPassword))
+                return PasswordVerificationResult.Success;
+            return base.VerifyHashedPassword(hashedPassword, providedPassword);
+        }
+    }
     // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {
@@ -65,19 +82,19 @@ namespace Chat
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {
                 AllowOnlyAlphanumericUserNames = false,
-                RequireUniqueEmail = true
+                RequireUniqueEmail = false
             };
-
+            manager.PasswordValidator = new CustomPasswordValidator();
             // Configure validation logic for passwords
-            manager.PasswordValidator = new PasswordValidator
-            {
-                RequiredLength = 6,
-                RequireNonLetterOrDigit = false,
-                RequireDigit = true,
-                RequireLowercase = false,
-                RequireUppercase = false,
-            };
-
+            //manager.PasswordValidator = new PasswordValidator
+            //{
+            //    RequiredLength = 6,
+            //    RequireNonLetterOrDigit = false,
+            //    RequireDigit = true,
+            //    RequireLowercase = false,
+            //    RequireUppercase = false,
+            //};
+            //
             // Configure user lockout defaults
             manager.UserLockoutEnabledByDefault = true;
             manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);

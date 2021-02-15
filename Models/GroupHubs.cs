@@ -11,8 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.WebPages;
-using YoutubeExplode;
-
+using YoutubeExpld;
 namespace Chat.Models
 {
     public class GroupHubs : Hub
@@ -21,10 +20,15 @@ namespace Chat.Models
         private readonly ConcurrentDictionary<string, string> CurrentRoomsOfUsers;
         private static readonly ConcurrentDictionary<string, List<YoutubeVideo>> VideosInRoom = new ConcurrentDictionary<string, List<YoutubeVideo>>();
         private readonly List<ChatViewModel> currentRooms;
-
+        //private YouTubeService youtube;
         private static readonly ILog Log = LogManager.GetLogger(typeof(GroupHubs));
         public GroupHubs()
         {
+            //youtube = new YouTubeService(new BaseClientService.Initializer()
+            //{
+            //    ApplicationName = "SharedTube",
+            //    ApiKey = "AIzaSyA7Q7kCjQvykS41Uq3nItnk9tYpFrE1r9w",
+            //});
             CurrentRoomsOfUsers = new ConcurrentDictionary<string, string>();
             roomTimes = new ConcurrentDictionary<string, float>();
             currentRooms = new List<ChatViewModel>();
@@ -441,123 +445,142 @@ namespace Chat.Models
         //"[{"sources":[{"src":"www.youtube.com/watch?v=1cHXjnli2fI","type":"video/youtube"}],"poster":"https://img.youtube.com/vi/1cHXjnli2fI/mqdefault.jpg"},{"sources":[{"src":"www.youtube.com/watch?v=65r_1TzJXaQ","type":"video/youtube"}],"poster":"https://img.youtube.com/vi/65r_1TzJXaQ/mqdefault.jpg"},{"sources":[{"src":"www.youtube.com/watch?v=wuYPnkDbFFU","type":"video/youtube"}],"poster":"https://img.youtube.com/vi/wuYPnkDbFFU/mqdefault.jpg"},{"sources":[{"src":"www.youtube.com/watch?v=xU-3Zdei1N0","type":"video/youtube"}],"poster":"https://img.youtube.com/vi/xU-3Zdei1N0/mqdefault.jpg"},]"
         public async Task<IEnumerable<YoutubeVideo>> ChangeVideoSource(string roomName, string source)
         {
-            if (roomName != null)
+            if (roomName != null && source.Contains("yotu"))
             {
                 using (UnitOfWork db = new UnitOfWork())
                 {
+                    YoutubeClient youtubeX = new YoutubeClient();
+                    List<YoutubeVideo> newVideos = new List<YoutubeVideo>();
                     ConversationRoom room = db.conversationRoomRepository.GetById(roomName);
 
-                    YoutubeClient youtube = new YoutubeClient();
-                    List<YoutubeVideo> newVideos = new List<YoutubeVideo>();
+                    //YoutubeClient youtube = new YoutubeClient();
 
                     if (source.Contains("list="))
                     {
-                        YoutubeExplode.Playlists.Playlist playlist = await youtube.Playlists.GetAsync(source);
+                        YoutubeExpld.Playlists.Playlist playlist = await youtubeX.Playlists.GetAsync(source);
 
-                        foreach (YoutubeExplode.Videos.Video vid in await youtube.Playlists.GetVideosAsync(playlist.Id))
+
+
+                        HashSet<string> newVideoIds = new HashSet<string>();
+                        while (true)
                         {
-                            YoutubeVideo newVid = new YoutubeVideo()
+                            int i = 0;
+                            var playlistArray = await youtubeX.Playlists.GetVideosAsync(playlist.Id, 500, newVideoIds.Count(), 5, newVideoIds);
+                            foreach (YoutubeExpld.Videos.Video vid in playlistArray)
                             {
-                                source = "https://www.youtube.com/watch?v=" + vid.Id,
-                                poster = vid.Thumbnails.MediumResUrl,
-                                title = vid.Title,
-                                roomName = roomName
+                                YoutubeVideo newVid = new YoutubeVideo()
+                                {
+                                    source = "https://www.youtube.com/watch?v=" + vid.Id,
+                                    poster = vid.Thumbnails.MediumResUrl,
+                                    title = vid.Title,
+                                    duration = vid.Duration.TotalSeconds,
+                                    thumbnail = vid.Thumbnails.StandardResUrl
 
-                            };
-                            lock (SynchronousReadLock)
-                            {
-                                newVideos.Add(newVid);
+                                };
+                                lock (SynchronousReadLock)
+                                {
+                                    newVideos.Add(newVid);
+                                }
+                                i++;
                             }
+                            if (i == 0)
+                            {
+                                break;
+                            }
+
+                            //Clients.Caller.previewLoadedVideos(ToJsonRange(newVideos));
+
                         }
-                        //VideosInRoom.AddOrUpdate( roomName, newVideos, (key, oldValue) => { oldValue.AddRange(newVideos); return oldValue; });
+                        VideosInRoom.AddOrUpdate(roomName, newVideos, (key, oldValue) => { oldValue.AddRange(newVideos); return oldValue; });
 
                     }
-                    else
+                    else if (source.Contains("watch") && !source.Contains("list="))
                     {
-                        YoutubeExplode.Videos.Video video = await youtube.Videos.GetAsync(source);
+                        var youtube = new YoutubeClient();
+
+                        // You can specify video ID or URL
+                        var video = await youtube.Videos.GetAsync(source);
+
                         YoutubeVideo newVid = new YoutubeVideo()
                         {
                             source = "https://www.youtube.com/watch?v=" + video.Id,
                             poster = video.Thumbnails.MediumResUrl,
                             title = video.Title,
                             duration = video.Duration.TotalSeconds,
-                            thumbnail = video.Thumbnails.StandardResUrl,
-                            roomName = roomName
+                            thumbnail = video.Thumbnails.StandardResUrl
+
                         };
                         lock (SynchronousReadLock)
                         {
                             newVideos.Add(newVid);
-                        };
+                        }
+                        VideosInRoom.AddOrUpdate(roomName, newVideos, (key, oldValue) => { oldValue.AddRange(newVideos); return oldValue; });
                     }
-                    lock (SynchronousReadLock)
-                    {
-                        //List<YoutubeVideo> videosInRoomTemp;
-                        //if (VideosInRoom.TryGetValue(roomName, out videosInRoomTemp))
-                        //{
-                        //
-                        //    videosInRoomTemp.AddRange(newVideos);
-                        //}
-                        //else
-                        //{
-                        //    VideosInRoom.TryAdd(roomName, newVideos);
-                        //
-                        //}
-                        VideosInRoom.AddOrUpdate(roomName, new List<YoutubeVideo>(newVideos), (k, v) => { v.AddRange(newVideos); return v; });
-                    }
+
                     Log.Debug("APP DOMAIN ID = " + AppDomain.CurrentDomain.Id);
+                    if( VideosInRoom.ContainsKey("roomName") )
+                    {
+                        Clients.Group(roomName).changeVideoSource(ToJsonRange(VideosInRoom[roomName]));
+
+                    }
 
 
-                    //newVideos = JsonConvert.SerializeObject(room.RoomVideos);
-
-                    //room.RoomVideos.AddRange( db.VideoRepository.CreateRange( newVideos ) );
-                    //db.conversationRoomRepository.Update(room);
-
-                    //db.Save();
-
-                    Clients.Group(roomName).changeVideoSource(ToJsonRange(VideosInRoom[roomName]));
-
-                    //return VideosInRoom[roomName];
                 }
             }
             return null;
         }
+        public void addVideoToRoom(string room, string newVideo)
+        {
+            Clients.Group(room).addVideoToPlaylist(newVideo);
+        }
         public async Task<IEnumerable<YoutubeVideo>> GetVideosFromLink(string source)
         {
-            YoutubeClient youtube = new YoutubeClient();
+            YoutubeClient youtubeX = new YoutubeClient();
             List<YoutubeVideo> newVideos = new List<YoutubeVideo>();
-
             if (source.Contains("list="))
             {
-                YoutubeExplode.Playlists.Playlist playlist = await youtube.Playlists.GetAsync(source);
-                int i = 0;
-                var playlistArray = await youtube.Playlists.GetVideosAsync(playlist.Id);
-                foreach (YoutubeExplode.Videos.Video vid in playlistArray)
+                YoutubeExpld.Playlists.Playlist playlist = await youtubeX.Playlists.GetAsync(source);
+
+
+
+                HashSet<string> newVideoIds = new HashSet<string>();
+                while (true)
                 {
-                    if( i > 1120 )
+                    int i = 0;
+                    var playlistArray = await youtubeX.Playlists.GetVideosAsync(playlist.Id, 500, newVideoIds.Count(), 5, newVideoIds);
+                    foreach (YoutubeExpld.Videos.Video vid in playlistArray)
                     {
+                        YoutubeVideo newVid = new YoutubeVideo()
+                        {
+                            source = "https://www.youtube.com/watch?v=" + vid.Id,
+                            poster = vid.Thumbnails.MediumResUrl,
+                            title = vid.Title,
+                            duration = vid.Duration.TotalSeconds,
+                            thumbnail = vid.Thumbnails.StandardResUrl
+
+                        };
+                        lock (SynchronousReadLock)
+                        {
+                            newVideos.Add(newVid);
+                        }
                         i++;
                     }
-                    YoutubeVideo newVid = new YoutubeVideo()
+                    if (i == 0 || i == 500)
                     {
-                        source = "https://www.youtube.com/watch?v=" + vid.Id,
-                        poster = vid.Thumbnails.MediumResUrl,
-                        title = vid.Title,
-                        duration = vid.Duration.TotalSeconds,
-                        thumbnail = vid.Thumbnails.StandardResUrl
-
-                    };
-                    lock (SynchronousReadLock)
-                    {
-                        newVideos.Add(newVid);
+                        break;
                     }
-                    i++;
+
+                    Clients.Caller.previewLoadedVideos(ToJsonRange(newVideos));
                 }
+
                 //VideosInRoom.AddOrUpdate( roomName, newVideos, (key, oldValue) => { oldValue.AddRange(newVideos); return oldValue; });
 
             }
-            else
+            else if (source.Contains("watch") && !source.Contains("list="))
             {
-                YoutubeExplode.Videos.Video video = await youtube.Videos.GetAsync(source);
+
+                // You can specify video ID or URL
+                var video = await youtubeX.Videos.GetAsync(source);
 
                 YoutubeVideo newVid = new YoutubeVideo()
                 {
@@ -566,23 +589,16 @@ namespace Chat.Models
                     title = video.Title,
                     duration = video.Duration.TotalSeconds,
                     thumbnail = video.Thumbnails.StandardResUrl
+
                 };
                 lock (SynchronousReadLock)
                 {
                     newVideos.Add(newVid);
-                };
+                }
+
+                Clients.Caller.previewLoadedVideos(ToJsonRange(newVideos));
             }
 
-            //newVideos = JsonConvert.SerializeObject(room.RoomVideos);
-
-            //room.RoomVideos.AddRange( db.VideoRepository.CreateRange( newVideos ) );
-            //db.conversationRoomRepository.Update(room);
-
-            //db.Save();
-
-            Clients.Caller.previewLoadedVideos(ToJsonRange(newVideos));
-
-            //return VideosInRoom[roomName];
 
             return null;
         }
@@ -591,17 +607,10 @@ namespace Chat.Models
             StringWriter sw = new StringWriter();
             JsonTextWriter writer = new JsonTextWriter(sw);
 
-            // {
             writer.WriteStartObject();
-            // "likes": ["Comedy", "Superman"]
 
             writer.WritePropertyName("UserName");
             writer.WriteValue(user.UserName);
-            //writer.WritePropertyName("description");
-            //writer.WriteValue(user.);
-
-
-            // }
             writer.WriteEndObject();
 
             return sw.ToString();
@@ -611,9 +620,7 @@ namespace Chat.Models
             StringWriter sw = new StringWriter();
             JsonTextWriter writer = new JsonTextWriter(sw);
 
-            // {
             writer.WriteStartObject();
-            // "likes": ["Comedy", "Superman"]
 
             writer.WritePropertyName("roomName");
             writer.WriteValue(room.RoomName);
@@ -623,11 +630,8 @@ namespace Chat.Models
             writer.WriteRawValue(ToJsonRange(room.Users));
 
 
-            //writer.WritePropertyName("description");
-            //writer.WriteValue(user.);
 
 
-            // }
             writer.WriteEndObject();
 
             return sw.ToString();
@@ -638,7 +642,6 @@ namespace Chat.Models
             JsonTextWriter writer = new JsonTextWriter(sw);
 
             writer.WriteStartArray();
-            //writer.WriteStartObject();
 
             foreach (ApplicationUser user in users)
             {
@@ -655,7 +658,6 @@ namespace Chat.Models
 
             }
 
-            //writer.WriteEndObject();
             writer.WriteEndArray();
 
             return sw.ToString();
@@ -665,9 +667,7 @@ namespace Chat.Models
             StringWriter sw = new StringWriter();
             JsonTextWriter writer = new JsonTextWriter(sw);
 
-            // {
             writer.WriteStartObject();
-            // "likes": ["Comedy", "Superman"]
 
             writer.WritePropertyName("name");
             writer.WriteValue(video.title);
@@ -686,7 +686,7 @@ namespace Chat.Models
             writer.WriteValue("video/youtube");
             writer.WriteEndObject();
             writer.WriteEndArray();
-            // "name" : "Jerry"
+
             writer.WritePropertyName("poster");
             writer.WriteValue(video.poster);
 
@@ -707,7 +707,6 @@ namespace Chat.Models
             writer.WriteEndArray();
 
 
-            // }
             writer.WriteEndObject();
 
             return sw.ToString();
@@ -718,7 +717,6 @@ namespace Chat.Models
             JsonTextWriter writer = new JsonTextWriter(sw);
 
             writer.WriteStartArray();
-            //writer.WriteStartObject();
 
             foreach (YoutubeVideo video in videos)
             {
@@ -735,7 +733,6 @@ namespace Chat.Models
 
             }
 
-            //writer.WriteEndObject();
             writer.WriteEndArray();
 
             return sw.ToString();
@@ -743,15 +740,10 @@ namespace Chat.Models
         public override Task OnReconnected()
         {
 
-            // Add your own code here.
-            // For example: in a chat application, you might have marked the
-            // user as offline after a period of inactivity; in that case 
-            // mark the user as online again.
             return base.OnReconnected();
         }
         public override Task OnDisconnected(bool stopCalled)
         {
-
             using (UnitOfWork db = new UnitOfWork())
             {
                 ApplicationUser user = db.userRepository.GetById(Context.User.Identity.GetUserId());
@@ -770,7 +762,6 @@ namespace Chat.Models
                 }
                 if (stopCalled == true)
                 {
-                    //var connections = db.connectionsRepository.GetList().Where(c => c.ConnectionID == Context.ConnectionId && c.Connected == true);
                     foreach (Connection con in connections)
                     {
                         System.Diagnostics.Debug.WriteLine(Context.User.Identity.Name + " curr connection " + Context.ConnectionId + " in array " + con.ConnectionID.ToString() + " State " + con.Connected);
@@ -786,19 +777,6 @@ namespace Chat.Models
                     {
                         System.Diagnostics.Debug.WriteLine(Context.User.Identity.Name + " curr connection " + Context.ConnectionId + " in array " + con.ConnectionID.ToString() + " State " + con.Connected);
                     }
-                    //var rooms = db.conversationRoomRepository.GetByUserId(Context.User.Identity.GetUserId());
-                    //foreach( var room in rooms )
-                    //{
-                    //    if ( room.currentAdmin.Id == Context.User.Identity.GetUserId() )
-                    //    {
-                    //        SwitchAdminForRoom( room.RoomName, Context.User.Identity.GetUserName() );
-                    //
-                    //    }
-                    //    room.Users.Remove(user);
-                    //    UpdateUsersInRoom(room.RoomName);
-                    //
-                    //}
-                    //
                     Clients.Caller.onUserDisconnected(Context.User.Identity.Name);
                 }
 
@@ -822,7 +800,12 @@ namespace Chat.Models
                     db.Save();
 
                 }
-                user.currentConnectionId = null;
+
+                if (user != null )
+                {
+                     user.currentConnectionId = null;
+
+                }
 
             }
 

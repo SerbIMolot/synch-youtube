@@ -61,7 +61,6 @@ namespace Chat.Repository
 
         public void Delete(ApplicationUser user)
         {
-            ApplicationUser ApplicationUser = db.Users.Find(user);
             if (user != null)
             {
                 db.Users.Remove(user);

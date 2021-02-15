@@ -1,6 +1,5 @@
 ﻿.container {
-
-    margin: auto;
+    /* margin: auto;*/
 }
 
 img {
@@ -22,6 +21,7 @@ img {
     height: 38.2%;
     max-height: 38.2%;
 }
+
 .top_spac {
     margin: 20px 0 0;
 }
@@ -37,9 +37,11 @@ img {
     text-align: right;
     width: 60%;
 }
+
 #createChatText {
     right: 155px;
 }
+
 .headind_srch {
     padding: 10px 29px 10px 20px;
     overflow: hidden;
@@ -51,15 +53,18 @@ img {
     font-size: 21px;
     margin: auto;
 }
+
 .modal-body .manage_chat_form {
     right: 5%
 }
-.modal-body .manage_chat_form input[type=text] {
-    left: 11%;
-}
-.modal-body .manage_chat_form .create_btn {
-    position:relative;
-}
+
+    .modal-body .manage_chat_form input[type=text] {
+        left: 11%;
+    }
+
+    .modal-body .manage_chat_form .create_btn {
+        position: relative;
+    }
 /*
 input[type=text] {
     background-color: #f6f6f6;
@@ -85,6 +90,7 @@ input[type=text]:focus {
     background-color: #fff;
     border-bottom: 2px solid #5fbae9;
 }
+
 input[type=button] {
     background-color: #56baed;
     border: none;
@@ -105,17 +111,19 @@ input[type=button] {
     -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
 }
-input[type=button]:hover {
-    background-color: #39ace7;
-}
 
-input[type=button]:active {
-    -moz-transform: scale(0.95);
-    -webkit-transform: scale(0.95);
-    -o-transform: scale(0.95);
-    -ms-transform: scale(0.95);
-    transform: scale(0.95);
-}
+    input[type=button]:hover {
+        background-color: #39ace7;
+    }
+
+    input[type=button]:active {
+        -moz-transform: scale(0.95);
+        -webkit-transform: scale(0.95);
+        -o-transform: scale(0.95);
+        -ms-transform: scale(0.95);
+        transform: scale(0.95);
+    }
+
 .create_chat_form input {
     border: 1px solid #cdcdcd;
     border-width: 0 0 1px 0;
@@ -152,6 +160,7 @@ input[type=button]:active {
     color: #989898;
     margin: auto
 }
+
 .chat_img {
     float: left;
     width: 11%;
@@ -173,15 +182,22 @@ input[type=button]:active {
     margin: 0;
     padding: 18px 16px 10px;
 }
+
 #content_of_page {
-    width: 100%;
+    width: 97%;
     height: 100%;
-    padding: 0 0 0 3%;
+    float: right;
+    padding: 0 0 0 0;
+    display: inline-block;
+    margin: 0;
+    margin-right: 0;
 }
+
 #content_container {
     width: 97%;
     height: 100%;
 }
+
 .partialChat {
     height: 550px;
     overflow-y: scroll;
@@ -193,7 +209,6 @@ input[type=button]:active {
 
 .incoming_msg_img {
     display: none;
-    
     width: 6%;
     margin-bottom: 15%;
 }
@@ -228,7 +243,7 @@ input[type=button]:active {
     overflow-wrap: break-word;
 }
 
-.received_msg  {
+.received_msg {
     padding: 0 0 0 10px;
     vertical-align: top;
     width: 83%;
@@ -240,6 +255,7 @@ input[type=button]:active {
         border: 1px solid green;
         width: 100%;
     }
+
 .received_withd_msg {
     width: 100%;
     margin: 0;
@@ -247,9 +263,11 @@ input[type=button]:active {
     border-right: 1px solid darkgreen;
     border-bottom: 1px solid darkgreen;
 }
-.received_withd_msg .time_date {
-    float: left;
-}
+
+    .received_withd_msg .time_date {
+        float: left;
+    }
+
 .incoming_msg {
     margin: 0.6% 0;
 }
@@ -258,24 +276,28 @@ input[type=button]:active {
 .outgoing_msg {
     overflow: hidden;
     margin: 0.6% 0;
+    padding-bottom: 3%;
 }
-.outgoing_msg .time_date {
-    float: right;
-}
+
+    .outgoing_msg .time_date {
+        float: right;
+    }
 
     .outgoing_msg .sender_name {
         width: 100%;
         margin: 0;
         padding: 0;
     }
-    .outgoing_msg .sender_name p {
-        color: green;
-        border: 1px solid green;
-        width: 100%;
-        text-align: right;
-        padding: 1px 3px 1px 1px;
-        margin: 0;
-    }
+
+        .outgoing_msg .sender_name p {
+            color: green;
+            border: 1px solid green;
+            width: 100%;
+            text-align: right;
+            padding: 1px 3px 1px 1px;
+            margin: 0;
+        }
+
 .sent_msg .received_withd_msg p {
     border-radius: 3px;
     font-size: 14px;
@@ -316,6 +338,7 @@ input[type=button]:active {
     display: inline-block;
     float: left;
 }
+
 #managment {
     float: right;
     position: relative;
@@ -326,19 +349,24 @@ input[type=button]:active {
     padding: 0;
     background-color: green;
 }
+
 #link_send_btn {
     display: inline;
 }
+
 #write_link {
     width: 100%;
 }
+
 #user-list-panel {
 }
+
 #user-list {
     list-style-type: none;
     margin: 0;
     padding: 0;
 }
+
 .scroll {
     width: 200px;
     height: 400px;
@@ -358,8 +386,7 @@ input[type=button]:active {
 
 .msg_history::-webkit-scrollbar-thumb {
     background-color: green;
-    border-radius: 0;
-
+    border-radius: 1px;
     width: 1px;
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
 }
@@ -374,12 +401,14 @@ input[type=button]:active {
     -webkit-flex-direction: row;
     flex-direction: row;
 }
+
 .input_link_write {
     width: 51%;
     padding: 0;
     margin: 0;
     overflow: hidden;
 }
+
 #write_msg {
     background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
     border: none;
@@ -402,6 +431,7 @@ input[type=button]:active {
     height: 20%;
     display: flex;
 }
+
 .msg_send_btn {
     background: #05728f none repeat scroll 0 0;
     border: 1px solid black;
@@ -425,6 +455,7 @@ input[type=button]:active {
     right: 0.1%;
     height: 100%;
 }
+
 .msg_history {
     width: 100%;
     height: 80%;

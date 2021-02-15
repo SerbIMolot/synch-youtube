@@ -97,7 +97,6 @@ E:\Visual Studio\TRUESynchTube\bin\System.Web.WebPages.Deployment.dll
 E:\Visual Studio\TRUESynchTube\bin\System.Web.WebPages.dll
 E:\Visual Studio\TRUESynchTube\bin\System.Web.WebPages.Razor.dll
 E:\Visual Studio\TRUESynchTube\bin\WebGrease.dll
-E:\Visual Studio\TRUESynchTube\bin\YoutubeExplode.dll
 E:\Visual Studio\TRUESynchTube\bin\AngleSharp.xml
 E:\Visual Studio\TRUESynchTube\bin\EntityFramework.xml
 E:\Visual Studio\TRUESynchTube\bin\EntityFramework.SqlServer.xml
@@ -132,7 +131,6 @@ E:\Visual Studio\TRUESynchTube\bin\System.Web.WebPages.xml
 E:\Visual Studio\TRUESynchTube\bin\System.Web.WebPages.Deployment.xml
 E:\Visual Studio\TRUESynchTube\bin\System.Web.WebPages.Razor.xml
 E:\Visual Studio\TRUESynchTube\bin\Antlr3.Runtime.pdb
-E:\Visual Studio\TRUESynchTube\bin\YoutubeExplode.xml
 E:\Visual Studio\TRUESynchTube\bin\Microsoft.AspNet.Identity.Core.xml
 E:\Visual Studio\TRUESynchTube\bin\Microsoft.AspNet.Identity.Owin.xml
 E:\Visual Studio\TRUESynchTube\bin\Microsoft.AspNet.Identity.EntityFramework.xml
@@ -159,3 +157,6 @@ E:\Visual Studio\TRUESynchTube\obj\Release\Chat.csproj.CoreCompileInputs.cache
 E:\Visual Studio\TRUESynchTube\obj\Release\Chat.csproj.CopyComplete
 E:\Visual Studio\TRUESynchTube\obj\Release\SynchTube.dll
 E:\Visual Studio\TRUESynchTube\obj\Release\SynchTube.pdb
+E:\Visual Studio\TRUESynchTube\bin\YoutubeExpld.dll
+E:\Visual Studio\TRUESynchTube\bin\YoutubeExpld.pdb
+E:\Visual Studio\TRUESynchTube\bin\YoutubeExpld.xml

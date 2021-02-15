@@ -1,5 +1,6 @@
 ﻿using Chat.Models;
 using Chat.Repository;
+using Chat.Controllers.Attriburtes;
 using Chat.Views.Room;
 using Microsoft.AspNet.Identity;
 using System.Collections.Generic;
@@ -24,8 +25,7 @@ namespace Chat.Controllers
         {
             this.userManager = userManager;
         }
-        // GET: Room
-        [Authorize]
+
         public ActionResult Index()
         {
             RoomIndexVM roomVM = new RoomIndexVM()
@@ -185,14 +185,12 @@ namespace Chat.Controllers
             }
             return PartialView("view", chat);
         }
-        [Authorize]
+        [Route("Chat/{id}")]
         public ActionResult Chat(string id)
         {
             mutexObj.WaitOne();
             if (id == null)
             {
-                //mutexObj.ReleaseMutex();
-                //return RedirectToAction("Index","Room");
             }
             else
             {
@@ -221,50 +219,14 @@ namespace Chat.Controllers
                 else if (room != null && !room.Users.Contains(user))
                 {
                     mutexObj.ReleaseMutex();
-                    return JoinRoom(id);
+                    return JoinRoom(room.RoomName);
                 }
 
             }
             mutexObj.ReleaseMutex();
             return View(chat);
         }
-        //[Authorize]
-        //public ActionResult Chat(string id)
-        //{
-        //    mutexObj.WaitOne();
-        //    if( id == null )
-        //    {
-        //        //mutexObj.ReleaseMutex();
-        //        //return RedirectToAction("Index","Room");
-        //    }
-        //    ChatViewModel chat = new ChatViewModel()
-        //    {
-        //        messageHistory = new List<Message>()
-        //    };
-        //    ViewBag.userName = User.Identity.GetUserName();
-        //    ViewBag.currentRoom = id;
-        //    using (var db = new UnitOfWork())
-        //    {
-        //        var room = db.conversationRoomRepository.GetByRoomName(id);
-        //        var user = db.userRepository.GetById(User.Identity.GetUserId());
-        //        if( room != null  && room.Users.Contains(user) )
-        //        {
-        //            chat.messageHistory = db.messageRepository.GetByRoomName(id).ToList();
-        //            chat.currentRoomName = id;
-        //            chat.room = room;
-        //            chat.currentRoomTime = 0.0f;
-        //            chat.currentRoomVideo = null;
-        //        }
-        //        else if( id != null )
-        //        {
-        //           // mutexObj.ReleaseMutex();
-        //           // return JoinRoom(id );
-        //        }
-        //        
-        //    }
-        //    mutexObj.ReleaseMutex();
-        //    return View(chat);
-        //}
+
         [HttpPost]
         public ActionResult CreateRoom(string roomName)
         {
@@ -273,10 +235,6 @@ namespace Chat.Controllers
             roomName = Regex.Replace(roomName, @"[^A-Za-z0-9]+", "");
             using (UnitOfWork db = new UnitOfWork())
             {
-                //if (db.conversationRoomRepository.GetById(roomName) != null)
-                //{
-                //    return RedirectToRoute("Error", "AlreadyCreated");
-                //}
 
                 ConversationRoom room = db.conversationRoomRepository.GetById(roomName);
                 if (room == null)
@@ -305,65 +263,17 @@ namespace Chat.Controllers
                     return RedirectToRoute("Error", "CantFindRoom");
                 }
                 mutexObj.ReleaseMutex();
-                return RedirectToAction("Chat/" + room.RoomName, "Room");
+                return Redirect("/Chat/" + room.RoomName);
             }
         }
-        //[HttpPost]
-        //public ActionResult CreateRoom( RoomIndexVM roomVM )
-        //{
-        //    mutexObj.WaitOne();
-        //    using (var db = new UnitOfWork())
-        //    {
-        //        if (db.conversationRoomRepository.GetById(roomVM.newRoom.RoomName) != null)
-        //        {
-        //            return RedirectToRoute("Error", "AlreadyCreated");
-        //        }
-        //
-        //
-        //        if (roomVM.newRoom != null)
-        //        {
-        //            var user = db.userRepository.GetById(User.Identity.GetUserId());
-        //            roomVM.newRoom.currentAdmin = db.userRepository.GetById( User.Identity.GetUserId() );
-        //            user.Rooms.Add(roomVM.newRoom);
-        //
-        //            db.userRepository.Update(user);
-        //            roomVM.newRoom.Users.Add(user);
-        //            db.conversationRoomRepository.Create(roomVM.newRoom);
-        //
-        //            db.Save();
-        //
-        //        }
-        //        else
-        //        {
-        //            mutexObj.ReleaseMutex();
-        //            return RedirectToRoute("Error", "CantFindRoom");
-        //        }
-        //    }
-        //    mutexObj.ReleaseMutex();
-        //    return RedirectToAction("Chat/"+ roomVM.newRoom.RoomName, "Room");
-        //}
-        //private string GenerateToken()
-        //{
-        //    byte[] time = BitConverter.GetBytes(DateTime.UtcNow.ToBinary());
-        //    byte[] key = Guid.NewGuid().ToByteArray();
-        //    string token = Convert.ToBase64String(time.Concat(key).ToArray());
-        //
-        //    return token;
-        //}
-        //private bool ValidateToken( string token )
-        //{
-        //    byte[] data = Convert.FromBase64String(token);
-        //    Date
-        //    return result;
-        //}
         [HttpPost]
-        public ActionResult JoinRoom(string roomName)
+        public ActionResult JoinRoom(string id)
         {
             mutexObj.WaitOne();
-            roomName = Regex.Replace(roomName, @"[^A-Za-z0-9]+", "");
+            id = Regex.Replace(id, @"[^A-Za-z0-9]+", "");
             using (UnitOfWork db = new UnitOfWork())
             {
-                ConversationRoom room = db.conversationRoomRepository.GetById(roomName);
+                ConversationRoom room = db.conversationRoomRepository.GetById(id);
                 if (room == null)
                 {
                     mutexObj.ReleaseMutex();
@@ -374,7 +284,6 @@ namespace Chat.Controllers
                 ApplicationUser user = db.userRepository.GetById(User.Identity.GetUserId());
                 if (room != null && user != null)
                 {
-                    //room.currentAdmin = user;
 
                     user.Rooms.Add(room);
                     room.Users.Add(user);
@@ -392,7 +301,7 @@ namespace Chat.Controllers
                 }
             }
             mutexObj.ReleaseMutex();
-            return RedirectToAction("Chat/" + roomName, "Room");
+            return Redirect("/Chat/" + id);
         }
         [HttpGet]
         public ActionResult CreateChatRoom()
@@ -416,32 +325,7 @@ namespace Chat.Controllers
                 {
                     ApplicationUser user = db.userRepository.GetById(User.Identity.GetUserId());
                     ConversationRoom room = null;
-                    //using (RijndaelManaged myRijndael = new RijndaelManaged())
-                    //{
-                    //
-                    //    try
-                    //    {
-                    //        myRijndael.GenerateKey();
-                    //        myRijndael.GenerateIV();
-                    //        // Encrypt the string to an array of bytes. 
-                    //        byte[] encrypted = RijndaelEncryption.EncryptStringToBytes(GenerateToken(), myRijndael.Key, myRijndael.IV);
-                    //
-                    //        // Decrypt the bytes to a string. 
-                    //        string roundtrip = RijndaelEncryption.DecryptStringFromBytes(encrypted, myRijndael.Key, myRijndael.IV);
-                    //        room = new ConversationRoom()
-                    //        {
-                    //            RoomName = roomName,
-                    //            key = myRijndael.Key,
-                    //            IV = myRijndael.IV
-                    //        };
-                    //        Console.WriteLine("Round Trip: {0}", encrypted);
-                    //        Console.WriteLine("Round Trip: {0}", roundtrip);
-                    //    }
-                    //    catch (Exception e)
-                    //    {
-                    //        Console.WriteLine("Error: {0}", e.Message);
-                    //    }
-                    //}
+
                     room = new ConversationRoom()
                     {
                         RoomName = roomName,

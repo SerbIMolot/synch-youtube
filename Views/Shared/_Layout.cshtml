@@ -7,11 +7,17 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link href="@Url.Content("~/Content/Navbar.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/main.css")" rel="stylesheet" type="text/css" />
     @RenderSection("Styles", false)
+
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>repl.it</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
 </head>
 <body>
     <div id="modDialog" class="modal fade">
@@ -41,42 +47,119 @@
         </div>
 
     *@
-    <div id="content">
-        <div id="closedBar">
-            <span class="slide">
-                <a id="open_menu" href="#" onclick="openSlideMenu()">
-                    <i class="fas fa-bars"></i>
+    <div id="client_body" style="display: inline-block;">
+        <div id="content">
+            <div id="closedBar">
+                <span class="slide">
+                    <a id="open_menu" href="#" onclick="openSlideMenu()">
+                        <i class="fas fa-bars"></i>
+                    </a>
+                </span>
+            </div>
+            <div id="menu" class="nav">
+                <a href="#" class="close" onclick="closeSlideMenu()">
+                    <i class="fas fa-backward"></i>
                 </a>
-            </span>
+                <a href="#" id="create_new_room" class="item"><i class="fas fa-hammer"></i>Create new room</a>
+                <a href="#" id="join_room" class="item" style="border-bottom: 1px #ccc;"><i class="fas fa-users"></i>Join room</a>
+            </div>
+            @Html.Partial("_LoginPartial")
         </div>
-        <div id="menu" class="nav">
-            <a href="#" class="close" onclick="closeSlideMenu()">
-                <i class="fas fa-backward"></i>
-            </a>
-            <a href="#" id="create_new_room" class="item"><i class="fas fa-hammer"></i>Create new room</a>
-            <a href="#" id="join_room" class="item" style="border-bottom: 1px #ccc;"><i class="fas fa-users"></i>Join room</a>
+
+
+
+        <div id="content_of_page" >
+            @Scripts.Render("~/bundles/jquery")
+            @Scripts.Render("~/bundles/bootstrap")
+            @RenderBody()
+            @RenderSection("Scripts", required: false)
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - Web-development Laboratory work</p>
+            </footer>
+
+
+
         </div>
-        @Html.Partial("_LoginPartial")
-    </div>
-
-
-
-    <div id="content_of_page" class="container body-content">
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
-        @RenderBody()
-        @RenderSection("Scripts", required: false)
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Web-development Laboratory work</p>
-        </footer>
-
-
 
     </div>
-    <script src="~/Scripts/util.js"></script>
+    <script>
+
+@*
+function openCreateModal() {
+    $.ajaxSetup({ cache: false });
+    $.ajax({
+        //url: siteLocation + '/Room/CreateChatRoom',
+        url: @Url.Action("CreateChatRoom", "Room"),
+        type: 'get',
+        cache: false,
+        async: true,
+        success: function (result) {
+            $('#dialogContent').html(result);
+            $('#modDialog').modal('show');
+        },
+        error: function (jqXHR, exception) {
+            var msg = '';
+            if (jqXHR.status === 0) {
+                msg = 'Not connect.\n Verify Network.';
+            } else if (jqXHR.status == 404) {
+                msg = 'Requested page not found. [404]';
+            } else if (jqXHR.status == 500) {
+                msg = 'Internal Server Error [500].';
+            } else if (exception === 'parsererror') {
+                msg = 'Requested JSON parse failed.';
+            } else if (exception === 'timeout') {
+                msg = 'Time out error.';
+            } else if (exception === 'abort') {
+                msg = 'Ajax request aborted.';
+            } else {
+                msg = 'Uncaught Error.\n' + jqXHR.responseText;
+            }
+            //alert(msg);
+        }
+    });
+
+}
+function openJoinModal() {
+    $.ajaxSetup({ cache: false });
+    $.ajax({
+        url: @Url.Action("JoinChatRoom", "Room"),
+        //url: siteLocation + '/Room/JoinChatRoom',
+        type: 'get',
+        cache: false,
+        async: true,
+        success: function (result) {
+            $('#dialogContent').html(result);
+            $('#modDialog').modal('show');
+        },
+        error: function (jqXHR, exception) {
+            var msg = '';
+            if (jqXHR.status === 0) {
+                msg = 'Not connect.\n Verify Network.';
+            } else if (jqXHR.status == 404) {
+                msg = 'Requested page not found. [404]';
+            } else if (jqXHR.status == 500) {
+                msg = 'Internal Server Error [500].';
+            } else if (exception === 'parsererror') {
+                msg = 'Requested JSON parse failed.';
+            } else if (exception === 'timeout') {
+                msg = 'Time out error.';
+            } else if (exception === 'abort') {
+                msg = 'Ajax request aborted.';
+            } else {
+                msg = 'Uncaught Error.\n' + jqXHR.responseText;
+            }
+            alert(msg);
+        }
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        alert("Failed: " + errorThrown);
+    }).always(function (a, textStatus, b) {
+        alert("Final status: " + textStatus);
+    });
+}
+    *@
+    </script>
     <script src="~/Scripts/navbar.js"></script>
 
-    <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
 </body>
 </html>

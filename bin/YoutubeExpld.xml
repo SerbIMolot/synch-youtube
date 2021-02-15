@@ -1,0 +1,1668 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>YoutubeExpld</name>
+    </assembly>
+    <members>
+        <member name="T:YoutubeExpld.AccessibilityExtensions">
+            <summary>
+            Extensions to make working with <see cref="N:YoutubeExpld"/> a bit more comfortable.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.AccessibilityExtensions.BufferAsync(System.Collections.Generic.IAsyncEnumerable{YoutubeExpld.Videos.Video})">
+            <summary>
+            Buffers the asynchronous list of videos in memory.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.AccessibilityExtensions.BufferAsync(System.Collections.Generic.IAsyncEnumerable{YoutubeExpld.Videos.Video},System.Int32)">
+            <summary>
+            Buffers the asynchronous list of videos in memory, up to the specified number of videos.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.AccessibilityExtensions.GetAwaiter(System.Collections.Generic.IAsyncEnumerable{YoutubeExpld.Videos.Video})">
+            <summary>
+            Gets the awaiter that encapsulates an operation that buffers a list of videos in-memory,
+            </summary>
+        </member>
+        <member name="T:YoutubeExpld.Channels.Channel">
+            <summary>
+            YouTube channel metadata.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Channels.Channel.Id">
+            <summary>
+            Channel ID.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Channels.Channel.Url">
+            <summary>
+            Channel URL.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Channels.Channel.Title">
+            <summary>
+            Channel title.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Channels.Channel.LogoUrl">
+            <summary>
+            URL of the channel's logo image.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Channels.Channel.#ctor(YoutubeExpld.Channels.ChannelId,System.String,System.String)">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.Channels.Channel"/>.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Channels.Channel.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:YoutubeExpld.Channels.ChannelClient">
+            <summary>
+            Queries related to YouTube channels.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Channels.ChannelClient.#ctor(YoutubeExpld.ReverseEngineering.YoutubeHttpClient)">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.Channels.ChannelClient"/>.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Channels.ChannelClient.GetAsync(YoutubeExpld.Channels.ChannelId)">
+            <summary>
+            Gets the metadata associated with the specified channel.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Channels.ChannelClient.GetByUserAsync(YoutubeExpld.Channels.UserName)">
+            <summary>
+            Gets the metadata associated with the channel of the specified user.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Channels.ChannelClient.GetByVideoAsync(YoutubeExpld.Videos.VideoId)">
+            <summary>
+            Gets the metadata associated with the channel that uploaded the specified video.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Channels.ChannelClient.GetUploadsAsync(YoutubeExpld.Channels.ChannelId)">
+            <summary>
+            Enumerates videos uploaded by the specified channel.
+            </summary>
+        </member>
+        <member name="T:YoutubeExpld.Channels.ChannelId">
+            <summary>
+            Encapsulates a valid YouTube channel ID.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Channels.ChannelId.Value">
+            <summary>
+            ID as a string.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Channels.ChannelId.#ctor(System.String)">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.Channels.ChannelId"/>.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Channels.ChannelId.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Channels.ChannelId.Equals(YoutubeExpld.Channels.ChannelId)">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Channels.ChannelId.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Channels.ChannelId.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Channels.ChannelId.op_Equality(YoutubeExpld.Channels.ChannelId,YoutubeExpld.Channels.ChannelId)">
+            <summary>
+            Equality check.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Channels.ChannelId.op_Inequality(YoutubeExpld.Channels.ChannelId,YoutubeExpld.Channels.ChannelId)">
+            <summary>
+            Equality check.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Channels.ChannelId.op_Implicit(System.String)~YoutubeExpld.Channels.ChannelId">
+            <summary>
+            Converts string to ID.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Channels.ChannelId.op_Implicit(YoutubeExpld.Channels.ChannelId)~System.String">
+            <summary>
+            Converts ID to string.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Channels.ChannelId.TryParse(System.String)">
+            <summary>
+            Attempts to parse the specified string as a channel ID or URL.
+            Returns null in case of failure.
+            </summary>
+        </member>
+        <member name="T:YoutubeExpld.Channels.UserName">
+            <summary>
+            Encapsulates a valid YouTube user name.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Channels.UserName.Value">
+            <summary>
+            User name as a string.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Channels.UserName.#ctor(System.String)">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.Channels.UserName"/>.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Channels.UserName.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Channels.UserName.Equals(YoutubeExpld.Channels.UserName)">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Channels.UserName.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Channels.UserName.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Channels.UserName.op_Equality(YoutubeExpld.Channels.UserName,YoutubeExpld.Channels.UserName)">
+            <summary>
+            Equality check.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Channels.UserName.op_Inequality(YoutubeExpld.Channels.UserName,YoutubeExpld.Channels.UserName)">
+            <summary>
+            Equality check.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Channels.UserName.op_Implicit(System.String)~YoutubeExpld.Channels.UserName">
+            <summary>
+            Converts string to user name.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Channels.UserName.op_Implicit(YoutubeExpld.Channels.UserName)~System.String">
+            <summary>
+            Converts user name to string.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Channels.UserName.TryParse(System.String)">
+            <summary>
+            Attempts to parse the specified string as a username or URL.
+            Returns null in case of failure.
+            </summary>
+        </member>
+        <member name="T:YoutubeExpld.Common.Engagement">
+            <summary>
+            Engagement statistics.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Common.Engagement.ViewCount">
+            <summary>
+            View count.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Common.Engagement.LikeCount">
+            <summary>
+            Like count.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Common.Engagement.DislikeCount">
+            <summary>
+            Dislike count.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Common.Engagement.AverageRating">
+            <summary>
+            Average rating.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Common.Engagement.#ctor(System.Int64,System.Int64,System.Int64)">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.Common.Engagement"/>.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Common.Engagement.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:YoutubeExpld.Common.ThumbnailSet">
+            <summary>
+            Set of thumbnails for a video.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Common.ThumbnailSet.LowResUrl">
+            <summary>
+            Low resolution thumbnail URL.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Common.ThumbnailSet.MediumResUrl">
+            <summary>
+            Medium resolution thumbnail URL.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Common.ThumbnailSet.HighResUrl">
+            <summary>
+            High resolution thumbnail URL.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Common.ThumbnailSet.StandardResUrl">
+            <summary>
+            Standard resolution thumbnail URL.
+            Not always available.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Common.ThumbnailSet.MaxResUrl">
+            <summary>
+            Max resolution thumbnail URL.
+            Not always available.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Common.ThumbnailSet.#ctor(YoutubeExpld.Videos.VideoId)">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.Common.ThumbnailSet"/>.
+            </summary>
+        </member>
+        <member name="T:YoutubeExpld.Exceptions.FatalFailureException">
+            <summary>
+            Exception thrown when a fatal failure occurs.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Exceptions.FatalFailureException.#ctor(System.String)">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.Exceptions.FatalFailureException"/>.
+            </summary>
+        </member>
+        <member name="T:YoutubeExpld.Exceptions.RequestLimitExceededException">
+            <summary>
+            Exception thrown when YouTube denies a request because the client has exceeded rate limit.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Exceptions.RequestLimitExceededException.#ctor(System.String)">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.Exceptions.RequestLimitExceededException"/>.
+            </summary>
+        </member>
+        <member name="T:YoutubeExpld.Exceptions.TransientFailureException">
+            <summary>
+            Exception thrown when a transient failure occurs.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Exceptions.TransientFailureException.#ctor(System.String)">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.Exceptions.TransientFailureException"/>.
+            </summary>
+        </member>
+        <member name="T:YoutubeExpld.Exceptions.VideoRequiresPurchaseException">
+            <summary>
+            Exception thrown when the requested video requires purchase.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Exceptions.VideoRequiresPurchaseException.PreviewVideoId">
+            <summary>
+            ID of a free preview video for this video.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Exceptions.VideoRequiresPurchaseException.#ctor(System.String,YoutubeExpld.Videos.VideoId)">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.Exceptions.VideoRequiresPurchaseException"/>
+            </summary>
+        </member>
+        <member name="T:YoutubeExpld.Exceptions.VideoUnavailableException">
+            <summary>
+            Exception thrown when the requested video is unavailable.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Exceptions.VideoUnavailableException.#ctor(System.String)">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.Exceptions.VideoUnavailableException"/>.
+            </summary>
+        </member>
+        <member name="T:YoutubeExpld.Exceptions.VideoUnplayableException">
+            <summary>
+            Exception thrown when the requested video is unplayable.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Exceptions.VideoUnplayableException.#ctor(System.String)">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.Exceptions.VideoUnplayableException"/>.
+            </summary>
+        </member>
+        <member name="T:YoutubeExpld.Exceptions.YoutubeExpldException">
+            <summary>
+            Parent class for domain exceptions thrown by <see cref="N:YoutubeExpld"/>.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Exceptions.YoutubeExpldException.#ctor(System.String)">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.Exceptions.YoutubeExpldException"/>.
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="T:YoutubeExpld.Playlists.Playlist">
+            <summary>
+            YouTube playlist metadata.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Playlists.Playlist.Id">
+            <summary>
+            Playlist ID.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Playlists.Playlist.Url">
+            <summary>
+            Playlist URL.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Playlists.Playlist.Title">
+            <summary>
+            Playlist title.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Playlists.Playlist.Author">
+            <summary>
+            Playlist author.
+            Can be null if it's a system playlist (e.g. Video Mix, Topics, etc.).
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Playlists.Playlist.Description">
+            <summary>
+            Playlist description.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Playlists.Playlist.Thumbnails">
+            <summary>
+            Available thumbnails for this playlist.
+            Can be null if the playlist is empty.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Playlists.Playlist.Engagement">
+            <summary>
+            Engagement statistics.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Playlists.Playlist.#ctor(YoutubeExpld.Playlists.PlaylistId,System.String,System.String,System.String,YoutubeExpld.Common.ThumbnailSet,YoutubeExpld.Common.Engagement)">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.Playlists.Playlist"/>.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Playlists.Playlist.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:YoutubeExpld.Playlists.PlaylistClient">
+            <summary>
+            Queries related to YouTube playlists.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Playlists.PlaylistClient.#ctor(YoutubeExpld.ReverseEngineering.YoutubeHttpClient)">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.Playlists.PlaylistClient"/>.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Playlists.PlaylistClient.GetAsync(YoutubeExpld.Playlists.PlaylistId)">
+            <summary>
+            Gets the metadata associated with the specified playlist.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Playlists.PlaylistClient.GetVideosAsync(YoutubeExpld.Playlists.PlaylistId,System.Int32,System.Int32,System.Int32,System.Collections.Generic.HashSet{System.String})">
+            <summary>
+            Enumerates videos included in the specified playlist.
+            </summary>
+        </member>
+        <member name="T:YoutubeExpld.Playlists.PlaylistId">
+            <summary>
+            Encapsulates a valid YouTube playlist ID.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Playlists.PlaylistId.Value">
+            <summary>
+            ID as a string.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Playlists.PlaylistId.#ctor(System.String)">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.Playlists.PlaylistId"/>.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Playlists.PlaylistId.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Playlists.PlaylistId.Equals(YoutubeExpld.Playlists.PlaylistId)">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Playlists.PlaylistId.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Playlists.PlaylistId.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Playlists.PlaylistId.op_Equality(YoutubeExpld.Playlists.PlaylistId,YoutubeExpld.Playlists.PlaylistId)">
+            <summary>
+            Equality check.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Playlists.PlaylistId.op_Inequality(YoutubeExpld.Playlists.PlaylistId,YoutubeExpld.Playlists.PlaylistId)">
+            <summary>
+            Equality check.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Playlists.PlaylistId.op_Implicit(System.String)~YoutubeExpld.Playlists.PlaylistId">
+            <summary>
+            Converts string to ID.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Playlists.PlaylistId.op_Implicit(YoutubeExpld.Playlists.PlaylistId)~System.String">
+            <summary>
+            Converts ID to string.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Playlists.PlaylistId.TryParse(System.String)">
+            <summary>
+            Attempts to parse the specified string as a playlist ID or URL.
+            Returns null in case of failure.
+            </summary>
+        </member>
+        <member name="T:YoutubeExpld.Search.SearchClient">
+            <summary>
+            YouTube search queries.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Search.SearchClient.#ctor(YoutubeExpld.ReverseEngineering.YoutubeHttpClient)">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.Search.SearchClient"/>.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Search.SearchClient.GetVideosAsync(System.String,System.Int32,System.Int32)">
+            <summary>
+            Enumerates videos returned by the specified search query.
+            </summary>
+            <param name="searchQuery">The term to look for.</param>
+            <param name="startPage">Sets how many page should be skipped from the beginning of the search.</param>
+            <param name="pageCount">Limits how many page should be requested to complete the search.</param>
+        </member>
+        <member name="M:YoutubeExpld.Search.SearchClient.GetVideosAsync(System.String)">
+            <summary>
+            Enumerates videos returned by the specified search query.
+            </summary>
+        </member>
+        <member name="T:YoutubeExpld.Videos.ClosedCaptions.ClosedCaption">
+            <summary>
+            Text that gets displayed at specific time during video playback, as part of a <see cref="T:YoutubeExpld.Videos.ClosedCaptions.ClosedCaptionTrack"/>.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.ClosedCaptions.ClosedCaption.Text">
+            <summary>
+            Text displayed by this caption.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.ClosedCaptions.ClosedCaption.Offset">
+            <summary>
+            Time at which this caption starts being displayed.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.ClosedCaptions.ClosedCaption.Duration">
+            <summary>
+            Duration this caption is displayed.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.ClosedCaptions.ClosedCaption.Parts">
+            <summary>
+            Caption parts (usually individual words).
+            May be empty because not all captions contain parts.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.ClosedCaptions.ClosedCaption.#ctor(System.String,System.TimeSpan,System.TimeSpan,System.Collections.Generic.IReadOnlyList{YoutubeExpld.Videos.ClosedCaptions.ClosedCaptionPart})">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.Videos.ClosedCaptions.ClosedCaption"/>.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.ClosedCaptions.ClosedCaption.TryGetPartByTime(System.TimeSpan)">
+            <summary>
+            Gets the caption part displayed at the specified point in time, relative to this caption's offset.
+            Returns null if not found.
+            Note that some captions may not have any parts at all.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.ClosedCaptions.ClosedCaption.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:YoutubeExpld.Videos.ClosedCaptions.ClosedCaptionClient">
+            <summary>
+            Queries related to closed captions of YouTube videos.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.ClosedCaptions.ClosedCaptionClient.#ctor(YoutubeExpld.ReverseEngineering.YoutubeHttpClient)">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.Videos.ClosedCaptions.ClosedCaptionClient"/>.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.ClosedCaptions.ClosedCaptionClient.GetManifestAsync(YoutubeExpld.Videos.VideoId)">
+            <summary>
+            Gets the manifest that contains information about available closed caption tracks in the specified video.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.ClosedCaptions.ClosedCaptionClient.GetAsync(YoutubeExpld.Videos.ClosedCaptions.ClosedCaptionTrackInfo)">
+            <summary>
+            Gets the actual closed caption track which is identified by the specified metadata.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.ClosedCaptions.ClosedCaptionClient.WriteToAsync(YoutubeExpld.Videos.ClosedCaptions.ClosedCaptionTrackInfo,System.IO.TextWriter,System.IProgress{System.Double},System.Threading.CancellationToken)">
+            <summary>
+            Writes the actual closed caption track which is identified by the specified metadata to the specified writer.
+            Closed captions are written in the SRT file format.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.ClosedCaptions.ClosedCaptionClient.DownloadAsync(YoutubeExpld.Videos.ClosedCaptions.ClosedCaptionTrackInfo,System.String,System.IProgress{System.Double},System.Threading.CancellationToken)">
+            <summary>
+            Downloads the actual closed caption track which is identified by the specified metadata to the specified file.
+            Closed captions are written in the SRT file format.
+            </summary>
+        </member>
+        <member name="T:YoutubeExpld.Videos.ClosedCaptions.ClosedCaptionManifest">
+            <summary>
+            Manifest that contains information about available closed caption tracks in a specific video.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.ClosedCaptions.ClosedCaptionManifest.Tracks">
+            <summary>
+            Available closed caption tracks.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.ClosedCaptions.ClosedCaptionManifest.#ctor(System.Collections.Generic.IReadOnlyList{YoutubeExpld.Videos.ClosedCaptions.ClosedCaptionTrackInfo})">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.Videos.ClosedCaptions.ClosedCaptionManifest"/>.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.ClosedCaptions.ClosedCaptionManifest.TryGetByLanguage(System.String)">
+            <summary>
+            Gets the closed caption track in the specified language.
+            Returns null if not found.
+            </summary>
+        </member>
+        <member name="T:YoutubeExpld.Videos.ClosedCaptions.ClosedCaptionPart">
+            <summary>
+            Part of a closed caption (usually a single word).
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.ClosedCaptions.ClosedCaptionPart.Text">
+            <summary>
+            Text displayed by this caption part.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.ClosedCaptions.ClosedCaptionPart.Offset">
+            <summary>
+            Time at which this caption part starts being displayed (relative to the caption's own offset).
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.ClosedCaptions.ClosedCaptionPart.#ctor(System.String,System.TimeSpan)">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.Videos.ClosedCaptions.ClosedCaptionPart"/>.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.ClosedCaptions.ClosedCaptionPart.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:YoutubeExpld.Videos.ClosedCaptions.ClosedCaptionTrack">
+            <summary>
+            Track that contains closed captions in a specific language.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.ClosedCaptions.ClosedCaptionTrack.Captions">
+            <summary>
+            Closed captions.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.ClosedCaptions.ClosedCaptionTrack.#ctor(System.Collections.Generic.IReadOnlyList{YoutubeExpld.Videos.ClosedCaptions.ClosedCaption})">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.Videos.ClosedCaptions.ClosedCaptionTrack"/>.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.ClosedCaptions.ClosedCaptionTrack.TryGetByTime(System.TimeSpan)">
+            <summary>
+            Gets the caption displayed at the specified point in time.
+            Returns null if not found.
+            </summary>
+        </member>
+        <member name="T:YoutubeExpld.Videos.ClosedCaptions.ClosedCaptionTrackInfo">
+            <summary>
+            YouTube closed caption track metadata.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.ClosedCaptions.ClosedCaptionTrackInfo.Url">
+            <summary>
+            URL of the associated track.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.ClosedCaptions.ClosedCaptionTrackInfo.Language">
+            <summary>
+            Language of the associated track.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.ClosedCaptions.ClosedCaptionTrackInfo.IsAutoGenerated">
+            <summary>
+            Whether the associated track was automatically generated.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.ClosedCaptions.ClosedCaptionTrackInfo.#ctor(System.String,YoutubeExpld.Videos.ClosedCaptions.Language,System.Boolean)">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.Videos.ClosedCaptions.ClosedCaptionTrackInfo"/>.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.ClosedCaptions.ClosedCaptionTrackInfo.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:YoutubeExpld.Videos.ClosedCaptions.Language">
+            <summary>
+            Encapsulates a human written language.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.ClosedCaptions.Language.Code">
+            <summary>
+            ISO 639-1 code of this language.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.ClosedCaptions.Language.Name">
+            <summary>
+            Full English name of this language.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.ClosedCaptions.Language.#ctor(System.String,System.String)">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.Videos.ClosedCaptions.Language"/>.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.ClosedCaptions.Language.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Videos.ClosedCaptions.Language.Equals(YoutubeExpld.Videos.ClosedCaptions.Language)">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Videos.ClosedCaptions.Language.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Videos.ClosedCaptions.Language.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Videos.ClosedCaptions.Language.op_Equality(YoutubeExpld.Videos.ClosedCaptions.Language,YoutubeExpld.Videos.ClosedCaptions.Language)">
+            <summary>
+            Equality check.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.ClosedCaptions.Language.op_Inequality(YoutubeExpld.Videos.ClosedCaptions.Language,YoutubeExpld.Videos.ClosedCaptions.Language)">
+            <summary>
+            Equality check.
+            </summary>
+        </member>
+        <member name="T:YoutubeExpld.Videos.Streams.AudioOnlyStreamInfo">
+            <summary>
+            YouTube media stream that only contains audio.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.AudioOnlyStreamInfo.Tag">
+            <inheritdoc />
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.AudioOnlyStreamInfo.Url">
+            <inheritdoc />
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.AudioOnlyStreamInfo.Container">
+            <inheritdoc />
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.AudioOnlyStreamInfo.Size">
+            <inheritdoc />
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.AudioOnlyStreamInfo.Bitrate">
+            <inheritdoc />
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.AudioOnlyStreamInfo.AudioCodec">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.AudioOnlyStreamInfo.#ctor(System.Int32,System.String,YoutubeExpld.Videos.Streams.Container,YoutubeExpld.Videos.Streams.FileSize,YoutubeExpld.Videos.Streams.Bitrate,System.String)">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.Videos.Streams.AudioOnlyStreamInfo"/>.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.AudioOnlyStreamInfo.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:YoutubeExpld.Videos.Streams.Bitrate">
+            <summary>
+            Encapsulates bitrate.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.Bitrate.BitsPerSecond">
+            <summary>
+            Bits per second.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.Bitrate.KiloBitsPerSecond">
+            <summary>
+            Kilobits per second.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.Bitrate.MegaBitsPerSecond">
+            <summary>
+            Megabits per second.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.Bitrate.GigaBitsPerSecond">
+            <summary>
+            Gigabits per second
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.Bitrate.#ctor(System.Int64)">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.Videos.Streams.Bitrate"/>.
+            </summary>
+            <param name="bitsPerSecond"></param>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.Bitrate.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.Bitrate.CompareTo(YoutubeExpld.Videos.Streams.Bitrate)">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.Bitrate.Equals(YoutubeExpld.Videos.Streams.Bitrate)">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.Bitrate.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.Bitrate.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.Bitrate.op_Equality(YoutubeExpld.Videos.Streams.Bitrate,YoutubeExpld.Videos.Streams.Bitrate)">
+            <summary>
+            Equality check.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.Bitrate.op_Inequality(YoutubeExpld.Videos.Streams.Bitrate,YoutubeExpld.Videos.Streams.Bitrate)">
+            <summary>
+            Equality check.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.Bitrate.op_GreaterThan(YoutubeExpld.Videos.Streams.Bitrate,YoutubeExpld.Videos.Streams.Bitrate)">
+            <summary>
+            Comparison.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.Bitrate.op_LessThan(YoutubeExpld.Videos.Streams.Bitrate,YoutubeExpld.Videos.Streams.Bitrate)">
+            <summary>
+            Comparison.
+            </summary>
+        </member>
+        <member name="T:YoutubeExpld.Videos.Streams.Container">
+            <summary>
+            Stream container.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.Container.Name">
+            <summary>
+            Container name.
+            Can be used as file extension.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.Container.#ctor(System.String)">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.Videos.Streams.Container"/>.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.Container.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.Container.Equals(YoutubeExpld.Videos.Streams.Container)">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.Container.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.Container.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.Container.op_Equality(YoutubeExpld.Videos.Streams.Container,YoutubeExpld.Videos.Streams.Container)">
+            <summary>
+            Equality check.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.Container.op_Inequality(YoutubeExpld.Videos.Streams.Container,YoutubeExpld.Videos.Streams.Container)">
+            <summary>
+            Equality check.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.Container.Mp4">
+            <summary>
+            MPEG-4 Part 14 (.mp4).
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.Container.WebM">
+            <summary>
+            Web Media (.webm).
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.Container.Tgpp">
+            <summary>
+            3rd Generation Partnership Project (.3gpp).
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.Container.Parse(System.String)">
+            <summary>
+            Parse a container from name.
+            </summary>
+        </member>
+        <member name="T:YoutubeExpld.Videos.Streams.FileSize">
+            <summary>
+            Encapsulates file size.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.FileSize.TotalBytes">
+            <summary>
+            Total bytes.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.FileSize.TotalKiloBytes">
+            <summary>
+            Total kilobytes.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.FileSize.TotalMegaBytes">
+            <summary>
+            Total megabytes.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.FileSize.TotalGigaBytes">
+            <summary>
+            Total gigabytes.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.FileSize.#ctor(System.Int64)">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.Videos.Streams.FileSize"/>.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.FileSize.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.FileSize.CompareTo(YoutubeExpld.Videos.Streams.FileSize)">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.FileSize.Equals(YoutubeExpld.Videos.Streams.FileSize)">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.FileSize.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.FileSize.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.FileSize.op_Equality(YoutubeExpld.Videos.Streams.FileSize,YoutubeExpld.Videos.Streams.FileSize)">
+            <summary>
+            Equality check.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.FileSize.op_Inequality(YoutubeExpld.Videos.Streams.FileSize,YoutubeExpld.Videos.Streams.FileSize)">
+            <summary>
+            Equality check.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.FileSize.op_GreaterThan(YoutubeExpld.Videos.Streams.FileSize,YoutubeExpld.Videos.Streams.FileSize)">
+            <summary>
+            Comparison.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.FileSize.op_LessThan(YoutubeExpld.Videos.Streams.FileSize,YoutubeExpld.Videos.Streams.FileSize)">
+            <summary>
+            Comparison.
+            </summary>
+        </member>
+        <member name="T:YoutubeExpld.Videos.Streams.Framerate">
+            <summary>
+            Encapsulates framerate.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.Framerate.FramesPerSecond">
+            <summary>
+            Framerate as frames per second.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.Framerate.#ctor(System.Double)">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.Videos.Streams.Framerate"/>.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.Framerate.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.Framerate.CompareTo(YoutubeExpld.Videos.Streams.Framerate)">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.Framerate.Equals(YoutubeExpld.Videos.Streams.Framerate)">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.Framerate.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.Framerate.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.Framerate.op_Equality(YoutubeExpld.Videos.Streams.Framerate,YoutubeExpld.Videos.Streams.Framerate)">
+            <summary>
+            Equality check.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.Framerate.op_Inequality(YoutubeExpld.Videos.Streams.Framerate,YoutubeExpld.Videos.Streams.Framerate)">
+            <summary>
+            Equality check.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.Framerate.op_GreaterThan(YoutubeExpld.Videos.Streams.Framerate,YoutubeExpld.Videos.Streams.Framerate)">
+            <summary>
+            Comparison.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.Framerate.op_LessThan(YoutubeExpld.Videos.Streams.Framerate,YoutubeExpld.Videos.Streams.Framerate)">
+            <summary>
+            Comparison.
+            </summary>
+        </member>
+        <member name="T:YoutubeExpld.Videos.Streams.IAudioStreamInfo">
+            <summary>
+            YouTube media stream that contains audio.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.IAudioStreamInfo.AudioCodec">
+            <summary>
+            Audio codec.
+            </summary>
+        </member>
+        <member name="T:YoutubeExpld.Videos.Streams.IStreamInfo">
+            <summary>
+            Generic YouTube media stream.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.IStreamInfo.Tag">
+            <summary>
+            Stream tag.
+            Uniquely identifies a stream inside a manifest.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.IStreamInfo.Url">
+            <summary>
+            Stream URL.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.IStreamInfo.Container">
+            <summary>
+            Stream container.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.IStreamInfo.Size">
+            <summary>
+            Stream size.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.IStreamInfo.Bitrate">
+            <summary>
+            Stream bitrate.
+            </summary>
+        </member>
+        <member name="T:YoutubeExpld.Videos.Streams.StreamInfoExtensions">
+            <summary>
+            Extensions for <see cref="T:YoutubeExpld.Videos.Streams.IStreamInfo"/>.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.StreamInfoExtensions.WithHighestBitrate(System.Collections.Generic.IEnumerable{YoutubeExpld.Videos.Streams.IStreamInfo})">
+            <summary>
+            Gets the stream with highest bitrate.
+            Returns null if sequence is empty.
+            </summary>
+        </member>
+        <member name="T:YoutubeExpld.Videos.Streams.IVideoStreamInfo">
+            <summary>
+            YouTube media stream that contains video.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.IVideoStreamInfo.VideoCodec">
+            <summary>
+            Video codec.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.IVideoStreamInfo.VideoQualityLabel">
+            <summary>
+            Video quality label, as seen on YouTube.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.IVideoStreamInfo.VideoQuality">
+            <summary>
+            Video quality.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.IVideoStreamInfo.Resolution">
+            <summary>
+            Video resolution.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.IVideoStreamInfo.Framerate">
+            <summary>
+            Video framerate.
+            </summary>
+        </member>
+        <member name="T:YoutubeExpld.Videos.Streams.VideoStreamInfoExtensions">
+            <summary>
+            Extensions for <see cref="T:YoutubeExpld.Videos.Streams.IVideoStreamInfo"/>.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.VideoStreamInfoExtensions.GetAllVideoQualities(System.Collections.Generic.IEnumerable{YoutubeExpld.Videos.Streams.IVideoStreamInfo})">
+            <summary>
+            Gets all video qualities available in a collection of video streams.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.VideoStreamInfoExtensions.GetAllVideoQualityLabels(System.Collections.Generic.IEnumerable{YoutubeExpld.Videos.Streams.IVideoStreamInfo})">
+            <summary>
+            Gets video quality labels of all streams available in a collection of video streams.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.VideoStreamInfoExtensions.WithHighestVideoQuality(System.Collections.Generic.IEnumerable{YoutubeExpld.Videos.Streams.IVideoStreamInfo})">
+            <summary>
+            Gets the video stream with highest video quality.
+            Returns null if sequence is empty.
+            </summary>
+        </member>
+        <member name="T:YoutubeExpld.Videos.Streams.MuxedStreamInfo">
+            <summary>
+            YouTube media stream that contains both audio and video.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.MuxedStreamInfo.Tag">
+            <inheritdoc />
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.MuxedStreamInfo.Url">
+            <inheritdoc />
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.MuxedStreamInfo.Container">
+            <inheritdoc />
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.MuxedStreamInfo.Size">
+            <inheritdoc />
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.MuxedStreamInfo.Bitrate">
+            <inheritdoc />
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.MuxedStreamInfo.AudioCodec">
+            <inheritdoc />
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.MuxedStreamInfo.VideoCodec">
+            <inheritdoc />
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.MuxedStreamInfo.VideoQualityLabel">
+            <inheritdoc />
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.MuxedStreamInfo.VideoQuality">
+            <inheritdoc />
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.MuxedStreamInfo.Resolution">
+            <inheritdoc />
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.MuxedStreamInfo.Framerate">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.MuxedStreamInfo.#ctor(System.Int32,System.String,YoutubeExpld.Videos.Streams.Container,YoutubeExpld.Videos.Streams.FileSize,YoutubeExpld.Videos.Streams.Bitrate,System.String,System.String,System.String,YoutubeExpld.Videos.Streams.VideoQuality,YoutubeExpld.Videos.Streams.VideoResolution,YoutubeExpld.Videos.Streams.Framerate)">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.Videos.Streams.MuxedStreamInfo"/>.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.MuxedStreamInfo.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:YoutubeExpld.Videos.Streams.StreamManifest">
+            <summary>
+            Manifest that contains information about available media streams in a specific video.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.StreamManifest.Streams">
+            <summary>
+            Available streams.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.StreamManifest.#ctor(System.Collections.Generic.IReadOnlyList{YoutubeExpld.Videos.Streams.IStreamInfo})">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.Videos.Streams.StreamManifest"/>.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.StreamManifest.GetAudio">
+            <summary>
+            Gets streams that contain audio (which includes muxed and audio-only streams).
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.StreamManifest.GetVideo">
+            <summary>
+            Gets streams that contain video (which includes muxed and video-only streams).
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.StreamManifest.GetMuxed">
+            <summary>
+            Gets muxed streams (contain both audio and video).
+            Note that muxed streams are limited in quality and don't go beyond 720p30.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.StreamManifest.GetAudioOnly">
+            <summary>
+            Gets audio-only streams (no video).
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.StreamManifest.GetVideoOnly">
+            <summary>
+            Gets video-only streams (no audio).
+            These streams have the widest range of qualities available.
+            </summary>
+        </member>
+        <member name="T:YoutubeExpld.Videos.Streams.StreamsClient">
+            <summary>
+            Queries related to media streams of YouTube videos.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.StreamsClient.#ctor(YoutubeExpld.ReverseEngineering.YoutubeHttpClient)">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.Videos.Streams.StreamsClient"/>.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.StreamsClient.GetManifestAsync(YoutubeExpld.Videos.VideoId)">
+            <summary>
+            Gets the manifest that contains information about available streams in the specified video.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.StreamsClient.GetHttpLiveStreamUrlAsync(YoutubeExpld.Videos.VideoId)">
+            <summary>
+            Gets the HTTP Live Stream (HLS) manifest URL for the specified video (if it's a live video stream).
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.StreamsClient.GetAsync(YoutubeExpld.Videos.Streams.IStreamInfo)">
+            <summary>
+            Gets the actual stream which is identified by the specified metadata.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.StreamsClient.CopyToAsync(YoutubeExpld.Videos.Streams.IStreamInfo,System.IO.Stream,System.IProgress{System.Double},System.Threading.CancellationToken)">
+            <summary>
+            Copies the actual stream which is identified by the specified metadata to the specified stream.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.StreamsClient.DownloadAsync(YoutubeExpld.Videos.Streams.IStreamInfo,System.String,System.IProgress{System.Double},System.Threading.CancellationToken)">
+            <summary>
+            Download the actual stream which is identified by the specified metadata to the specified file.
+            </summary>
+        </member>
+        <member name="T:YoutubeExpld.Videos.Streams.VideoOnlyStreamInfo">
+            <summary>
+            YouTube media stream that only contains video.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.VideoOnlyStreamInfo.Tag">
+            <inheritdoc />
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.VideoOnlyStreamInfo.Url">
+            <inheritdoc />
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.VideoOnlyStreamInfo.Container">
+            <inheritdoc />
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.VideoOnlyStreamInfo.Size">
+            <inheritdoc />
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.VideoOnlyStreamInfo.Bitrate">
+            <inheritdoc />
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.VideoOnlyStreamInfo.VideoCodec">
+            <inheritdoc />
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.VideoOnlyStreamInfo.VideoQualityLabel">
+            <inheritdoc />
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.VideoOnlyStreamInfo.VideoQuality">
+            <inheritdoc />
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.VideoOnlyStreamInfo.Resolution">
+            <inheritdoc />
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.VideoOnlyStreamInfo.Framerate">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.VideoOnlyStreamInfo.#ctor(System.Int32,System.String,YoutubeExpld.Videos.Streams.Container,YoutubeExpld.Videos.Streams.FileSize,YoutubeExpld.Videos.Streams.Bitrate,System.String,System.String,YoutubeExpld.Videos.Streams.VideoQuality,YoutubeExpld.Videos.Streams.VideoResolution,YoutubeExpld.Videos.Streams.Framerate)">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.Videos.Streams.VideoOnlyStreamInfo"/>.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.VideoOnlyStreamInfo.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:YoutubeExpld.Videos.Streams.VideoQuality">
+            <summary>
+            Video stream quality.
+            </summary>
+        </member>
+        <member name="F:YoutubeExpld.Videos.Streams.VideoQuality.Low144">
+            <summary>
+            Low quality (144p).
+            </summary>
+        </member>
+        <member name="F:YoutubeExpld.Videos.Streams.VideoQuality.Low240">
+            <summary>
+            Low quality (240p).
+            </summary>
+        </member>
+        <member name="F:YoutubeExpld.Videos.Streams.VideoQuality.Medium360">
+            <summary>
+            Medium quality (360p).
+            </summary>
+        </member>
+        <member name="F:YoutubeExpld.Videos.Streams.VideoQuality.Medium480">
+            <summary>
+            Medium quality (480p).
+            </summary>
+        </member>
+        <member name="F:YoutubeExpld.Videos.Streams.VideoQuality.High720">
+            <summary>
+            High quality (720p).
+            </summary>
+        </member>
+        <member name="F:YoutubeExpld.Videos.Streams.VideoQuality.High1080">
+            <summary>
+            High quality (1080p).
+            </summary>
+        </member>
+        <member name="F:YoutubeExpld.Videos.Streams.VideoQuality.High1440">
+            <summary>
+            High quality (1440p).
+            </summary>
+        </member>
+        <member name="F:YoutubeExpld.Videos.Streams.VideoQuality.High2160">
+            <summary>
+            High quality (2160p).
+            </summary>
+        </member>
+        <member name="F:YoutubeExpld.Videos.Streams.VideoQuality.High2880">
+            <summary>
+            High quality (2880p).
+            </summary>
+        </member>
+        <member name="F:YoutubeExpld.Videos.Streams.VideoQuality.High3072">
+            <summary>
+            High quality (3072p).
+            </summary>
+        </member>
+        <member name="F:YoutubeExpld.Videos.Streams.VideoQuality.High4320">
+            <summary>
+            High quality (4320p).
+            </summary>
+        </member>
+        <member name="T:YoutubeExpld.Videos.Streams.VideoResolution">
+            <summary>
+            Encapsulates video resolution.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.VideoResolution.Width">
+            <summary>
+            Viewport width.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Streams.VideoResolution.Height">
+            <summary>
+            Viewport height.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.VideoResolution.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.Videos.Streams.VideoResolution"/>.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.VideoResolution.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.VideoResolution.Equals(YoutubeExpld.Videos.Streams.VideoResolution)">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.VideoResolution.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.VideoResolution.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.VideoResolution.op_Equality(YoutubeExpld.Videos.Streams.VideoResolution,YoutubeExpld.Videos.Streams.VideoResolution)">
+            <summary>
+            Equality check.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Streams.VideoResolution.op_Inequality(YoutubeExpld.Videos.Streams.VideoResolution,YoutubeExpld.Videos.Streams.VideoResolution)">
+            <summary>
+            Equality check.
+            </summary>
+        </member>
+        <member name="T:YoutubeExpld.Videos.Video">
+            <summary>
+            YouTube video metadata.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Video.Id">
+            <summary>
+            Video ID.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Video.Url">
+            <summary>
+            Video URL.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Video.Title">
+            <summary>
+            Video title.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Video.Author">
+            <summary>
+            Video author.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Video.ChannelId">
+            <summary>
+            Video channel ID.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Video.UploadDate">
+            <summary>
+            Video upload date.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Video.Description">
+            <summary>
+            Video description.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Video.Duration">
+            <summary>
+            Duration of the video.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Video.Thumbnails">
+            <summary>
+            Available thumbnails for this video.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Video.Keywords">
+            <summary>
+            Search keywords used for this video.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.Video.Engagement">
+            <summary>
+            Engagement statistics for this video.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Video.#ctor(YoutubeExpld.Videos.VideoId,System.String,System.String,YoutubeExpld.Channels.ChannelId,System.DateTimeOffset,System.String,System.TimeSpan,YoutubeExpld.Common.ThumbnailSet,System.Collections.Generic.IReadOnlyList{System.String},YoutubeExpld.Common.Engagement)">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.Videos.Video"/>.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.Video.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:YoutubeExpld.Videos.VideoClient">
+            <summary>
+            Queries related to YouTube videos.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.VideoClient.Streams">
+            <summary>
+            Queries related to media streams of YouTube videos.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.VideoClient.ClosedCaptions">
+            <summary>
+            Queries related to closed captions of YouTube videos.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.VideoClient.#ctor(YoutubeExpld.ReverseEngineering.YoutubeHttpClient)">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.Videos.VideoClient"/>.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.VideoClient.GetAsync(YoutubeExpld.Videos.VideoId)">
+            <summary>
+            Gets the metadata associated with the specified video.
+            </summary>
+        </member>
+        <member name="T:YoutubeExpld.Videos.VideoId">
+            <summary>
+            Encapsulates a valid YouTube video ID.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.Videos.VideoId.Value">
+            <summary>
+            ID as a string.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.VideoId.#ctor(System.String)">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.Videos.VideoId"/>.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.VideoId.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Videos.VideoId.Equals(YoutubeExpld.Videos.VideoId)">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Videos.VideoId.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Videos.VideoId.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:YoutubeExpld.Videos.VideoId.op_Equality(YoutubeExpld.Videos.VideoId,YoutubeExpld.Videos.VideoId)">
+            <summary>
+            Equality check.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.VideoId.op_Inequality(YoutubeExpld.Videos.VideoId,YoutubeExpld.Videos.VideoId)">
+            <summary>
+            Equality check.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.VideoId.op_Implicit(System.String)~YoutubeExpld.Videos.VideoId">
+            <summary>
+            Converts string to ID.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.VideoId.op_Implicit(YoutubeExpld.Videos.VideoId)~System.String">
+            <summary>
+            Converts ID to string.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.Videos.VideoId.TryParse(System.String)">
+            <summary>
+            Attempts to parse the specified string as a video ID or URL.
+            Returns null in case of failure.
+            </summary>
+        </member>
+        <member name="T:YoutubeExpld.YoutubeClient">
+            <summary>
+            Entry point for <see cref="N:YoutubeExpld"/>.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.YoutubeClient.Videos">
+            <summary>
+            Queries related to YouTube videos.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.YoutubeClient.Playlists">
+            <summary>
+            Queries related to YouTube playlists.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.YoutubeClient.Channels">
+            <summary>
+            Queries related to YouTube channels.
+            </summary>
+        </member>
+        <member name="P:YoutubeExpld.YoutubeClient.Search">
+            <summary>
+            YouTube search queries.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.YoutubeClient.#ctor(YoutubeExpld.ReverseEngineering.YoutubeHttpClient)">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.YoutubeClient"/>.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.YoutubeClient.#ctor(System.Net.Http.HttpClient)">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.YoutubeClient"/>.
+            </summary>
+        </member>
+        <member name="M:YoutubeExpld.YoutubeClient.#ctor">
+            <summary>
+            Initializes an instance of <see cref="T:YoutubeExpld.YoutubeClient"/>.
+            </summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.AllowNullAttribute">
+            <summary>
+                Specifies that <see langword="null"/> is allowed as an input even if the
+                corresponding type disallows it.
+            </summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.AllowNullAttribute.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:System.Diagnostics.CodeAnalysis.AllowNullAttribute"/> class.
+            </summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.DisallowNullAttribute">
+            <summary>
+                Specifies that <see langword="null"/> is disallowed as an input even if the
+                corresponding type allows it.
+            </summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.DisallowNullAttribute.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:System.Diagnostics.CodeAnalysis.DisallowNullAttribute"/> class.
+            </summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.DoesNotReturnAttribute">
+            <summary>
+                Specifies that a method that will never return under any circumstance.
+            </summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.DoesNotReturnAttribute.#ctor">
+             <summary>
+                 Initializes a new instance of the <see cref="T:System.Diagnostics.CodeAnalysis.DoesNotReturnAttribute"/> class.
+             </summary>
+            
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.DoesNotReturnIfAttribute">
+            <summary>
+                Specifies that the method will not return if the associated <see cref="T:System.Boolean"/>
+                parameter is passed the specified value.
+            </summary>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.DoesNotReturnIfAttribute.ParameterValue">
+            <summary>
+                Gets the condition parameter value.
+                Code after the method is considered unreachable by diagnostics if the argument
+                to the associated parameter matches this value.
+            </summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.DoesNotReturnIfAttribute.#ctor(System.Boolean)">
+            <summary>
+                Initializes a new instance of the <see cref="T:System.Diagnostics.CodeAnalysis.DoesNotReturnIfAttribute"/>
+                class with the specified parameter value.
+            </summary>
+            <param name="parameterValue">
+                The condition parameter value.
+                Code after the method is considered unreachable by diagnostics if the argument
+                to the associated parameter matches this value.
+            </param>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.MaybeNullAttribute">
+            <summary>
+                Specifies that an output may be <see langword="null"/> even if the
+                corresponding type disallows it.
+            </summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.MaybeNullAttribute.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:System.Diagnostics.CodeAnalysis.MaybeNullAttribute"/> class.
+            </summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute">
+            <summary>
+                Specifies that when a method returns <see cref="P:System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute.ReturnValue"/>, 
+                the parameter may be <see langword="null"/> even if the corresponding type disallows it.
+            </summary>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute.ReturnValue">
+            <summary>
+                Gets the return value condition.
+                If the method returns this value, the associated parameter may be <see langword="null"/>.
+            </summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute.#ctor(System.Boolean)">
+            <summary>
+                 Initializes the attribute with the specified return value condition.
+            </summary>
+            <param name="returnValue">
+                The return value condition.
+                If the method returns this value, the associated parameter may be <see langword="null"/>.
+            </param>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.NotNullAttribute">
+            <summary>
+                Specifies that an output is not <see langword="null"/> even if the
+                corresponding type allows it.
+            </summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.NotNullAttribute.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:System.Diagnostics.CodeAnalysis.NotNullAttribute"/> class.
+            </summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.NotNullIfNotNullAttribute">
+            <summary>
+                Specifies that the output will be non-<see langword="null"/> if the
+                named parameter is non-<see langword="null"/>.
+            </summary>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.NotNullIfNotNullAttribute.ParameterName">
+            <summary>
+                Gets the associated parameter name.
+                The output will be non-<see langword="null"/> if the argument to the
+                parameter specified is non-<see langword="null"/>.
+            </summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.NotNullIfNotNullAttribute.#ctor(System.String)">
+            <summary>
+                Initializes the attribute with the associated parameter name.
+            </summary>
+            <param name="parameterName">
+                The associated parameter name.
+                The output will be non-<see langword="null"/> if the argument to the
+                parameter specified is non-<see langword="null"/>.
+            </param>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.NotNullWhenAttribute">
+            <summary>
+                Specifies that when a method returns <see cref="P:System.Diagnostics.CodeAnalysis.NotNullWhenAttribute.ReturnValue"/>,
+                the parameter will not be <see langword="null"/> even if the corresponding type allows it.
+            </summary>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.NotNullWhenAttribute.ReturnValue">
+            <summary>
+                Gets the return value condition.
+                If the method returns this value, the associated parameter will not be <see langword="null"/>.
+            </summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.NotNullWhenAttribute.#ctor(System.Boolean)">
+            <summary>
+                Initializes the attribute with the specified return value condition.
+            </summary>
+            <param name="returnValue">
+                The return value condition.
+                If the method returns this value, the associated parameter will not be <see langword="null"/>.
+            </param>
+        </member>
+    </members>
+</doc>
